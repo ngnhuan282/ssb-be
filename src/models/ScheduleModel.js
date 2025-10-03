@@ -1,11 +1,13 @@
 const mongoose = require('mongoose');
 
 const scheduleSchema = new mongoose.Schema({
-  busId: { type: mongoose.Schema.Types.ObjectId, ref: 'Bus', required: true },
-  routeId: { type: mongoose.Schema.Types.ObjectId, ref: 'Route', required: true },
-  driverId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-  startTime: { type: Date, required: true },
-  endTime: { type: Date, required: true },
+  bus: { type: mongoose.Schema.Types.ObjectId, ref: 'Bus', required: true },
+  route: { type: mongoose.Schema.Types.ObjectId, ref: 'Route', required: true },
+  driver: { type: mongoose.Schema.Types.ObjectId, ref: 'Driver', required: true },
+  date: { type: Date, required: true },
+  starttime: { type: Date, required: true },
+  endtime: { type: Date, required: true },
+  nestudent: { type: Number, min: 0 },
   frequency: { type: String, enum: ['daily', 'weekly', 'monthly'], default: 'daily' },
   students: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Student' }],
   status: { type: String, enum: ['scheduled', 'in_progress', 'completed', 'delayed'], default: 'scheduled' },
