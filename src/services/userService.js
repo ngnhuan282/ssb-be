@@ -7,7 +7,7 @@ const getAllUsers = async () => {
 };
 
 const getUserById = async (id) => {
-    const user = User.findById(id);
+    const user = await User.findById(id);
     if(!user) {
         throw new ApiError(HttpStatus.NOT_FOUND, 'User not found');
     }
@@ -26,7 +26,7 @@ const updateUser = async (id, updateData) => {
     if(updateData.password) {
         const hashedPassword = await bcrypt.hash(updateData.password, 10);
     }
-    const user = User.findByIdAndUpdate(
+    const user = await User.findByIdAndUpdate(
         id,
         {...updateData, updatedAt: Date.now()},
         {new: true, runValidators: true}
@@ -38,7 +38,7 @@ const updateUser = async (id, updateData) => {
 }
 
 const deleteUser = async (id) => {
-    const user = User.findByIdAndUpdate(id);
+    const user = await User.findByIdAndUpdate(id);
     if(!user) {
         throw new ApiError(HttpStatus.NOT_FOUND, 'User not found');
     }
