@@ -2,10 +2,12 @@ const express = require("express");
 const router = express.Router();
 
 const studentRoute = require("./studentRoutes");
+const parentRoute = require("./parentRoutes");
 
 /* Student */
-router.use("/students", studentRoute);
+router.use('/students', studentRoute);
 
-module.exports = {
-    router
-}
+/* Parent */
+router.use('/parents', parentRoute);
+
+module.exports = router;
