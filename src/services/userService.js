@@ -38,7 +38,7 @@ const updateUser = async (id, updateData) => {
 }
 
 const deleteUser = async (id) => {
-    const user = await User.findByIdAndUpdate(id);
+    const user = await User.findByIdAndDelete(id);
     if(!user) {
         throw new ApiError(HttpStatus.NOT_FOUND, 'User not found');
     }
