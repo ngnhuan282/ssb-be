@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const notificationSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   type: { type: String, enum: ['arrival', 'delay', 'emergency', 'message'], required: true },
   message: { type: String, required: true },
   busId: { type: mongoose.Schema.Types.ObjectId, ref: 'Bus' },

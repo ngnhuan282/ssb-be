@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
 const busSchema = new mongoose.Schema({
-  licenseplate: { type: String, required: true, unique: true, trim: true },
+  licensePlate: { type: String, required: true, unique: true, trim: true },
   capacity: { type: Number, min: 1, required: true },
-  currentstatus: { type: String, enum: ['active', 'maintenance', 'inactive'], default: 'active' },
+  currentStatus: { type: String, enum: ['active', 'maintenance', 'inactive'], default: 'active' },
   driver: { type: mongoose.Schema.Types.ObjectId, ref: 'Driver' },
   route: { type: mongoose.Schema.Types.ObjectId, ref: 'Route' },
   createdAt: { type: Date, default: Date.now },

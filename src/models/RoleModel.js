@@ -1,6 +1,6 @@
 const roleSchema = new mongoose.Schema({
-  idrole: { type: String, required: true },
-  nameRole: { type: String, required: true, enum: ['admin', 'driver', 'parent'] }
+  id: { type: String, required: true },
+  name: { type: String, required: true, enum: ['admin', 'driver', 'parent'] }
 });
 
 const Role = mongoose.model('Role', roleSchema);
