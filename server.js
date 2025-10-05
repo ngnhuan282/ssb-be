@@ -4,6 +4,7 @@ const cors = require('cors');
 const v1Routes = require("./src/routes/v1");
 const app = express();
 const errorHandlingMiddleware = require("./src/middlewares/errorHandlingMiddleware");
+
 app.use(cors());
 app.use(express.json());
 

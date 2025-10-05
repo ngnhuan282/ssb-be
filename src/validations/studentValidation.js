@@ -1,6 +1,6 @@
 const Joi = require('joi');
 const HttpStatus = require('http-status');
-const ApiError = require("../middlewares/errorHandlingMiddleware");
+const ApiError = require("../utils/apiError");
 
 const createStudentSchema = Joi.object({
   fullName: Joi.string().required().trim(),
