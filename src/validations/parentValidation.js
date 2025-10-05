@@ -7,7 +7,7 @@ const createParentSchema = Joi.object({
     boardStatus: Joi.string().valid('onboard', 'offboard').optional(),
     pickupPoint: Joi.string().trim().optional(),
     dropoffPoint: Joi.string().trim().optional(),
-    children: Joi.string.required(),
+    children: Joi.string().required(),
 });
 
 const updateParentSchema = Joi.object({
@@ -15,7 +15,7 @@ const updateParentSchema = Joi.object({
     boardStatus: Joi.string().valid('onboard', 'offboard').optional(),
     pickupPoint: Joi.string().trim().optional(),
     dropoffPoint: Joi.string().trim().optional(),
-    children: Joi.string.optional(),
+    children: Joi.string().optional(),
 });
 
 const validateCreateParent = (req, res, next) => {

@@ -1,8 +1,9 @@
 // server.js
 const express = require('express');
 const cors = require('cors');
-const v1Routes = require('./routes/v1');
+const v1Routes = require("./src/routes/v1");
 const app = express();
+const errorHandlingMiddleware = require("./src/middlewares/errorHandlingMiddleware");
 app.use(cors());
 app.use(express.json());
 
