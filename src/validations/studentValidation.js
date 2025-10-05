@@ -25,11 +25,11 @@ const updateStudentSchema = Joi.object({
 });
 
 const validateCreateStudent = (req, res, next) => {
-    const {error} = createStudentSchema.validate(req.body);
-    if(error) {
-        throw new ApiError(HttpStatus.BAD_REQUEST, error.details[0].message);
-    }
-    next();
+  const { error } = createStudentSchema.validate(req.body);
+  if (error) {
+    throw new ApiError(HttpStatus.BAD_REQUEST, error.details[0].message);
+  }
+  next();
 };
 
 const validateUpdateStudent = (req, res, next) => {
