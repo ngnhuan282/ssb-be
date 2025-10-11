@@ -1,4 +1,4 @@
-const joi = require("joi");
+const Joi = require("joi");
 const HttpStatus = require('http-status');
 const ApiError = require("../utils/apiError");
 

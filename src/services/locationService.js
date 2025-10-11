@@ -1,7 +1,6 @@
 const ApiError = require("../utils/apiError");
 const Location = require("../models/LocationModel");
 const HttpStatus = require('http-status');
-const Location = require("../models/LocationModel");
 
 const getAllLocations = async () => {
     return await Location.find();
