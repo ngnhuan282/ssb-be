@@ -4,7 +4,10 @@ const HttpStatus = require('http-status');
 const bcrypt = require('bcrypt'); 
 
 const getAllUsers = async () => {
-    return await User.find();
+    const users = await User.find();
+    console.log('📝 Found users:', users.length); // ✅ Log số lượng
+    console.log('🗄️ Collection:', User.collection.name); // ✅ Log collection name
+    return users;
 };
 
 const getUserById = async (id) => {
