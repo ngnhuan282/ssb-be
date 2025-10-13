@@ -1,10 +1,10 @@
-const ApiResponse = require("../utils/apiError");
-const HttpStatus = require("http-status");
+const ApiResponse = require("../utils/apiResponse");
+const HttpStatus = require('http-status-codes');
 const scheduleService = require("../services/scheduleService")
 
 const getAllSchedules = async (req, res, next) => {
     try {
-        const schedule = scheduleService.getAllSchedules();
+        const schedule = await scheduleService.getAllSchedules();
         res.status(HttpStatus.OK).json(new ApiResponse(HttpStatus.OK, schedule, "Get all schedules successfully!"));
     } catch (error) {
         next(error)
@@ -13,7 +13,7 @@ const getAllSchedules = async (req, res, next) => {
 
 const getScheduleById = async (req, res, next) => {
     try {
-        const schedule = scheduleService.getScheduleById(req.params.id);
+        const schedule = await scheduleService.getScheduleById(req.params.id);
         res.status(HttpStatus.OK).json(new ApiResponse(HttpStatus.OK, schedule, "Get schedule by id successfully!"))
     } catch (error) {
         next(error)
@@ -22,7 +22,7 @@ const getScheduleById = async (req, res, next) => {
 
 const createSchedule = async (req, res, next) => {
     try {
-        const schedule = scheduleService.createSchedule(req.body);
+        const schedule = await scheduleService.createSchedule(req.body);
         res.status(HttpStatus.OK).json(new ApiResponse(HttpStatus.OK, schedule, "Create a schedule successfully!"))
     } catch (error) {
         next(error)
@@ -31,7 +31,7 @@ const createSchedule = async (req, res, next) => {
 
 const updateSchedule = async (req, res, next) => {
     try {
-        const schedule = scheduleService.updateSchedule(req.params.id, req.body);
+        const schedule = await scheduleService.updateSchedule(req.params.id, req.body);
         res.status(HttpStatus.OK).json(new ApiResponse(HttpStatus.OK, schedule, "Update schedule successfully!"))
     } catch (error) {
         next(error)
@@ -40,7 +40,7 @@ const updateSchedule = async (req, res, next) => {
 
 const deleteSchedule = async (req, res, next) => {
     try {
-        const schedule = scheduleService.deleteSchedule(req.params.id);
+        await scheduleService.deleteSchedule(req.params.id);
         res.status(HttpStatus.OK).json(new ApiResponse(HttpStatus.OK, null, "Update schedule successfully!"))
     } catch (error) {
         next(error)
