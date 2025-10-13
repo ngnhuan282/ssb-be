@@ -1,0 +1,317 @@
+{
+  "location": [
+    {
+      "_id": "loc001",
+      "name": "Trường Tiểu học Bình Minh",
+      "address": "25 Nguyễn Văn Cừ, Q.5, TP.HCM",
+      "latitude": 10.7562,
+      "longitude": 106.6824
+    },
+    {
+      "_id": "loc002",
+      "name": "Trường THCS Lê Quý Đôn",
+      "address": "12 Trần Phú, Q.3, TP.HCM",
+      "latitude": 10.7784,
+      "longitude": 106.6897
+    },
+    {
+      "_id": "loc003",
+      "name": "Trường THPT Nguyễn Thị Minh Khai",
+      "address": "45 Nguyễn Thông, Q.3, TP.HCM",
+      "latitude": 10.7815,
+      "longitude": 106.6812
+    },
+    {
+      "_id": "loc004",
+      "name": "Trường Tiểu học Hòa Bình",
+      "address": "90 Lý Thường Kiệt, Q.10, TP.HCM",
+      "latitude": 10.7765,
+      "longitude": 106.6603
+    },
+    {
+      "_id": "loc005",
+      "name": "Trường Mầm non Hạnh Phúc",
+      "address": "5 Nguyễn Thị Minh Khai, Q.1, TP.HCM",
+      "latitude": 10.7780,
+      "longitude": 106.6950
+    }
+  ],
+
+  "bus": [
+    {
+      "_id": "bus001",
+      "licensePlate": "51B-12345",
+      "capacity": 40,
+      "status": "Active",
+      "driverId": "drv001",
+      "route": ["loc001", "loc002", "loc003"]
+    },
+    {
+      "_id": "bus002",
+      "licensePlate": "51B-23456",
+      "capacity": 35,
+      "status": "Active",
+      "driverId": "drv002",
+      "route": ["loc004", "loc005"]
+    },
+    {
+      "_id": "bus003",
+      "licensePlate": "51B-34567",
+      "capacity": 45,
+      "status": "Maintenance",
+      "driverId": "drv003",
+      "route": ["loc002", "loc003"]
+    },
+    {
+      "_id": "bus004",
+      "licensePlate": "51B-45678",
+      "capacity": 30,
+      "status": "Inactive",
+      "driverId": "drv004",
+      "route": ["loc001", "loc004"]
+    },
+    {
+      "_id": "bus005",
+      "licensePlate": "51B-56789",
+      "capacity": 50,
+      "status": "Active",
+      "driverId": "drv005",
+      "route": ["loc003", "loc005"]
+    }
+  ],
+
+  "driver": [
+    {
+      "_id": "drv001",
+      "name": "Nguyễn Văn A",
+      "phone": "0909123456",
+      "license": "B2",
+      "experience": 5,
+      "busId": "bus001"
+    },
+    {
+      "_id": "drv002",
+      "name": "Trần Văn B",
+      "phone": "0909345678",
+      "license": "C",
+      "experience": 8,
+      "busId": "bus002"
+    },
+    {
+      "_id": "drv003",
+      "name": "Phạm Văn C",
+      "phone": "0909456123",
+      "license": "D",
+      "experience": 10,
+      "busId": "bus003"
+    },
+    {
+      "_id": "drv004",
+      "name": "Lê Văn D",
+      "phone": "0909789123",
+      "license": "B2",
+      "experience": 3,
+      "busId": "bus004"
+    },
+    {
+      "_id": "drv005",
+      "name": "Huỳnh Văn E",
+      "phone": "0912123456",
+      "license": "C",
+      "experience": 7,
+      "busId": "bus005"
+    }
+  ],
+
+  "notification": [
+    {
+      "_id": "noti001",
+      "title": "Xe 51B-12345 đã khởi hành",
+      "content": "Xe đã rời bến tại trường Bình Minh lúc 6:30 sáng.",
+      "createdAt": "2025-10-13T06:30:00Z",
+      "receiverId": "par001"
+    },
+    {
+      "_id": "noti002",
+      "title": "Trễ lịch trình",
+      "content": "Xe 51B-23456 bị kẹt xe, trễ 10 phút.",
+      "createdAt": "2025-10-13T06:45:00Z",
+      "receiverId": "par002"
+    },
+    {
+      "_id": "noti003",
+      "title": "Đã đến trường",
+      "content": "Học sinh đã đến nơi an toàn.",
+      "createdAt": "2025-10-13T07:15:00Z",
+      "receiverId": "par003"
+    },
+    {
+      "_id": "noti004",
+      "title": "Xe bảo trì",
+      "content": "Xe 51B-34567 đang được kiểm tra kỹ thuật.",
+      "createdAt": "2025-10-12T09:00:00Z",
+      "receiverId": "manager01"
+    },
+    {
+      "_id": "noti005",
+      "title": "Cập nhật tuyến mới",
+      "content": "Xe 51B-45678 sẽ phục vụ tuyến mới từ ngày 15/10.",
+      "createdAt": "2025-10-11T10:00:00Z",
+      "receiverId": "manager01"
+    }
+  ],
+
+  "parent": [
+    {
+      "_id": "par001",
+      "name": "Nguyễn Thị Hoa",
+      "phone": "0908111222",
+      "email": "hoa.nguyen@example.com",
+      "studentId": "stu001"
+    },
+    {
+      "_id": "par002",
+      "name": "Trần Văn Long",
+      "phone": "0908222333",
+      "email": "long.tran@example.com",
+      "studentId": "stu002"
+    },
+    {
+      "_id": "par003",
+      "name": "Lê Thị Thu",
+      "phone": "0908333444",
+      "email": "thu.le@example.com",
+      "studentId": "stu003"
+    }
+  ],
+
+  "role": [
+    { "_id": "role001", "name": "Manager", "description": "Quản lý hệ thống" },
+    { "_id": "role002", "name": "Driver", "description": "Tài xế xe bus" },
+    { "_id": "role003", "name": "Parent", "description": "Phụ huynh học sinh" }
+  ],
+
+  "schedule": [
+    {
+      "_id": "sch001",
+      "busId": "bus001",
+      "date": "2025-10-13",
+      "departureTime": "06:30",
+      "arrivalTime": "07:15",
+      "status": "Completed"
+    },
+    {
+      "_id": "sch002",
+      "busId": "bus002",
+      "date": "2025-10-13",
+      "departureTime": "06:40",
+      "arrivalTime": "07:25",
+      "status": "Completed"
+    },
+    {
+      "_id": "sch003",
+      "busId": "bus003",
+      "date": "2025-10-13",
+      "departureTime": "06:35",
+      "arrivalTime": "07:10",
+      "status": "Delayed"
+    },
+    {
+      "_id": "sch004",
+      "busId": "bus004",
+      "date": "2025-10-12",
+      "departureTime": "06:50",
+      "arrivalTime": "07:30",
+      "status": "Canceled"
+    },
+    {
+      "_id": "sch005",
+      "busId": "bus005",
+      "date": "2025-10-13",
+      "departureTime": "06:45",
+      "arrivalTime": "07:20",
+      "status": "Completed"
+    }
+  ],
+
+  "student": [
+    {
+      "_id": "stu001",
+      "name": "Nguyễn Minh Anh",
+      "age": 10,
+      "class": "5A",
+      "school": "Trường Tiểu học Bình Minh",
+      "parentId": "par001",
+      "busId": "bus001"
+    },
+    {
+      "_id": "stu002",
+      "name": "Trần Bảo",
+      "age": 12,
+      "class": "7B",
+      "school": "Trường THCS Lê Quý Đôn",
+      "parentId": "par002",
+      "busId": "bus002"
+    },
+    {
+      "_id": "stu003",
+      "name": "Lê An",
+      "age": 11,
+      "class": "6C",
+      "school": "Trường THCS Lê Quý Đôn",
+      "parentId": "par003",
+      "busId": "bus003"
+    }
+  ],
+
+  "user": [
+    {
+      "_id": "usr001",
+      "username": "manager01",
+      "email": "manager@example.com",
+      "password": "hashed_manager",
+      "roleId": "role001",
+      "status": "Active"
+    },
+    {
+      "_id": "usr002",
+      "username": "driver01",
+      "email": "driver01@example.com",
+      "password": "hashed_driver",
+      "roleId": "role002",
+      "status": "Active"
+    },
+    {
+      "_id": "usr003",
+      "username": "driver02",
+      "email": "driver02@example.com",
+      "password": "hashed_driver",
+      "roleId": "role002",
+      "status": "Active"
+    },
+    {
+      "_id": "usr004",
+      "username": "parent01",
+      "email": "parent01@example.com",
+      "password": "hashed_parent",
+      "roleId": "role003",
+      "status": "Active"
+    },
+    {
+      "_id": "usr005",
+      "username": "parent02",
+      "email": "parent02@example.com",
+      "password": "hashed_parent",
+      "roleId": "role003",
+      "status": "Active"
+    },
+    {
+      "_id": "usr006",
+      "username": "parent03",
+      "email": "parent03@example.com",
+      "password": "hashed_parent",
+      "roleId": "role003",
+      "status": "Active"
+    }
+  ]
+}
