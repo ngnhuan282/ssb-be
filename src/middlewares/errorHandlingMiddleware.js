@@ -1,4 +1,4 @@
-const HttpStatus = require('http-status');
+const HttpStatus = require('http-status-codes');
 
 const errorHandlingMiddleware = (err, req, res, next) => {
   // Nếu không có statusCode, mặc định là 500 (INTERNAL_SERVER_ERROR)
