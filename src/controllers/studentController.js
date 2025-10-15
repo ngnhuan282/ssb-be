@@ -1,4 +1,4 @@
-const HttpStatus = require('http-status');
+const HttpStatus = require('http-status-codes');
 const studentService = require('../services/studentService');
 const ApiResponse = require('../utils/apiResponse');
 

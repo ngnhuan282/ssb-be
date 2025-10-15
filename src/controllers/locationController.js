@@ -1,16 +1,16 @@
-const ApiResponse = require("../utils/apiResponse");
+const ApiResponse = require("../utils/apiError");
 const HttpStatus = require("http-status");
 const locationService = require("../services/locationService");
 
 const getAllLocation = async (req, res, next) => {
   try {
-    const locations = await locationService.getAllLocations();
+    const location = locationService.getAllLocations();
     res
       .status(HttpStatus.OK)
       .json(
         new ApiResponse(
           HttpStatus.OK,
-          locations,
+          location,
           "Get all locations successfully!"
         )
       );
@@ -21,7 +21,7 @@ const getAllLocation = async (req, res, next) => {
 
 const getLocationById = async (req, res, next) => {
   try {
-    const location = await locationService.getLocationById(req.params.id);
+    const location = locationService.getLocationById(req.params.id);
     res
       .status(HttpStatus.OK)
       .json(
@@ -38,14 +38,12 @@ const getLocationById = async (req, res, next) => {
 
 const createLocation = async (req, res, next) => {
   try {
-    // SỬA LỖI 2: Thêm 'await'
-    const location = await locationService.createLocation(req.body);
-    // Thay đổi HttpStatus thành CREATED (201) để đúng chuẩn RESTful
+    const location = locationService.createLocation(req.body);
     res
-      .status(HttpStatus.CREATED)
+      .status(HttpStatus.OK)
       .json(
         new ApiResponse(
-          HttpStatus.CREATED,
+          HttpStatus.OK,
           location,
           "Create a location successfully!"
         )
@@ -57,11 +55,7 @@ const createLocation = async (req, res, next) => {
 
 const updateLocation = async (req, res, next) => {
   try {
-    // SỬA LỖI 2: Thêm 'await'
-    const location = await locationService.updateLocation(
-      req.params.id,
-      req.body
-    );
+    const location = locationService.updateLocation(req.params.id, req.body);
     res
       .status(HttpStatus.OK)
       .json(
@@ -78,12 +72,15 @@ const updateLocation = async (req, res, next) => {
 
 const deleteLocation = async (req, res, next) => {
   try {
-    // SỬA LỖI 2: Thêm 'await'
-    await locationService.deleteLocation(req.params.id);
+    const location = locationService.deleteLocation(req.params.id);
     res
       .status(HttpStatus.OK)
       .json(
-        new ApiResponse(HttpStatus.OK, null, "Delete a location successfully!")
+        new ApiResponse(
+          HttpStatus.OK,
+          location,
+          "Delete a location successfully!"
+        )
       );
   } catch (error) {
     next(error);

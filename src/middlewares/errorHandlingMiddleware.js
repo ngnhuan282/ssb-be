@@ -2,6 +2,12 @@ const HttpStatus = require('http-status');
 
 const errorHandlingMiddleware = (err, req, res, next) => {
   // Nếu không có statusCode, mặc định là 500 (INTERNAL_SERVER_ERROR)
+  console.log('=== ERROR DEBUG ===');
+  console.log('Error:', err);
+  console.log('StatusCode:', err.statusCode);
+  console.log('Message:', err.message);
+  console.log('Stack:', err.stack);
+  console.log('==================');
   if (!err.statusCode)
     err.statusCode = HttpStatus.INTERNAL_SERVER_ERROR;
 
