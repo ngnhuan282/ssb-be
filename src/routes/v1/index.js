@@ -6,32 +6,32 @@ const parentRoute = require("./parentRoutes");
 const userRoute = require("./userRoutes");
 const routeRoute = require("./routeRoutes");
 const scheduleRoute = require("./scheduleRoute");
-const locationRoute = require('./locationRoute');
+const locationRoute = require("./locationRoute");
 const busRoute = require("./busRoutes");
-const driverRoute = require("./driverRoutes")
-const notificationRoute = require("./notificationRoutes")
+const driverRoute = require("./driverRoutes");
+const notificationRoute = require("./notificationRoutes");
 /* Student */
-router.use('/students', studentRoute);
+router.use("/students", studentRoute);
 
 /* Parent */
-router.use('/parents', parentRoute);
+router.use("/parents", parentRoute);
 
 /*User */
-router.use('/users', userRoute);
+router.use("/users", userRoute);
 
-router.use('/routes', routeRoute);
+router.use("/routes", routeRoute);
 
-router.use('/schedules', scheduleRoute);
+router.use("/schedules", scheduleRoute);
 
-router.use('/location', locationRoute);
+router.use("/location", locationRoute);
 
 /* Bus */
-router.use('/buses',busRoute)
+router.use("/buses", busRoute);
 
 /* Driver */
-router.use('/drivers', driverRoute)
+router.use("/drivers", driverRoute);
 
 /* Notification */
-router.use('/notifications',notificationRoute)
+router.use("/notifications", notificationRoute);
 
 module.exports = router;
