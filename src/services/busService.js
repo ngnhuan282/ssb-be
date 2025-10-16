@@ -15,9 +15,11 @@ const getBusById =  async (id) => {
 }
 
 const createBus = async (busData) => {
-  const bus = new Bus(busData)
-  return await bus.save()
-}
+  const bus = new Bus(busData);
+  const savedBus = await bus.save();
+  await savedBus.populate(['driver', 'route']);
+  return savedBus;
+};
 
 const updateBus = async (id, updateData) => {
     const bus = await Bus.findByIdAndUpdate(
@@ -27,11 +29,12 @@ const updateBus = async (id, updateData) => {
     )
     if(!bus)
         throw new ApiError(HttpStatus.NOT_FOUND, 'Bus not found!')
+     await bus.populate(['driver', 'route']);
     return bus
 }
 
 const deleteBus = async (id) => {
-  const bus = Bus.findByIdAndDelete(id)
+  const bus = await Bus.findByIdAndDelete(id)
   if(!bus){
     throw new ApiError(HttpStatus.NOT_FOUND, 'Bus not found!')
   }
@@ -45,6 +48,4 @@ module.exports = {
   updateBus,
   deleteBus
 }
-
-
 

@@ -4,7 +4,7 @@ const ApiError = require('../utils/apiError');
 
 
 const getAllStudents = async () => {
-  return await Student.find().exec();
+  return await Student.find().populate('parent route').exec();
 };
 
 const getStudentById = async (id) => {
@@ -17,7 +17,8 @@ const getStudentById = async (id) => {
 
 const createStudent = async (studentData) => {
   const student = new Student(studentData);
-  return await student.save();
+  const saved = await student.save();
+  return await saved.populate('parent route');
 };
 
 const updateStudent = async (id, updateData) => {
@@ -25,7 +26,7 @@ const updateStudent = async (id, updateData) => {
     id,
     { ...updateData, updatedAt: Date.now() },
     { new: true, runValidators: true }
-  );
+  ).populate('parent route');
   if (!student) {
     throw new ApiError(HttpStatus.NOT_FOUND, 'Student not found');
   }
