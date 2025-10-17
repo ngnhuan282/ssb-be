@@ -1,26 +1,186 @@
-import { StatusCodes } from "http-status-codes";
-import ms from "ms";
-import { JwtProvider } from "../providers/JwtProvider";
+const { StatusCodes } = require('http-status-codes');
+const ms = require('ms');
+const { JwtProvider, 
+    ACCESS_TOKEN_SECRET_SIGNATURE, 
+    REFRESH_TOKEN_SECRET_SIGNATURE 
+} = require('../providers/JwtProvider');
+const authService = require('../services/authService');
+const ApiResponse = require('../utils/apiResponse');
+const ApiError = require('../utils/apiError');
 
-const login = async (params) => {
-    
+/**
+ * @route   POST /api/auth/login
+ * @desc    Đăng nhập
+ * @access  Public
+ */
+const login = async (req, res, next) => {
+    try {
+        const { email, password } = req.body;
+
+        // Validation
+        if (!email || !password) {
+            throw new ApiError(StatusCodes.BAD_REQUEST, 'Email và password là bắt buộc!');
+        }
+
+        // Validate credentials
+        const user = await authService.validateCredentials(email, password);
+
+        // Lấy thông tin đầy đủ
+        const fullUserInfo = await authService.getFullUserInfo(user._id);
+
+        // Tạo payload cho JWT
+        const tokenPayload = {
+            id: user._id.toString(),
+            email: user.email,
+            role: user.role,
+            username: user.username
+        };
+
+        // Generate tokens
+        const accessToken = await JwtProvider.generateToken(
+            tokenPayload,
+            ACCESS_TOKEN_SECRET_SIGNATURE,
+            '15m'
+        );
+
+        const refreshToken = await JwtProvider.generateToken(
+            tokenPayload,
+            REFRESH_TOKEN_SECRET_SIGNATURE,
+            '14 days'
+        );
+
+        // Set httpOnly cookies
+        res.cookie('accessToken', accessToken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'none',
+            maxAge: ms('14 days')
+        });
+
+        res.cookie('refreshToken', refreshToken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'none',
+            maxAge: ms('14 days')
+        });
+
+        // Response
+        res
+            .status(StatusCodes.OK)
+            .json(new ApiResponse(
+                StatusCodes.OK, 
+                { user: fullUserInfo },
+                'Đăng nhập thành công!'
+            ));
+
+    } catch (error) {
+        next(error);
+    }
 };
 
-const logout = async (params) => {
-    
+/**
+ * @route   POST /api/auth/logout
+ * @desc    Đăng xuất
+ * @access  Public
+ */
+const logout = async (req, res, next) => {
+    try {
+        res.clearCookie('accessToken');
+        res.clearCookie('refreshToken');
+
+        res
+            .status(StatusCodes.OK)
+            .json(new ApiResponse(
+                StatusCodes.OK,
+                null,
+                'Đăng xuất thành công!'
+            ));
+    } catch (error) {
+        next(error);
+    }
 };
 
-const refreshToken = async (params) => {
-    
+/**
+ * @route   POST /api/auth/refresh-token
+ * @desc    Làm mới access token
+ * @access  Public
+ */
+const refreshToken = async (req, res, next) => {
+    try {
+        const refreshTokenFromCookie = req.cookies?.refreshToken;
+
+        if (!refreshTokenFromCookie) {
+            throw new ApiError(StatusCodes.UNAUTHORIZED, 'Refresh token not found');
+        }
+
+        // Verify refresh token
+        const decoded = await JwtProvider.verifyToken(
+            refreshTokenFromCookie,
+            REFRESH_TOKEN_SECRET_SIGNATURE
+        );
+
+        // Tạo payload mới
+        const tokenPayload = {
+            id: decoded.id,
+            email: decoded.email,
+            role: decoded.role,
+            username: decoded.username
+        };
+
+        // Generate access token mới
+        const newAccessToken = await JwtProvider.generateToken(
+            tokenPayload,
+            ACCESS_TOKEN_SECRET_SIGNATURE,
+            '15m'
+        );
+
+        // Set cookie mới
+        res.cookie('accessToken', newAccessToken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'none',
+            maxAge: ms('14 days')
+        });
+
+        res
+            .status(StatusCodes.OK)
+            .json(new ApiResponse(
+                StatusCodes.OK,
+                null,
+                'Token refreshed successfully'
+            ));
+
+    } catch (error) {
+        next(error);
+    }
 };
 
-const getCurrentUser = async (params) => {
-    
+/**
+ * @route   GET /api/auth/me
+ * @desc    Lấy thông tin user hiện tại
+ * @access  Private
+ */
+const getCurrentUser = async (req, res, next) => {
+    try {
+        const userId = req.jwtDecoded.id;
+
+        const fullUserInfo = await authService.getFullUserInfo(userId);
+
+        res
+            .status(StatusCodes.OK)
+            .json(new ApiResponse(
+                StatusCodes.OK,
+                fullUserInfo,
+                'Get current user successfully'
+            ));
+    } catch (error) {
+        next(error);
+    }
 };
 
-export const authorController = {
+module.exports = {
     login,
     logout,
     refreshToken,
-    getCurrentUser,
+    getCurrentUser
 };
