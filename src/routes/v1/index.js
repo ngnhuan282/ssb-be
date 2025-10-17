@@ -10,7 +10,7 @@ const locationRoute = require('./locationRoute');
 const busRoute = require("./busRoutes");
 const driverRoute = require("./driverRoutes")
 const notificationRoute = require("./notificationRoutes")
-// const authRoute = require("./authRoute");
+const authRoute = require("./authRoute");
 
 
 router.use('/students', studentRoute);
@@ -22,5 +22,7 @@ router.use('/location', locationRoute);
 router.use('/buses',busRoute)
 router.use('/drivers', driverRoute)
 router.use('/notifications',notificationRoute)
+
+router.use('/auth', authRoute);
 
 module.exports = router;

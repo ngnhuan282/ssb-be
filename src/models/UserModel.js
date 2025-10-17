@@ -12,11 +12,8 @@ const userSchema = new mongoose.Schema({
 });
 
 // Middleware: Hash password trước khi save (CHỈ khi password mới hoặc thay đổi)
-userSchema.pre('save', async (next)  =>{
-  // Chỉ hash nếu password được modify
-  if (!this.isModified('password')) 
-    return next();
-  
+userSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) return next();
   try {
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
@@ -26,17 +23,16 @@ userSchema.pre('save', async (next)  =>{
   }
 });
 
-// Method: So sánh password khi login
-userSchema.methods.comparePassword = async (candidatePassword) => {
+userSchema.methods.comparePassword = async function (candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password);
 };
 
-// Method: Lấy thông tin public (không bao gồm password)
-userSchema.methods.toJSON = () => {
+userSchema.methods.toJSON = function () {
   const userObject = this.toObject();
-  delete userObject.password; // Xóa password khi return JSON
+  delete userObject.password;
   return userObject;
 };
+
 
 const User = mongoose.model('User', userSchema);
 module.exports = User;

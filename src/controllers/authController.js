@@ -1,9 +1,6 @@
 const { StatusCodes } = require('http-status-codes');
 const ms = require('ms');
-const { JwtProvider, 
-    ACCESS_TOKEN_SECRET_SIGNATURE, 
-    REFRESH_TOKEN_SECRET_SIGNATURE 
-} = require('../providers/JwtProvider');
+const JwtProvider = require("../providers/JwtProvider");
 const authService = require('../services/authService');
 const ApiResponse = require('../utils/apiResponse');
 const ApiError = require('../utils/apiError');
@@ -39,30 +36,35 @@ const login = async (req, res, next) => {
         // Generate tokens
         const accessToken = await JwtProvider.generateToken(
             tokenPayload,
-            ACCESS_TOKEN_SECRET_SIGNATURE,
+            process.env.ACCESS_TOKEN_SECRET_SIGNATURE,
             '15m'
         );
 
         const refreshToken = await JwtProvider.generateToken(
             tokenPayload,
-            REFRESH_TOKEN_SECRET_SIGNATURE,
+            process.env.REFRESH_TOKEN_SECRET_SIGNATURE,
             '14 days'
         );
-
-        // Set httpOnly cookies
+        
+        // Set httpOnly cookies - QUAN TRỌNG!
         res.cookie('accessToken', accessToken, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
+            secure: false, 
+            secure: false,
             sameSite: 'none',
-            maxAge: ms('14 days')
+            path: '/',
         });
 
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
+            secure: false,
             sameSite: 'none',
-            maxAge: ms('14 days')
+            maxAge: ms('14 days'),
+            path: '/',
         });
+
+        console.log('✅ Cookies set successfully');
+        console.log('🔐 Response headers:', res.getHeaders());
 
         // Response
         res
@@ -116,7 +118,7 @@ const refreshToken = async (req, res, next) => {
         // Verify refresh token
         const decoded = await JwtProvider.verifyToken(
             refreshTokenFromCookie,
-            REFRESH_TOKEN_SECRET_SIGNATURE
+            process.env.REFRESH_TOKEN_SECRET_SIGNATURE
         );
 
         // Tạo payload mới
@@ -130,16 +132,17 @@ const refreshToken = async (req, res, next) => {
         // Generate access token mới
         const newAccessToken = await JwtProvider.generateToken(
             tokenPayload,
-            ACCESS_TOKEN_SECRET_SIGNATURE,
+            process.env.ACCESS_TOKEN_SECRET_SIGNATURE,
             '15m'
         );
 
         // Set cookie mới
         res.cookie('accessToken', newAccessToken, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
+            secure: false,
             sameSite: 'none',
-            maxAge: ms('14 days')
+            maxAge: ms('15m'),
+            path: '/',
         });
 
         res

@@ -3,6 +3,7 @@ const { generateToken, verifyToken } = require('../providers/JwtProvider');
 
 const isAuthorized = async (req, res, next) => {
     const accessToken = req.cookies?.accessToken;
+    console.log('Received accessToken:', accessToken ? 'Yes (length: ' + accessToken.length + ')' : 'No');
     if (!accessToken) {
         return res.status(StatusCodes.UNAUTHORIZED).json({ message: "Unauthorized ! Token not found" });
     }
@@ -12,9 +13,11 @@ const isAuthorized = async (req, res, next) => {
             accessToken,
             process.env.ACCESS_TOKEN_SECRET_SIGNATURE
         );
+        console.log('Secret:', process.env.ACCESS_TOKEN_SECRET_SIGNATURE || 'Undefined!');
         req.jwtDecoded = accessTokenDecoded;
         next();
     } catch (error) {
+        console.log('Verify error:', error.message);
         if (error.message.includes('jwt expired')) {
             return res.status(StatusCodes.GONE).json({ message: 'Need to refresh token' });
         }
