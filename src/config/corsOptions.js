@@ -12,10 +12,9 @@ exports.corsOptions = {
       callback(new Error("Not allowed by CORS"));
     }
   },
-  credentials: true, // 👈 QUAN TRỌNG
+  credentials: true, 
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
   exposedHeaders: ["Content-Length", "X-JSON-Response", "Set-Cookie"],
   optionsSuccessStatus: 200,
-  maxAge: 86400
 };

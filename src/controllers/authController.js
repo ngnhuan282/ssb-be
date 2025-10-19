@@ -22,9 +22,6 @@ const login = async (req, res, next) => {
         // Validate credentials
         const user = await authService.validateCredentials(email, password);
 
-        // Lấy thông tin đầy đủ
-        const fullUserInfo = await authService.getFullUserInfo(user._id);
-
         // Tạo payload cho JWT
         const tokenPayload = {
             id: user._id.toString(),
@@ -46,10 +43,9 @@ const login = async (req, res, next) => {
             '14 days'
         );
         
-        // Set httpOnly cookies - QUAN TRỌNG!
+        // Set httpOnly cookies
         res.cookie('accessToken', accessToken, {
             httpOnly: true,
-            secure: false, 
             secure: false,
             sameSite: 'none',
             path: '/',
@@ -64,14 +60,21 @@ const login = async (req, res, next) => {
         });
 
         console.log('✅ Cookies set successfully');
-        console.log('🔐 Response headers:', res.getHeaders());
+
+        // TRẢ VỀ THÔNG TIN CƠ BẢN NGAY TRONG LOGIN RESPONSE
+        const userResponse = {
+            id: user._id.toString(),
+            email: user.email,
+            role: user.role,
+            username: user.username
+        };
 
         // Response
         res
             .status(StatusCodes.OK)
             .json(new ApiResponse(
                 StatusCodes.OK, 
-                { user: fullUserInfo },
+                { user: userResponse }, // Chỉ trả thông tin cơ bản
                 'Đăng nhập thành công!'
             ));
 
@@ -158,15 +161,10 @@ const refreshToken = async (req, res, next) => {
     }
 };
 
-/**
- * @route   GET /api/auth/me
- * @desc    Lấy thông tin user hiện tại
- * @access  Private
- */
+// GIỮ LẠI /me ENDPOINT (optional - nếu sau này cần dùng)
 const getCurrentUser = async (req, res, next) => {
     try {
         const userId = req.jwtDecoded.id;
-
         const fullUserInfo = await authService.getFullUserInfo(userId);
 
         res
