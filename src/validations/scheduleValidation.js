@@ -30,7 +30,7 @@ const updateScheduleSchema = Joi.object({
 
 const validateCreateSchedule = (req, res, next) => {
     const { error } = createScheduleSchema.validate(req.body);
-    if (error) { throw new ApiError(HttpStatus.BAD_REQUEST, error.details[0]) }
+    if (error) { throw new ApiError(HttpStatus.BAD_REQUEST, error.message) }
     next();
 }
 

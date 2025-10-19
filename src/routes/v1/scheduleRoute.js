@@ -7,7 +7,7 @@ router.get('/', scheduleController.getAllSchedules)
 
 router.get('/:id', scheduleController.getScheduleById)
 
-router.post('/', scheduleValidation.validateCreateSchedule, scheduleController.updateSchedule)
+router.post('/', scheduleValidation.validateCreateSchedule, scheduleController.createSchedule)
 
 router.put('./:id', scheduleValidation.validateUpdateSchedule, scheduleController.updateSchedule)
 
