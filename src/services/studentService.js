@@ -18,7 +18,9 @@ const getStudentById = async (id) => {
 const createStudent = async (studentData) => {
   const student = new Student(studentData);
   const saved = await student.save();
-  return await saved.populate('parent route');
+  await saved.populate('route');
+  await saved.populate({ path: "parent", populate: { path: "user" } })
+  return saved
 };
 
 const updateStudent = async (id, updateData) => {
@@ -26,10 +28,12 @@ const updateStudent = async (id, updateData) => {
     id,
     { ...updateData, updatedAt: Date.now() },
     { new: true, runValidators: true }
-  ).populate('parent route');
+  )
   if (!student) {
     throw new ApiError(HttpStatus.NOT_FOUND, 'Student not found');
   }
+  await student.populate('route');
+  await student.populate({ path: "parent", populate: { path: "user" } })
   return student;
 };
 

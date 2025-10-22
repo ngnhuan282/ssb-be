@@ -16,25 +16,27 @@ const getBusById = async (id) => {
 const createBus = async (busData) => {
   const bus = new Bus(busData);
   const savedBus = await bus.save();
-  await savedBus.populate(['driver', 'route']);
+  await savedBus.populate('route')
+  await savedBus.populate({ path: "driver", populate: { path: "user" } });
   return savedBus;
 };
 
 const updateBus = async (id, updateData) => {
-    const bus = await Bus.findByIdAndUpdate(
-      id,
-       { ...updateData, updatedAt: Date.now()},
-       {new: true, runValidators: true}
-    )
-    if(!bus)
-        throw new ApiError(HttpStatus.NOT_FOUND, 'Bus not found!')
-     await bus.populate(['driver', 'route']);
-    return bus
+  const bus = await Bus.findByIdAndUpdate(
+    id,
+    { ...updateData, updatedAt: Date.now() },
+    { new: true, runValidators: true }
+  )
+  if (!bus)
+    throw new ApiError(HttpStatus.NOT_FOUND, 'Bus not found!')
+  await bus.populate('route')
+  await bus.populate({ path: "driver", populate: { path: "user" } });
+  return bus
 }
 
 const deleteBus = async (id) => {
   const bus = await Bus.findByIdAndDelete(id)
-  if(!bus){
+  if (!bus) {
     throw new ApiError(HttpStatus.NOT_FOUND, 'Bus not found!')
   }
   return bus
