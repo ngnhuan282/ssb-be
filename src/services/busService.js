@@ -3,17 +3,16 @@ const HttpStatus = require('http-status')
 const Bus = require("../models/BusModel")
 
 const getAllBus = async () => {
-  return await Bus.find().populate('driver route')
+  return await Bus.find().populate('route').populate({ path: "driver", populate: { path: "user" } })
 }
 
-const getBusById =  async (id) => {
-  const bus =  await Bus.findById(id).populate('driver route')
-  if(!bus){
-    throw new ApiError(HttpStatus.NOT_FOUND,'Bus not found!')
+const getBusById = async (id) => {
+  const bus = await Bus.findById(id).populate('route').populate({ path: "driver", populate: { path: "user" } })
+  if (!bus) {
+    throw new ApiError(HttpStatus.NOT_FOUND, 'Bus not found!')
   }
   return bus
 }
-
 const createBus = async (busData) => {
   const bus = new Bus(busData);
   const savedBus = await bus.save();
