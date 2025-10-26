@@ -3,7 +3,7 @@ const Parent = require("../models/ParentModel");
 const HttpStatus = require('http-status');
 
 const getAllParents = async () => {
-    return await Parent.find();
+    return await Parent.find().populate('user children');
 };
 
 const getParentById = async (id) => {

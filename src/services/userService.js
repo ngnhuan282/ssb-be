@@ -19,22 +19,23 @@ const getUserById = async (id) => {
 };
 
 const createUser = async (userData) => {
-    const { password } = userData;
+    // const { password } = userData;
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new User({...userData, password: hashedPassword});
+    // const hashedPassword = await bcrypt.hash(password, 10);
+    // const user = new User({...userData, password: hashedPassword});
+    const user = new User(userData);
     return await user.save();
 };
 
 const updateUser = async (id, updateData) => {
-    if(updateData.password) {
-        updateData.password = await bcrypt.hash(updateData.password, 10);
-    }
+    // if(updateData.password) {
+    //     updateData.password = await bcrypt.hash(updateData.password, 10);
+    // }
     const user = await User.findByIdAndUpdate(
         id,
         {...updateData, updatedAt: Date.now()},
         {new: true, runValidators: true}
-    );
+    ).select('-password');
     if(!user) {
         throw new ApiError(HttpStatus.NOT_FOUND, 'User not found');
     }

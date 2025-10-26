@@ -9,7 +9,7 @@ const createScheduleSchema = Joi.object({
     date: Joi.date().required(),
     starttime: Joi.date().required(),
     endtime: Joi.date().required(),
-    nestudent: Joi.number().min(0),
+    numstudent: Joi.number().min(0),
     frequency: Joi.string().valid('daily', 'weekly', 'monthly').default('daily'),
     students: Joi.array().items(Joi.string()),
     status: Joi.string().valid('scheduled', 'in_progress', 'completed', 'delayed').default('scheduled'),
@@ -22,7 +22,7 @@ const updateScheduleSchema = Joi.object({
     date: Joi.date().optional(),
     starttime: Joi.date().optional(),
     endtime: Joi.date().optional(),
-    nestudent: Joi.number().min(0),
+    numstudent: Joi.number().min(0),
     frequency: Joi.string().valid('daily', 'weekly', 'monthly').default('daily'),
     students: Joi.array().items(Joi.string()),
     status: Joi.string().valid('scheduled', 'in_progress', 'completed', 'delayed').default('scheduled'),
@@ -30,13 +30,13 @@ const updateScheduleSchema = Joi.object({
 
 const validateCreateSchedule = (req, res, next) => {
     const { error } = createScheduleSchema.validate(req.body);
-    if (error) { throw new ApiError(HttpStatus.BAD_REQUEST, error.details[0]) }
+    if (error) { throw new ApiError(HttpStatus.BAD_REQUEST, error.message) }
     next();
 }
 
 const validateUpdateSchedule = (req, res, next) => {
     const { error } = updateScheduleSchema.validate(req.body);
-    if (error) { throw new ApiError(HttpStatus.BAD_REQUEST, error.details[0]) }
+    if (error) { throw new ApiError(HttpStatus.BAD_REQUEST, error.message) }
     next();
 }
 

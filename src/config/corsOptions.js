@@ -1,16 +1,20 @@
-
-/**
- */
-export const corsOptions = {
+// src/config/corsOptions.js
+exports.corsOptions = {
   origin: function (origin, callback) {
-    return callback(null, true)
-},
+    const allowedOrigins = [
+      "http://localhost:5173",
+      "http://localhost:5000",
+    ];
 
-  // Some legacy browsers (IE11, various SmartTVs) choke on 204
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true, 
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  exposedHeaders: ["Content-Length", "X-JSON-Response", "Set-Cookie"],
   optionsSuccessStatus: 200,
-
-  // CORS sẽ cho phép nhận cookies từ request
-  credentials: true,
-
-  allowedHeaders: ['Content-Type', 'Authorization']
-}
+};
