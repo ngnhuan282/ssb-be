@@ -9,6 +9,7 @@ const errorHandlingMiddleware = require('./src/middlewares/errorHandlingMiddlewa
 const connectDB = require('./src/config/db');
 const http = require('http');
 const { Server } = require('socket.io');
+const { randomBusLocation } = require('./src/socket/randomBusLocation');
 
 const app = express();
 const server = http.createServer(app); // Tạo server HTTP
@@ -55,6 +56,8 @@ io.on('connection', (socket) => {
     console.log('User disconnected:', socket.id);
   });
 });
+
+randomBusLocation(io);
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => { // Sử dụng server.listen thay vì app.listen
