@@ -13,7 +13,7 @@ const ApiError = require('../utils/apiError');
 const login = async (req, res, next) => {
     try {
         const { email, password } = req.body;
-
+        
         // Validation
         if (!email || !password) {
             throw new ApiError(StatusCodes.BAD_REQUEST, 'Email và password là bắt buộc!');

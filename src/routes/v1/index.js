@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
+const authRoute = require("./authRoute");
 const studentRoute = require("./studentRoutes");
 const parentRoute = require("./parentRoutes");
 const userRoute = require("./userRoutes");
@@ -10,6 +11,8 @@ const locationRoute = require("./locationRoute");
 const busRoute = require("./busRoutes");
 const driverRoute = require("./driverRoutes");
 const notificationRoute = require("./notificationRoutes");
+
+router.use("/auth", authRoute);
 /* Student */
 router.use("/students", studentRoute);
 
