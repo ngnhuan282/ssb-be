@@ -4,7 +4,7 @@ const Bus = require('../models/BusModel');
 function randomBusLocation(io) {
   setInterval(async () => {
     try {
-      const buses = await Bus.find();
+      const buses = await Bus.find().lean();
       if (!buses || buses.length == 0) return;
 
       buses.forEach((bus) => {
