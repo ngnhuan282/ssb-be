@@ -4,8 +4,11 @@ const HttpStatus = require('http-status');
 
 
 const createDriverSchema = Joi.object({
-  user: Joi.string().required(),
-  licenseNumber: Joi.string().required().trim(),
+  fullName: Joi.string().required(),
+  phoneNumber: Joi.string().required(),
+  email: Joi.string().email().required(),
+  password: Joi.string().min(6).required(),
+  licenseNumber: Joi.string().required(),
   assignedBus: Joi.string().required(),
   status: Joi.string().valid('active', 'inactive').default('active')
 });
@@ -18,10 +21,13 @@ const updateDriverSchema = Joi.object({
 });
 
 const validateCreateDriver = (req, res, next) => {
-  const { error } = createDriverSchema.validate(req.body, { abortEarly: false});
-  if (error) throw new ApiError(HttpStatus.BAD_REQUEST, error.details[0].message);
+  const { error } = createDriverSchema.validate(req.body);
+  if (error) {
+    throw new ApiError(400, error.details[0].message);
+  }
   next();
 };
+
 
 const validateUpdateDriver = (req, res, next) => {
   const { error } = updateDriverSchema.validate(req.body, { abortEarly: false});

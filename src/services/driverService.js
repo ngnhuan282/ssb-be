@@ -1,22 +1,60 @@
 const ApiError = require("../utils/apiError")
 const HttpStatus = require('http-status')
 const Driver = require("../models/DriverModel")
+const User = require('../models/UserModel');
 
 const getAllDrivers = async () => {
-  return await Driver.find().populate('user assignedBus')
+  const drivers = await Driver.find()
+    .populate({
+      path: "user",
+      select: "username phone email" // lấy tên và số điện thoại
+    })
+    .populate('assignedBus')
+
+
+  console.log("Fetched drivers:", drivers);
+  console.log(drivers.map(d => ({ id: d._id, assignedBus: d.assignedBus })));
+  return drivers;
 }
+
+
 
 const getDriverById = async (id) => {
-  const driver = await Driver.findById(id).populate('user assignedBus')
-  if (!driver) 
-    throw new ApiError(HttpStatus.NOT_FOUND, 'Driver not found!')
-  return driver
-}
+  const driver = await Driver.findById(id)
+    .populate({ path: "user" })
+    .exec();
 
-const createDriver = async (driverData) => {
-  const driver = new Driver(driverData)
-  return await driver.save()
-}
+  if (!driver) {
+    throw new ApiError(HttpStatus.NOT_FOUND, 'Driver not found');
+  }
+  return driver;
+};
+
+const createDriver = async (data) => {
+  // 1️⃣ Tạo user trước
+  const user = new User({
+    username: data.fullName,
+    fullName: data.fullName,
+    phone: data.phoneNumber,
+    email: data.email,
+    password: data.password,
+    role: 'driver'
+  });
+  const savedUser = await user.save();
+
+  // 2️⃣ Tạo driver, gán các field đúng schema
+  const driver = new Driver({
+    user: savedUser._id,             // bắt buộc
+    licenseNumber: data.licenseNumber, // bắt buộc
+    assignedBus: data.assignedBus,     // bắt buộc
+    status: data.status || 'active'
+  });
+
+  const savedDriver = await driver.save();
+  await savedDriver.populate(['user', 'assignedBus']);
+
+  return savedDriver;
+};
 
 const updateDriver = async (id, updateData) => {
   const driver = await Driver.findByIdAndUpdate(
