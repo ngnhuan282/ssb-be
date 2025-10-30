@@ -11,6 +11,18 @@ const getAllSchedules = async (req, res, next) => {
     }
 }
 
+const getSchedulesByDriver = async (req, res, next) => {
+  try {
+    const { driverId } = req.params;
+    const schedules = await scheduleService.getSchedulesByDriver(driverId);
+    res.status(HttpStatus.OK).json(
+      new ApiResponse(HttpStatus.OK, schedules, 'Schedules retrieved successfully')
+    );
+  } catch (error) {
+    next(error);
+  }
+};
+
 const getScheduleById = async (req, res, next) => {
     try {
         const schedule = await scheduleService.getScheduleById(req.params.id);
@@ -52,5 +64,6 @@ module.exports = {
     getScheduleById,
     createSchedule,
     updateSchedule,
-    deleteSchedule
+    deleteSchedule,
+    getSchedulesByDriver
 }

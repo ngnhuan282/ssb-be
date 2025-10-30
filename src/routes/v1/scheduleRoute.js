@@ -7,6 +7,8 @@ router.get('/', scheduleController.getAllSchedules)
 
 router.get('/:id', scheduleController.getScheduleById)
 
+router.get('/driver/:driverId', scheduleController.getSchedulesByDriver);
+
 router.post('/', scheduleValidation.validateCreateSchedule, scheduleController.createSchedule)
 
 router.put('/:id', scheduleValidation.validateUpdateSchedule, scheduleController.updateSchedule)
