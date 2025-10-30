@@ -25,7 +25,11 @@ const getSchedulesByDriver = async (driverId) => {
       path: 'driver',
       populate: { path: 'user', select: 'username email phone' }
     })
-    .populate('route', 'name stops distance estimatedTime')
+    .populate({
+      path: 'route',
+      select: 'name distance estimatedTime stops',   // <-- thêm stops
+      // Không cần populate vì stops là sub‑document
+    })
     .populate('bus', 'licensePlate')
     .sort({ date: 1 })
     .exec();
