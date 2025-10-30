@@ -93,10 +93,34 @@
     "_id": "route1",
     "name": "Tuyến 1 - Quận 1",
     "stops": [
-      { "name": "Nguyen Du", "type": "pickup", "lat": 10.7769, "lng": 106.7009 },
-      { "name": "Pasteur", "type": "pickup", "lat": 10.7790, "lng": 106.6980 },
-      { "name": "Minh Khai", "type": "dropoff", "lat": 10.7850, "lng": 106.7100 },
-      { "name": "Vo Thi Sau", "type": "dropoff", "lat": 10.7820, "lng": 106.7050 }
+      { 
+        "name": "Nguyen Du", 
+        "type": "pickup", 
+        "lat": 10.7769, 
+        "lng": 106.7009,
+        "time": "2025-10-30T06:30:00Z"
+      },
+      { 
+        "name": "Pasteur", 
+        "type": "pickup", 
+        "lat": 10.7790, 
+        "lng": 106.6980,
+        "time": "2025-10-30T06:40:00Z"
+      },
+      { 
+        "name": "Minh Khai", 
+        "type": "dropoff", 
+        "lat": 10.7850, 
+        "lng": 106.7100,
+        "time": "2025-10-30T07:00:00Z"
+      },
+      { 
+        "name": "Vo Thi Sau", 
+        "type": "dropoff", 
+        "lat": 10.7820, 
+        "lng": 106.7050,
+        "time": "2025-10-30T07:15:00Z"
+      }
     ],
     "distance": 15,
     "estimatedTime": 45
@@ -105,10 +129,34 @@
     "_id": "route2",
     "name": "Tuyến 2 - Quận 3",
     "stops": [
-      { "name": "Le Loi", "type": "pickup", "lat": 10.7700, "lng": 106.6900 },
-      { "name": "Hai Ba Trung", "type": "pickup", "lat": 10.7750, "lng": 106.6950 },
-      { "name": "Tran Phu", "type": "dropoff", "lat": 10.7800, "lng": 106.7100 },
-      { "name": "Pham Ngoc Thach", "type": "dropoff", "lat": 10.7770, "lng": 106.7010 }
+      { 
+        "name": "Le Loi", 
+        "type": "pickup", 
+        "lat": 10.7700, 
+        "lng": 106.6900,
+        "time": "2025-10-30T06:35:00Z"
+      },
+      { 
+        "name": "Hai Ba Trung", 
+        "type": "pickup", 
+        "lat": 10.7750, 
+        "lng": 106.6950,
+        "time": "2025-10-30T06:45:00Z"
+      },
+      { 
+        "name": "Tran Phu", 
+        "type": "dropoff", 
+        "lat": 10.7800, 
+        "lng": 106.7100,
+        "time": "2025-10-30T07:05:00Z"
+      },
+      { 
+        "name": "Pham Ngoc Thach", 
+        "type": "dropoff", 
+        "lat": 10.7770, 
+        "lng": 106.7010,
+        "time": "2025-10-30T07:15:00Z"
+      }
     ],
     "distance": 12,
     "estimatedTime": 40
@@ -117,10 +165,34 @@
     "_id": "route3",
     "name": "Tuyến 3 - Quận 5",
     "stops": [
-      { "name": "Hai Ba Trung", "type": "pickup", "lat": 10.7750, "lng": 106.6950 },
-      { "name": "Ly Thuong Kiet", "type": "pickup", "lat": 10.7710, "lng": 106.6910 },
-      { "name": "Pham Ngoc Thach", "type": "dropoff", "lat": 10.7770, "lng": 106.7010 },
-      { "name": "Nguyen Thi Minh Khai", "type": "dropoff", "lat": 10.7810, "lng": 106.7110 }
+      { 
+        "name": "Hai Ba Trung", 
+        "type": "pickup", 
+        "lat": 10.7750, 
+        "lng": 106.6950,
+        "time": "2025-10-30T06:32:00Z"
+      },
+      { 
+        "name": "Ly Thuong Kiet", 
+        "type": "pickup", 
+        "lat": 10.7710, 
+        "lng": 106.6910,
+        "time": "2025-10-30T06:50:00Z"
+      },
+      { 
+        "name": "Pham Ngoc Thach", 
+        "type": "dropoff", 
+        "lat": 10.7770, 
+        "lng": 106.7010,
+        "time": "2025-10-30T07:10:00Z"
+      },
+      { 
+        "name": "Nguyen Thi Minh Khai", 
+        "type": "dropoff", 
+        "lat": 10.7810, 
+        "lng": 106.7110,
+        "time": "2025-10-30T07:22:00Z"
+      }
     ],
     "distance": 18,
     "estimatedTime": 50
@@ -129,10 +201,34 @@
     "_id": "route4",
     "name": "Tuyến 4 - Quận 10",
     "stops": [
-      { "name": "Ly Thuong Kiet", "type": "pickup", "lat": 10.7710, "lng": 106.6910 },
-      { "name": "Pasteur", "type": "pickup", "lat": 10.7790, "lng": 106.6980 },
-      { "name": "Nguyen Thi Minh Khai", "type": "dropoff", "lat": 10.7810, "lng": 106.7110 },
-      { "name": "Vo Thi Sau", "type": "dropoff", "lat": 10.7820, "lng": 106.7050 }
+      { 
+        "name": "Ly Thuong Kiet", 
+        "type": "pickup", 
+        "lat": 10.7710, 
+        "lng": 106.6910,
+        "time": "2025-10-30T06:47:00Z"
+      },
+      { 
+        "name": "Pasteur", 
+        "type": "pickup", 
+        "lat": 10.7790, 
+        "lng": 106.6980,
+        "time": "2025-10-30T07:00:00Z"
+      },
+      { 
+        "name": "Nguyen Thi Minh Khai", 
+        "type": "dropoff", 
+        "lat": 10.7810, 
+        "lng": 106.7110,
+        "time": "2025-10-30T07:20:00Z"
+      },
+      { 
+        "name": "Vo Thi Sau", 
+        "type": "dropoff", 
+        "lat": 10.7820, 
+        "lng": 106.7050,
+        "time": "2025-10-30T07:42:00Z"
+      }
     ],
     "distance": 20,
     "estimatedTime": 55
