@@ -59,11 +59,42 @@ const deleteSchedule = async (req, res, next) => {
     }
 }
 
+const updateStopStatus = async (req, res, next) => {
+  try {
+    const { scheduleId, stopId } = req.params;
+    const updateData = req.body;
+    const stop = await scheduleService.updateStopStatus(scheduleId, stopId, updateData);
+    res.status(HttpStatus.OK).json(
+      new ApiResponse(HttpStatus.OK, stop, 'Stop updated successfully')
+    );
+  } catch (error) {
+    next(error);
+  }
+};
+
+const updateStudentStatus = async (req, res, next) => {
+  try {
+    const { scheduleId, stopId, studentId } = req.params;
+    const { status, boardedAt } = req.body;
+
+    const updatedStop = await scheduleService.updateStudentStatus(
+      scheduleId, stopId, studentId, { status, boardedAt }
+    );
+
+    res.status(HttpStatus.OK).json(
+      new ApiResponse(HttpStatus.OK, updatedStop, 'Cập nhật trạng thái học sinh thành công')
+    );
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
     getAllSchedules,
     getScheduleById,
     createSchedule,
     updateSchedule,
     deleteSchedule,
-    getSchedulesByDriver
+    getSchedulesByDriver,
+    updateStudentStatus,
 }

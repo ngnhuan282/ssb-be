@@ -66,11 +66,44 @@ const deleteSchedule = async (id) => {
     return schedule;
 }
 
+const updateStopStatus = async (scheduleId, stopId, updateData) => {
+  const schedule = await Schedule.findById(scheduleId);
+  if (!schedule) throw new ApiError(HttpStatus.NOT_FOUND, 'Schedule not found');
+
+  const stop = schedule.route.stops.id(stopId);
+  if (!stop) throw new ApiError(HttpStatus.NOT_FOUND, 'Stop not found');
+
+  Object.assign(stop, updateData);
+  await schedule.save();
+
+  return stop;
+};
+
+const updateStudentStatus = async (scheduleId, stopId, studentId, updateData) => {
+  const schedule = await Schedule.findById(scheduleId);
+  if (!schedule) throw new ApiError(HttpStatus.NOT_FOUND, 'Schedule not found');
+
+  const stop = schedule.route.stops.id(stopId);
+  if (!stop) throw new ApiError(HttpStatus.NOT_FOUND, 'Stop not found');
+
+  const student = stop.students?.id(studentId);
+  if (!student) throw new ApiError(HttpStatus.NOT_FOUND, 'Student not found in this stop');
+
+  Object.assign(student, updateData);
+  if (updateData.status === 'boarded' && !updateData.boardedAt) {
+    student.boardedAt = new Date();
+  }
+
+  await schedule.save();
+  return stop;
+};
+
 module.exports = {
     getAllSchedules,
     getScheduleById,
     createSchedule,
     updateSchedule,
     deleteSchedule,
-    getSchedulesByDriver
+    getSchedulesByDriver,
+    updateStudentStatus   
 };
