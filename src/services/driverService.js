@@ -2,6 +2,7 @@ const ApiError = require("../utils/apiError")
 const HttpStatus = require('http-status')
 const Driver = require("../models/DriverModel")
 const User = require('../models/UserModel');
+const mongoose = require('mongoose');
 
 const getAllDrivers = async () => {
   const drivers = await Driver.find()
@@ -57,15 +58,22 @@ const createDriver = async (data) => {
 };
 
 const updateDriver = async (id, updateData) => {
+  if (updateData.assignedBus) {
+    updateData.assignedBus = new mongoose.Types.ObjectId(updateData.assignedBus);
+  }
+
   const driver = await Driver.findByIdAndUpdate(
     id,
     { ...updateData, updatedAt: Date.now() },
     { new: true, runValidators: true }
-  )
+  ).populate(['user', 'assignedBus']); // thêm populate cho trả về đầy đủ
+
+
   if (!driver) 
-    throw new ApiError(HttpStatus.NOT_FOUND, 'Driver not found!')
+    throw new ApiError(HttpStatus.NOT_FOUND, 'Driver not found!');
+
   return driver;
-}
+};
 
 const deleteDriver = async (id) => {
   const driver = await Driver.findByIdAndDelete(id)

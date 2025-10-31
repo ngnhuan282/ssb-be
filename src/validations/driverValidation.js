@@ -15,6 +15,10 @@ const createDriverSchema = Joi.object({
 
 const updateDriverSchema = Joi.object({
   user: Joi.string().optional(),
+  fullName: Joi.string().min(2).max(100),
+  phoneNumber: Joi.string().pattern(/^[0-9]+$/),
+  email: Joi.string().email(),
+  password: Joi.string().min(6).optional(),  // ✅ thêm dòng này
   licenseNumber: Joi.string().trim().optional(),
   assignedBus: Joi.string().optional(),
   status: Joi.string().valid('active', 'inactive').optional()
