@@ -3,18 +3,20 @@ const Route = require("../models/RouteModel");
 const HttpStatus = require('http-status');
 
 const getAllRoutes = async () => {
-    return await Route.find();
+    return await Route.find().populate('assignedBus');
 }
 
 const getRouteById = async (id) => {
-    const route = await Route.findById(id).populate('Bus');
+    const route = await Route.findById(id).populate('assignedBus');
     if (!route) throw new ApiError(HttpStatus.NOT_FOUND, 'Route not found');
     return route;
 }
 
 const createRoute = async (routeData) => {
     const route = new Route(routeData);
-    return await route.save();
+    const saved = await route.save();
+    await saved.populate('assignedBus');
+    return saved;
 }
 
 const updateRoute = async (id, updateData) => {
@@ -32,11 +34,12 @@ const updateRoute = async (id, updateData) => {
     if (!route) {
         throw new ApiError(HttpStatus.NOT_FOUND, 'Route not found')
     }
+    await route.populate('assignedBus');
     return route;
 }
 
 const deleteRoute = async (id) => {
-    const route = Route.findByIdAndDelete(id);
+    const route = await Route.findByIdAndDelete(id);
     if (!route) {
         throw new ApiError(HttpStatus.NOT_FOUND, 'Route not found');
     }
