@@ -1,13 +1,13 @@
 const Joi = require('joi');
 const HttpStatus = require('http-status');
-const ApiError = require("../middlewares/errorHandlingMiddleware").default;
+const ApiError = require("../utils/apiError")
 
 const createRouteSchema = Joi.object({
     name: Joi.string().required().trim(),
-    stop: Joi.array().items(
+    stops: Joi.array().items(
         Joi.object({
-            stop: Joi.string().required().trim(),
-            time: Joi.date().timestamp('javascript').default(Date.now)
+            location: Joi.string().required().trim(),
+            time: Joi.date().default(Date.now)
         })
     ).min(1).required(),
     distance: Joi.number().min(0).required(),
@@ -17,10 +17,10 @@ const createRouteSchema = Joi.object({
 
 const updateRouteSchema = Joi.object({
     name: Joi.string().required().trim(),
-    stop: Joi.array().items(
+    stops: Joi.array().items(
         Joi.object({
-            stop: Joi.string().required().trim(),
-            time: Joi.date().timestamp('javascript').default(Date.now)
+            location: Joi.string().required().trim(),
+            time: Joi.date().default(Date.now)
         })
     ).min(1).required(),
     distance: Joi.number().min(0).required(),
@@ -30,13 +30,13 @@ const updateRouteSchema = Joi.object({
 
 const validateCreateRoute = (req, res, next) => {
     const { error } = createRouteSchema.validate(req.body);
-    if (error) { throw new ApiError(HttpStatus.BAD_REQUEST, error.details[0]) }
+    if (error) { throw new ApiError(HttpStatus.BAD_REQUEST, error.details[0].message) }
     next();
 }
 
 const validateUpdateRoute = (req, res, next) => {
     const { error } = updateRouteSchema.validate(req.body);
-    if (error) { throw new ApiError(HttpStatus.BAD_REQUEST, error.details[0]) }
+    if (error) { throw new ApiError(HttpStatus.BAD_REQUEST, error.details[0].message) }
     next();
 }
 
