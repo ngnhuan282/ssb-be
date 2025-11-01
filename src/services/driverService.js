@@ -57,27 +57,46 @@ const createDriver = async (data) => {
   return savedDriver;
 };
 
-const updateDriver = async (id, updateData) => {
-  if (updateData.assignedBus) {
-    updateData.assignedBus = new mongoose.Types.ObjectId(updateData.assignedBus);
-  }
+const updateDriver = async (id, driverData) => {
+  // if (driverData.assignedBus) {
+  //   driverData.assignedBus = new mongoose.Types.ObjectId(driverData.assignedBus);
+  // }
 
+  // update user trước
+  const currentDriver = await Driver.findById(id).populate('user');
+
+  const user = await User.findByIdAndUpdate(
+    currentDriver.user._id,
+    {
+      username: driverData.fullName,
+      email: driverData.email,
+      phone: driverData.phoneNumber,
+      updatedAt: Date.now()
+    },
+    { new: true, runValidators: true }
+  );
+
+  // update driver
   const driver = await Driver.findByIdAndUpdate(
     id,
-    { ...updateData, updatedAt: Date.now() },
+    { ...driverData, updatedAt: Date.now() },
     { new: true, runValidators: true }
-  ).populate(['user', 'assignedBus']); // thêm populate cho trả về đầy đủ
+  ).populate(['user', 'assignedBus']);
 
-
-  if (!driver) 
+  if (!driver)
     throw new ApiError(HttpStatus.NOT_FOUND, 'Driver not found!');
 
   return driver;
 };
 
+
 const deleteDriver = async (id) => {
+  const currentDriver = Driver.findById(id)
+  const userId = currentDriver.user
+
+  await User.findByIdAndDelete(userId)
   const driver = await Driver.findByIdAndDelete(id)
-  if (!driver) 
+  if (!driver)
     throw new ApiError(HttpStatus.NOT_FOUND, 'Driver not found!')
   return driver
 }

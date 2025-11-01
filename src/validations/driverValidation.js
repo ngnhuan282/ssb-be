@@ -14,7 +14,12 @@ const createDriverSchema = Joi.object({
 });
 
 const updateDriverSchema = Joi.object({
-  user: Joi.string().optional(),
+  user: Joi.alternatives().try(
+    Joi.string(), // Chấp nhận string đơn giản
+    Joi.string().regex(/^[0-9a-fA-F]{24}$/), // Chấp nhận ObjectId
+    Joi.object() // Chấp nhận object user
+  ).optional(),
+  // user: Joi.string().optional(),
   fullName: Joi.string().min(2).max(100),
   phoneNumber: Joi.string().pattern(/^[0-9]+$/),
   email: Joi.string().email(),
@@ -34,7 +39,7 @@ const validateCreateDriver = (req, res, next) => {
 
 
 const validateUpdateDriver = (req, res, next) => {
-  const { error } = updateDriverSchema.validate(req.body, { abortEarly: false});
+  const { error } = updateDriverSchema.validate(req.body, { abortEarly: false });
   if (error) throw new ApiError(HttpStatus.BAD_REQUEST, error.details[0].message);
   next();
 };

@@ -26,7 +26,7 @@ const createDriver = async (req, res, next) => {
     console.log('=== DEBUG === Form data sắp gửi:', req.body); // in ra console để debug
 
     const driver = await driverService.createDriver(req.body);
-    
+
     console.log('=== DEBUG === Driver created:', driver); // confirm tạo thành công
     res.status(HttpStatus.CREATED).json(new ApiResponse(HttpStatus.CREATED, driver, 'Create driver successfully!'));
   } catch (error) {
@@ -37,7 +37,8 @@ const createDriver = async (req, res, next) => {
 
 const updateDriver = async (req, res, next) => {
   try {
-    const driver = await driverService.updateDriver(req.params.id, req.body)
+    const { user, ...driverData } = req.body;
+    const driver = await driverService.updateDriver(req.params.id, driverData, user)
     res.status(HttpStatus.OK).json(new ApiResponse(HttpStatus.OK, driver, 'Driver updated successfully!'))
   } catch (error) {
     next(error)
