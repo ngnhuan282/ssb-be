@@ -7,7 +7,7 @@ const createDriverSchema = Joi.object({
   fullName: Joi.string().required(),
   phoneNumber: Joi.string().required(),
   email: Joi.string().email().required(),
-  password: Joi.string().min(6).required(),
+  //password: Joi.string().min(6).required(),
   licenseNumber: Joi.string().required(),
   assignedBus: Joi.string().required(),
   status: Joi.string().valid('active', 'inactive').default('active')
@@ -19,7 +19,7 @@ const updateDriverSchema = Joi.object({
     Joi.string().regex(/^[0-9a-fA-F]{24}$/), // Chấp nhận ObjectId
     Joi.object() // Chấp nhận object user
   ).optional(),
-  // user: Joi.string().optional(),
+  //user: Joi.string().optional(),
   fullName: Joi.string().min(2).max(100),
   phoneNumber: Joi.string().pattern(/^[0-9]+$/),
   email: Joi.string().email(),

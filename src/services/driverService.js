@@ -38,7 +38,7 @@ const createDriver = async (data) => {
     fullName: data.fullName,
     phone: data.phoneNumber,
     email: data.email,
-    password: data.password,
+    password: '123456', // Mặc định password, nên yêu cầu đổi sau lần đăng nhập đầu tiên
     role: 'driver'
   });
   const savedUser = await user.save();
