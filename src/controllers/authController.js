@@ -4,6 +4,32 @@ const JwtProvider = require("../providers/JwtProvider");
 const authService = require('../services/authService');
 const ApiResponse = require('../utils/apiResponse');
 const ApiError = require('../utils/apiError');
+const User = require('../models/UserModel');
+
+/**
+ * @route   POST /api/auth/register
+ * @desc    Đăng ký tài khoản mới
+ * @access  Public
+ */
+const register = async (req, res, next) => {
+  try {
+    const { username, email, password, role = 'parent' } = req.body;
+
+    const exists = await User.findOne({ $or: [{ username }, { email }] });
+    if (exists) {
+      throw new ApiError(StatusCodes.CONFLICT, 'Tên tài khoản hoặc email đã tồn tại');
+    }
+
+    const user = new User({ username, email, password, role });
+    await user.save();
+
+    res.status(StatusCodes.CREATED).json(
+      new ApiResponse(StatusCodes.CREATED, { user: { id: user._id, username, email, role } }, 'Đăng ký thành công')
+    );
+  } catch (error) {
+    next(error);
+  }
+};
 
 /**
  * @route   POST /api/auth/login
@@ -183,5 +209,6 @@ module.exports = {
     login,
     logout,
     refreshToken,
-    getCurrentUser
+    getCurrentUser,
+    register
 };
