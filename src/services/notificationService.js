@@ -14,6 +14,24 @@ const getNotificationById = async (id) => {
   return notification
 }
 
+const getEmergencyNotifications = async () => {
+  // Lấy cả emergency, no_emergency, resolved_emergency
+  const notifications = await Notification.find({ type: { $in: ['emergency', 'no_emergency', 'resolved_emergency'] } })
+    .populate('user busId scheduleId')
+    .sort({ createdAt: -1 });
+
+  // Gán status dựa vào type
+  return notifications.map(n => {
+    const obj = n.toObject();
+    if (obj.type === 'no_emergency') return { ...obj, status: 'pending' };
+    if (obj.type === 'resolved_emergency') return { ...obj, status: 'resolved' };
+    // Mặc định emergency là urgent
+    return { ...obj, status: 'urgent' };
+  });
+};
+
+
+
 const createNotification = async (data) => {
   const notification = new Notification(data)
   return await notification.save()
@@ -44,5 +62,6 @@ module.exports = {
   getNotificationById,
   createNotification,
   updateNotification,
-  deleteNotification
+  deleteNotification,
+  getEmergencyNotifications 
 }

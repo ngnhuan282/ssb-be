@@ -20,6 +20,19 @@ const getNotificationById = async (req, res, next) => {
   }
 }
 
+const getEmergencyNotifications = async (req, res, next) => {
+  try {
+    const notifications = await notificationService.getEmergencyNotifications();
+    res.status(HttpStatus.OK).json(
+      new ApiResponse(HttpStatus.OK, notifications, 'Get emergency incidents successfully!')
+    );
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+
 const createNotification = async (req, res, next) => {
   try {
     const notification = await notificationService.createNotification(req.body)
@@ -52,5 +65,6 @@ module.exports = {
   getNotificationById,
   createNotification,
   updateNotification,
-  deleteNotification
+  deleteNotification,
+  getEmergencyNotifications
 }
