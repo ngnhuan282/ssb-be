@@ -91,15 +91,23 @@ const updateDriver = async (id, driverData) => {
 
 
 const deleteDriver = async (id) => {
-  const currentDriver = Driver.findById(id)
-  const userId = currentDriver.user
+  // 1) Lấy driver và populate user
+  const currentDriver = await Driver.findById(id).populate("user");
 
-  await User.findByIdAndDelete(userId)
-  const driver = await Driver.findByIdAndDelete(id)
-  if (!driver)
-    throw new ApiError(HttpStatus.NOT_FOUND, 'Driver not found!')
-  return driver
-}
+  if (!currentDriver)
+    throw new ApiError(HttpStatus.NOT_FOUND, 'Driver not found!');
+
+  // 2) Xóa User trước
+  if (currentDriver.user && currentDriver.user._id) {
+    await User.findByIdAndDelete(currentDriver.user._id);
+  }
+
+  // 3) Xóa Driver
+  await Driver.findByIdAndDelete(id);
+
+  return currentDriver;
+};
+
 
 module.exports = {
   getAllDrivers,
