@@ -1,71 +1,89 @@
+// src/controllers/authController.js
 const { StatusCodes } = require('http-status-codes');
-const ms = require('ms');
-const JwtProvider = require("../providers/JwtProvider");
+const JwtProvider = require('../providers/JwtProvider');
 const authService = require('../services/authService');
 const ApiResponse = require('../utils/apiResponse');
 const ApiError = require('../utils/apiError');
 const User = require('../models/UserModel');
-const { auth } = require('express-oauth2-jwt-bearer');
 
-// Middleware Auth0
-const checkJwt = auth({
-  audience: process.env.AUTH0_AUDIENCE,
-  issuerBaseURL: process.env.AUTH0_ISSUER,
+// ---- AUTH0 ID TOKEN VERIFICATION ----
+const jwksClient = require('jwks-rsa');
+const jwt = require('jsonwebtoken');
+
+const client = jwksClient({
+  jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`,
 });
+
+const getKey = (header, callback) => {
+  client.getSigningKey(header.kid, (err, key) => {
+    if (err) return callback(err);
+    const signingKey = key.getPublicKey();
+    callback(null, signingKey);
+  });
+};
 
 /**
  * @route   POST /auth/social-callback
- * @desc    Xử lý callback từ Auth0 social login
- * @access  Protected by Auth0 JWT
+ * @desc    Xử lý callback từ Auth0 (ID Token) → tạo/đồng bộ user → trả JWT
  */
-const socialCallback = async (req, res) => {
+const socialCallback = async (req, res, next) => {
   try {
-    console.log('🔐 Social callback received');
-    
-    // Auth0 user info đã được verify bởi checkJwt middleware
-    const auth0User = req.auth;
-    
-    if (!auth0User || !auth0User.sub) {
-      throw new ApiError(StatusCodes.BAD_REQUEST, 'Invalid Auth0 token');
+    console.log('Social callback received');
+    const { idToken } = req.body;
+
+    if (!idToken) {
+      throw new ApiError(StatusCodes.BAD_REQUEST, 'ID token is required');
     }
 
-    // Lấy email từ Auth0 claims
-    const email = auth0User['https://your-api/email'] || auth0User.email;
-    const auth0Id = auth0User.sub;
-    const name = auth0User.name || auth0User.nickname;
+    // Verify ID Token với Auth0
+    const decoded = await new Promise((resolve, reject) => {
+      jwt.verify(
+        idToken,
+        getKey,
+        {
+          audience: process.env.AUTH0_CLIENT_ID,     // ID Token audience = FE Client ID
+          issuer: `https://${process.env.AUTH0_DOMAIN}/`,
+          algorithms: ['RS256'],
+        },
+        (err, decoded) => {
+          if (err) reject(err);
+          else resolve(decoded);
+        }
+      );
+    });
+
+    const email = decoded.email;
+    const auth0Id = decoded.sub;
+    const name = decoded.name || decoded.nickname || email.split('@')[0];
 
     if (!email) {
       throw new ApiError(StatusCodes.BAD_REQUEST, 'Email not found in Auth0 token');
     }
 
-    console.log('📧 Processing social login for:', email);
-
-    // Tìm hoặc tạo user trong database
+    // Tìm hoặc tạo user
     let user = await User.findOne({ $or: [{ email }, { auth0Id }] });
-    
+
     if (!user) {
-      console.log('👤 Creating new user from social login');
+      console.log('Creating new user from social login:', email);
       user = new User({
-        username: name?.replace(/\s+/g, '_').toLowerCase() || email.split('@')[0],
+        username: name.replace(/\s+/g, '_').toLowerCase(),
         email,
-        password: Math.random().toString(36).slice(-8), // Random password (không dùng)
-        role: 'parent', // Default role
+        password: Math.random().toString(36).slice(-12), // random password
+        role: 'parent',
         auth0Id,
-        isEmailVerified: true, // Social login đã verify email
+        isEmailVerified: true,
       });
       await user.save();
     } else if (!user.auth0Id) {
-      // Nếu user đã tồn tại nhưng chưa có auth0Id (đăng ký bằng email/password trước đó)
+      // Đồng bộ auth0Id nếu user đã tồn tại (email trùng)
       user.auth0Id = auth0Id;
       user.isEmailVerified = true;
       await user.save();
     }
 
-    console.log('✅ User found/created:', user._id);
-
-    // Tạo JWT tokens cho session
+    // Tạo JWT (giống login thường)
     const payload = {
-      id: user._id.toString(),
+      _id: user._id.toString(),
       email: user.email,
       role: user.role,
       username: user.username,
@@ -83,46 +101,21 @@ const socialCallback = async (req, res) => {
       '14d'
     );
 
-    // Set httpOnly cookies
-    res.cookie('accessToken', accessToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
-      maxAge: ms('15m'),
-      path: '/',
-    });
-
-    res.cookie('refreshToken', refreshToken, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
-      maxAge: ms('14d'),
-      path: '/',
-    });
-
-    console.log('🍪 Cookies set successfully');
-
-    // Response
-    res.status(StatusCodes.OK).json({
-      success: true,
-      user: payload,
-      message: 'Social login successful'
-    });
-
+    res.status(StatusCodes.OK).json(
+      new ApiResponse(StatusCodes.OK, {
+        user: payload,
+        accessToken,
+        refreshToken,
+      }, 'Social login successful')
+    );
   } catch (error) {
-    console.error('❌ Social callback error:', error);
-    res.status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR).json({
-      success: false,
-      message: error.message || 'Social login failed'
-    });
+    console.error('Social callback error:', error);
+    next(error);
   }
 };
 
-
 /**
- * @route   POST /api/auth/register
- * @desc    Đăng ký tài khoản mới
- * @access  Public
+ * @route   POST /auth/register
  */
 const register = async (req, res, next) => {
   try {
@@ -137,7 +130,9 @@ const register = async (req, res, next) => {
     await user.save();
 
     res.status(StatusCodes.CREATED).json(
-      new ApiResponse(StatusCodes.CREATED, { user: { id: user._id, username, email, role } }, 'Đăng ký thành công')
+      new ApiResponse(StatusCodes.CREATED, {
+        user: { _id: user._id, username, email, role }
+      }, 'Đăng ký thành công')
     );
   } catch (error) {
     next(error);
@@ -145,185 +140,119 @@ const register = async (req, res, next) => {
 };
 
 /**
- * @route   POST /api/auth/login
- * @desc    Đăng nhập
- * @access  Public
+ * @route   POST /auth/login
  */
 const login = async (req, res, next) => {
-    try {
-        const { email, password } = req.body;
+  try {
+    const { email, password } = req.body;
 
-        // Validation
-        if (!email || !password) {
-            throw new ApiError(StatusCodes.BAD_REQUEST, 'Email và password là bắt buộc!');
-        }
-
-        // Validate credentials
-        const user = await authService.validateCredentials(email, password);
-
-        // Tạo payload cho JWT
-        const tokenPayload = {
-            id: user._id.toString(),
-            email: user.email,
-            role: user.role,
-            username: user.username
-        };
-
-        // Generate tokens
-        const accessToken = await JwtProvider.generateToken(
-            tokenPayload,
-            process.env.ACCESS_TOKEN_SECRET_SIGNATURE,
-            '15m'
-        );
-
-        const refreshToken = await JwtProvider.generateToken(
-            tokenPayload,
-            process.env.REFRESH_TOKEN_SECRET_SIGNATURE,
-            '14 days'
-        );
-        
-        // Set httpOnly cookies
-        res.cookie('accessToken', accessToken, {
-            httpOnly: true,
-            secure: false,
-            sameSite: 'none',
-            path: '/',
-        });
-
-        res.cookie('refreshToken', refreshToken, {
-            httpOnly: true,
-            secure: false,
-            sameSite: 'none',
-            maxAge: ms('14 days'),
-            path: '/',
-        });
-
-        console.log('✅ Cookies set successfully');
-
-        // TRẢ VỀ THÔNG TIN CƠ BẢN NGAY TRONG LOGIN RESPONSE
-        const userResponse = {
-            id: user._id.toString(),
-            email: user.email,
-            role: user.role,
-            username: user.username
-        };
-
-        // Response
-        res
-            .status(StatusCodes.OK)
-            .json(new ApiResponse(
-                StatusCodes.OK, 
-                { user: userResponse }, // Chỉ trả thông tin cơ bản
-                'Đăng nhập thành công!'
-            ));
-
-    } catch (error) {
-        next(error);
+    if (!email || !password) {
+      throw new ApiError(StatusCodes.BAD_REQUEST, 'Email và password là bắt buộc!');
     }
+
+    const user = await authService.validateCredentials(email, password);
+
+    const tokenPayload = {
+      _id: user._id.toString(),
+      email: user.email,
+      role: user.role,
+      username: user.username,
+    };
+
+    const accessToken = await JwtProvider.generateToken(
+      tokenPayload,
+      process.env.ACCESS_TOKEN_SECRET_SIGNATURE,
+      '15m'
+    );
+
+    const refreshToken = await JwtProvider.generateToken(
+      tokenPayload,
+      process.env.REFRESH_TOKEN_SECRET_SIGNATURE,
+      '14d'
+    );
+
+    const userResponse = {
+      id: user._id.toString(),
+      email: user.email,
+      role: user.role,
+      username: user.username,
+    };
+
+    res.status(StatusCodes.OK).json(
+      new ApiResponse(StatusCodes.OK, {
+        user: userResponse,
+        accessToken,
+        refreshToken,
+      }, 'Đăng nhập thành công!')
+    );
+  } catch (error) {
+    next(error);
+  }
 };
 
 /**
- * @route   POST /api/auth/logout
- * @desc    Đăng xuất
- * @access  Public
+ * @route   POST /auth/logout
  */
 const logout = async (req, res, next) => {
-    try {
-        res.clearCookie('accessToken');
-        res.clearCookie('refreshToken');
-
-        res
-            .status(StatusCodes.OK)
-            .json(new ApiResponse(
-                StatusCodes.OK,
-                null,
-                'Đăng xuất thành công!'
-            ));
-    } catch (error) {
-        next(error);
-    }
+  try {
+    res.status(StatusCodes.OK).json(
+      new ApiResponse(StatusCodes.OK, null, 'Đăng xuất thành công!')
+    );
+  } catch (error) {
+    next(error);
+  }
 };
 
 /**
- * @route   POST /api/auth/refresh-token
- * @desc    Làm mới access token
- * @access  Public
+ * @route   POST /auth/refresh-token
  */
 const refreshToken = async (req, res, next) => {
-    try {
-        const refreshTokenFromCookie = req.cookies?.refreshToken;
+  try {
+    const { refreshToken: oldRefreshToken } = req.body;
 
-        if (!refreshTokenFromCookie) {
-            throw new ApiError(StatusCodes.UNAUTHORIZED, 'Refresh token not found');
-        }
-
-        // Verify refresh token
-        const decoded = await JwtProvider.verifyToken(
-            refreshTokenFromCookie,
-            process.env.REFRESH_TOKEN_SECRET_SIGNATURE
-        );
-
-        // Tạo payload mới
-        const tokenPayload = {
-            id: decoded.id,
-            email: decoded.email,
-            role: decoded.role,
-            username: decoded.username
-        };
-
-        // Generate access token mới
-        const newAccessToken = await JwtProvider.generateToken(
-            tokenPayload,
-            process.env.ACCESS_TOKEN_SECRET_SIGNATURE,
-            '15m'
-        );
-
-        // Set cookie mới
-        res.cookie('accessToken', newAccessToken, {
-            httpOnly: true,
-            secure: false,
-            sameSite: 'none',
-            maxAge: ms('15m'),
-            path: '/',
-        });
-
-        res
-            .status(StatusCodes.OK)
-            .json(new ApiResponse(
-                StatusCodes.OK,
-                null,
-                'Token refreshed successfully'
-            ));
-
-    } catch (error) {
-        next(error);
+    if (!oldRefreshToken) {
+      throw new ApiError(StatusCodes.UNAUTHORIZED, 'Refresh token required');
     }
-};
 
-// GIỮ LẠI /me ENDPOINT (optional - nếu sau này cần dùng)
-const getCurrentUser = async (req, res, next) => {
-    try {
-        const userId = req.jwtDecoded.id;
-        const fullUserInfo = await authService.getFullUserInfo(userId);
+    const decoded = await JwtProvider.verifyToken(
+      oldRefreshToken,
+      process.env.REFRESH_TOKEN_SECRET_SIGNATURE
+    );
 
-        res
-            .status(StatusCodes.OK)
-            .json(new ApiResponse(
-                StatusCodes.OK,
-                fullUserInfo,
-                'Get current user successfully'
-            ));
-    } catch (error) {
-        next(error);
-    }
+    const tokenPayload = {
+      _id: decoded._id,
+      email: decoded.email,
+      role: decoded.role,
+      username: decoded.username,
+    };
+
+    const newAccessToken = await JwtProvider.generateToken(
+      tokenPayload,
+      process.env.ACCESS_TOKEN_SECRET_SIGNATURE,
+      '15m'
+    );
+
+    const newRefreshToken = await JwtProvider.generateToken(
+      tokenPayload,
+      process.env.REFRESH_TOKEN_SECRET_SIGNATURE,
+      '14d'
+    );
+
+    res.status(StatusCodes.OK).json(
+      new ApiResponse(StatusCodes.OK, {
+        accessToken: newAccessToken,
+        refreshToken: newRefreshToken,
+      }, 'Token refreshed')
+    );
+  } catch (error) {
+    next(error);
+  }
 };
 
 module.exports = {
-    login,
-    logout,
-    refreshToken,
-    getCurrentUser,
-    register,
-    checkJwt,
-    socialCallback
+  login,
+  logout,
+  refreshToken,
+  register,
+  socialCallback,
 };
