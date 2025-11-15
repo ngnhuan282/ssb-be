@@ -22,9 +22,20 @@ const getKey = (header, callback) => {
   });
 };
 
+// === HÀM SINH USERNAME KHÔNG TRÙNG ===
+const generateUniqueUsername = async (base) => {
+  let username = base;
+  let counter = 1;
+  while (await User.findOne({ username })) {
+    username = `${base}_${counter}`;
+    counter++;
+  }
+  return username;
+};
+
 /**
  * @route   POST /auth/social-callback
- * @desc    Xử lý callback từ Auth0 (ID Token) → tạo/đồng bộ user → trả JWT
+ * @desc    Xử lý callback từ Auth0 → lưu user Google → trả JWT
  */
 const socialCallback = async (req, res, next) => {
   try {
@@ -35,13 +46,13 @@ const socialCallback = async (req, res, next) => {
       throw new ApiError(StatusCodes.BAD_REQUEST, 'ID token is required');
     }
 
-    // Verify ID Token với Auth0
+    // === XÁC THỰC ID TOKEN ===
     const decoded = await new Promise((resolve, reject) => {
       jwt.verify(
         idToken,
         getKey,
         {
-          audience: process.env.AUTH0_CLIENT_ID,     // ID Token audience = FE Client ID
+          audience: process.env.AUTH0_CLIENT_ID,
           issuer: `https://${process.env.AUTH0_DOMAIN}/`,
           algorithms: ['RS256'],
         },
@@ -52,36 +63,48 @@ const socialCallback = async (req, res, next) => {
       );
     });
 
-    const email = decoded.email;
-    const auth0Id = decoded.sub;
-    const name = decoded.name || decoded.nickname || email.split('@')[0];
-
+    const email = decoded.email?.toLowerCase();
     if (!email) {
       throw new ApiError(StatusCodes.BAD_REQUEST, 'Email not found in Auth0 token');
     }
 
-    // Tìm hoặc tạo user
-    let user = await User.findOne({ $or: [{ email }, { auth0Id }] });
+    // === ƯU TIÊN: nickname → name → email prefix ===
+    let preferredName = decoded.nickname?.trim() ||
+                        decoded.name?.trim() ||
+                        email.split('@')[0];
+
+    let baseUsername = preferredName
+      .replace(/[^a-zA-Z0-9]/g, '_')
+      .replace(/_+/g, '_')
+      .replace(/^_+|_+$/g, '')
+      .toLowerCase() || 'user';
+
+    // === TÌM USER THEO EMAIL ===
+    let user = await User.findOne({ email });
 
     if (!user) {
-      console.log('Creating new user from social login:', email);
+      // === TẠO USER MỚI ===
+      const finalUsername = await generateUniqueUsername(baseUsername);
+      console.log('Creating new Google user:', email, '→ username:', finalUsername);
+
       user = new User({
-        username: name.replace(/\s+/g, '_').toLowerCase(),
+        username: finalUsername,
         email,
-        password: Math.random().toString(36).slice(-12), // random password
+        password: Math.random().toString(36).slice(-12),
         role: 'parent',
-        auth0Id,
-        isEmailVerified: true,
       });
       await user.save();
-    } else if (!user.auth0Id) {
-      // Đồng bộ auth0Id nếu user đã tồn tại (email trùng)
-      user.auth0Id = auth0Id;
-      user.isEmailVerified = true;
-      await user.save();
+    } else {
+      // === USER ĐÃ TỒN TẠI: CẬP NHẬT USERNAME NẾU LÀ FALLBACK CŨ ===
+      const isFallback = user.username === email.split('@')[0];
+      if (isFallback) {
+        const finalUsername = await generateUniqueUsername(baseUsername);
+        user.username = finalUsername;
+        await user.save();
+      }
     }
 
-    // Tạo JWT (giống login thường)
+    // === TẠO JWT ===
     const payload = {
       _id: user._id.toString(),
       email: user.email,
