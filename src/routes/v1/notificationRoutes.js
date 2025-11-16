@@ -1,20 +1,59 @@
-const express = require('express')
-const router = express.Router()
-const notificationValidation = require('../../validations/notificationValidation')
-const notificationController = require('../../controllers/notificationController')
+const express = require('express');
+const router = express.Router();
 
-// [GET] /api/v1/notifications/incidents
+const notificationValidation = require('../../validations/notificationValidation');
+const notificationController = require('../../controllers/notificationController');
+
+const {
+  validateCreateIncident,
+  validateUpdateIncident
+} = require('../../validations/notificationValidation');
+
+const upload = require('../../middlewares/upload');
+
+
+// =========================
+// GET LIST INCIDENTS
+// =========================
 router.get('/incidents', notificationController.getEmergencyNotifications);
-//router.get('/incidents/:id', notificationController.getIncidentById);
 
-router.get('/', notificationController.getAllNotifications)
 
-router.get('/:id', notificationController.getNotificationById)
+// =========================
+// CREATE INCIDENT + UPLOAD IMAGES
+// =========================
+router.post(
+  '/incident',
+  upload.array('images', 5),  // <--- NHẬN TỐI ĐA 5 ẢNH
+  (req, res, next) => {
+    if (req.files) {
+      req.body.images = req.files.map(f => `/uploads/${f.filename}`);
+    }
+    next();
+  },
+  validateCreateIncident,
+  notificationController.createNotification
+);
 
-router.post('/', notificationValidation.validateCreateNotification, notificationController.createNotification)
 
-router.put('/:id', notificationValidation.validateUpdateNotification, notificationController.updateNotification)
+// =========================
+// CRUD NOTIFICATIONS
+// =========================
+router.get('/', notificationController.getAllNotifications);
 
-router.delete('/:id', notificationController.deleteNotification)
+router.get('/:id', notificationController.getNotificationById);
 
-module.exports = router
+router.post(
+  '/',
+  notificationValidation.validateCreateNotification,
+  notificationController.createNotification
+);
+
+router.put(
+  '/:id',
+  notificationValidation.validateUpdateNotification,
+  notificationController.updateNotification
+);
+
+router.delete('/:id', notificationController.deleteNotification);
+
+module.exports = router;
