@@ -22,17 +22,18 @@ router.get('/incidents', notificationController.getEmergencyNotifications);
 // CREATE INCIDENT + UPLOAD IMAGES
 // =========================
 router.post(
-  '/incident',
-  upload.array('images', 5),  // <--- NHẬN TỐI ĐA 5 ẢNH
+  "/incident",
+  upload.single("image"),   // NHẬN FIELD image
   (req, res, next) => {
-    if (req.files) {
-      req.body.images = req.files.map(f => `/uploads/${f.filename}`);
+    if (req.file) {
+      req.body.images = [`/uploads/${req.file.filename}`];
     }
     next();
   },
   validateCreateIncident,
   notificationController.createNotification
 );
+
 
 
 // =========================

@@ -13,18 +13,24 @@ const createNotificationSchema = Joi.object({
   dateTime: Joi.date().optional()
 })
 
+// src/validations/notificationValidation.js
 const updateNotificationSchema = Joi.object({
   user: Joi.string().optional(),
-  type: Joi.string().valid('arrival', 'delay', 'emergency', 'message').optional(),
+  type: Joi.string().valid(
+    'arrival', 'delay', 'emergency', 'message',
+    'no_emergency', 'resolved_emergency' // thêm vào
+  ).optional(),
   message: Joi.string().optional(),
   busId: Joi.string().optional(), 
   scheduleId: Joi.string().optional(),
-  read: Joi.boolean().optional()
-})
+  read: Joi.boolean().optional(),
+  status: Joi.string().valid('pending','urgent','resolved').optional(), // nếu cần cập nhật status
+});
+
 
 const createIncidentSchema = Joi.object({
   user: Joi.string().required(),
-  type: Joi.string().valid('emergency','no_emergency').required(),
+  type: Joi.string().valid('emergency','no_emergency','resolved_emergency').required(),
   emergency_type: Joi.string().valid('Tai nạn', 'Tắc đường', 'Hỏng xe', 'Sự cố học sinh', 'Khác').required(),
   message: Joi.string().required(),
   location: Joi.string().required(),
@@ -32,6 +38,7 @@ const createIncidentSchema = Joi.object({
   busId: Joi.string().optional(),
   scheduleId: Joi.string().optional(),
   status: Joi.string().valid('pending','urgent','resolved').optional(),
+  images: Joi.array().items(Joi.string()).optional(), 
   read: Joi.boolean().default(false)
 });
 
