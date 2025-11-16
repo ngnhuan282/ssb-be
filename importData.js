@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import pluralize from "pluralize";
 
-const MONGO_URI = "mongodb://admin:123456@127.0.0.1:27017/SSB?authSource=admin";
+const MONGO_URI = "mongodb://127.0.0.1:27017/SSB?authSource=admin";
 
 await mongoose.connect(MONGO_URI);
 console.log("✅ Connected to MongoDB");
@@ -32,7 +32,8 @@ for (const key of collectionNames) {
 // Hàm tìm ObjectId từ ref string
 const resolveRef = (ref, collectionGuess) => {
   if (!ref) return null;
-  if (mongoose.Types.ObjectId.isValid(ref)) return new mongoose.Types.ObjectId(ref);
+  if (mongoose.Types.ObjectId.isValid(ref))
+    return new mongoose.Types.ObjectId(ref);
   const keyVariants = [
     `${collectionGuess}.${ref}`,
     `${pluralize.singular(collectionGuess)}.${ref}`,
