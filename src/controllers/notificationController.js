@@ -1,7 +1,8 @@
-const HttpStatus = require('http-status-codes');
+const HttpStatus = require('http-status-codes')
 const ApiResponse = require('../utils/apiResponse')
 const notificationService = require('../services/notificationService')
 
+// ================= Notifications bình thường =================
 const getAllNotifications = async (req, res, next) => {
   try {
     const notifications = await notificationService.getAllNotifications()
@@ -15,6 +16,16 @@ const getNotificationById = async (req, res, next) => {
   try {
     const notification = await notificationService.getNotificationById(req.params.id)
     res.status(HttpStatus.OK).json(new ApiResponse(HttpStatus.OK, notification, 'Get notification by id successfully!'))
+  } catch (error) {
+    next(error)
+  }
+}
+
+// ================= Incident (Emergency) =================
+const getEmergencyNotifications = async (req, res, next) => {
+  try {
+    const notifications = await notificationService.getEmergencyNotifications()
+    res.status(HttpStatus.OK).json(new ApiResponse(HttpStatus.OK, notifications, 'Get emergency incidents successfully!'))
   } catch (error) {
     next(error)
   }
@@ -52,5 +63,6 @@ module.exports = {
   getNotificationById,
   createNotification,
   updateNotification,
-  deleteNotification
+  deleteNotification,
+  getEmergencyNotifications
 }

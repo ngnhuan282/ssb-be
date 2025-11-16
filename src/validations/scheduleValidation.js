@@ -40,7 +40,21 @@ const validateUpdateSchedule = (req, res, next) => {
     next();
 }
 
+const updateStudentStatusSchema = Joi.object({
+  status: Joi.string().valid('waiting', 'boarded', 'absent').required(),
+  boardedAt: Joi.date().optional()
+});
+
+const validateUpdateStudentStatus = (req, res, next) => {
+  const { error } = updateStudentStatusSchema.validate(req.body);
+  if (error) {
+    throw new ApiError(HttpStatus.BAD_REQUEST, error.details[0].message);
+  }
+  next();
+};
+
 module.exports = {
     validateCreateSchedule,
-    validateUpdateSchedule
+    validateUpdateSchedule,
+    validateUpdateStudentStatus,
 }

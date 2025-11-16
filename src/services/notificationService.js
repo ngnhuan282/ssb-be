@@ -2,19 +2,43 @@ const ApiError = require('../utils/apiError')
 const HttpStatus = require('http-status')
 const Notification = require('../models/NotificationModel')
 
+// ================= Notifications bình thường =================
 const getAllNotifications = async () => {
-  return await Notification.find().populate('user busId scheduleId')
+  return await Notification.find()
+    .populate('user busId scheduleId')
+    .sort({ createdAt: -1 });
 }
 
 const getNotificationById = async (id) => {
-  const notification = await Notification.findById(id).populate('user busId scheduleId')
+  const notification = await Notification.findById(id)
+    .populate('user busId scheduleId')
   if (!notification) {
     throw new ApiError(HttpStatus.NOT_FOUND, 'Notification not found!')
   }
   return notification
 }
 
+// ================= Incident (Emergency) =================
+const getEmergencyNotifications = async () => {
+  const notifications = await Notification.find({
+    type: { $in: ['emergency','no_emergency','resolved_emergency'] }
+  })
+  .populate('user busId scheduleId')
+  .sort({ createdAt: -1 });
+
+  return notifications.map(n => {
+    const obj = n.toObject();
+    if (obj.type === 'no_emergency') return { ...obj, status: 'pending' };
+    if (obj.type === 'resolved_emergency') return { ...obj, status: 'resolved' };
+    return { ...obj, status: 'urgent' }; // emergency
+  });
+}
+
 const createNotification = async (data) => {
+  // Nếu là incident mà chưa có status thì gán tự động
+  if (['emergency','no_emergency'].includes(data.type) && !data.status) {
+    data.status = data.type === 'emergency' ? 'urgent' : 'pending';
+  }
   const notification = new Notification(data)
   return await notification.save()
 }
@@ -44,5 +68,6 @@ module.exports = {
   getNotificationById,
   createNotification,
   updateNotification,
-  deleteNotification
+  deleteNotification,
+  getEmergencyNotifications
 }
