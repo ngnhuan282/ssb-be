@@ -7,9 +7,9 @@ const ApiResponse = require('../utils/apiResponse');
 const { StatusCodes } = require('http-status-codes');
 
 const findUserByEmail = async (email) => {
-  console.log('🔍 Finding user by email:', email);
+  // console.log('🔍 Finding user by email:', email);
   const user = await User.findOne({ email });
-  console.log('🔍 User found:', user ? `Yes (${user._id})` : 'No');
+  // console.log('🔍 User found:', user ? `Yes (${user._id})` : 'No');
   return user;
 };
 
@@ -44,8 +44,8 @@ const getFullUserInfo = async (userId) => {
 };
 
 const validateCredentials = async (email, password) => {
-  console.log('🔐 Validating credentials for email:', email);
-  console.log('🔐 Password received:', password ? `Yes (${password.length} chars)` : 'No');
+  // console.log('🔐 Validating credentials for email:', email);
+  // console.log('🔐 Password received:', password ? `Yes (${password.length} chars)` : 'No');
   
   const user = await findUserByEmail(email);
   
@@ -54,16 +54,16 @@ const validateCredentials = async (email, password) => {
     throw new ApiError(StatusCodes.UNAUTHORIZED, 'Email hoặc mật khẩu không chính xác!');
   }
 
-  console.log('🔐 User found, comparing password...');
+  // console.log('🔐 User found, comparing password...');
   const isPasswordValid = await user.comparePassword(password);
-  console.log('🔐 Password valid:', isPasswordValid ? 'Yes' : 'No');
+  // console.log('🔐 Password valid:', isPasswordValid ? 'Yes' : 'No');
   
   if (!isPasswordValid) {
     console.log('❌ Password mismatch');
     throw new ApiError(StatusCodes.UNAUTHORIZED, 'Email hoặc mật khẩu không chính xác!');
   }
   
-  console.log('✅ Credentials validated successfully');
+  // console.log('✅ Credentials validated successfully');
   return user;
 };
 
