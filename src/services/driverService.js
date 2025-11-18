@@ -13,8 +13,8 @@ const getAllDrivers = async () => {
     .populate('assignedBus')
 
 
-  console.log("Fetched drivers:", drivers);
-  console.log(drivers.map(d => ({ id: d._id, assignedBus: d.assignedBus })));
+  // console.log("Fetched drivers:", drivers);
+  // console.log(drivers.map(d => ({ id: d._id, assignedBus: d.assignedBus })));
   return drivers;
 }
 
