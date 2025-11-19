@@ -8,8 +8,9 @@ await mongoose.connect(MONGO_URI);
 console.log("✅ Connected to MongoDB");
 
 const rawData = JSON.parse(fs.readFileSync("./ssbData.json", "utf8"));
+
 const idMap = {};
-const userIdToDriverId = {}; // ánh xạ user._id -> driver._id
+const userIdToDriverId = {};
 
 // ============================================
 // B1: Gán ObjectId cho tất cả documents
@@ -40,9 +41,9 @@ if (Array.isArray(rawData.drivers)) {
 // ============================================
 const resolveRef = (ref, collectionHint) => {
   if (!ref) return null;
+  ;
   if (mongoose.Types.ObjectId.isValid(ref)) return new mongoose.Types.ObjectId(ref);
 
-  // Nếu là ref tới driver nhưng chứa userId
   if (collectionHint === "drivers" && userIdToDriverId[ref]) {
     return userIdToDriverId[ref];
   }
@@ -55,7 +56,7 @@ const resolveRef = (ref, collectionHint) => {
 };
 
 // ============================================
-// B3: Import tuần tự với resolve refs chính xác
+// B3: Import tuần tự
 // ============================================
 const importOrder = [
   "users",
@@ -73,7 +74,7 @@ for (const name of importOrder) {
   const docs = rawData[name];
   if (!Array.isArray(docs)) continue;
 
-  // Hash password cho users
+  // Hash password
   if (name === "users") {
     for (const u of docs) {
       if (u.password && !u.password.startsWith("$2b$")) {
@@ -84,8 +85,28 @@ for (const name of importOrder) {
 
   const fixedDocs = docs.map((doc) => {
     const newDoc = { ...doc };
+
     for (const key in newDoc) {
       const val = newDoc[key];
+
+      // CHỈ resolve reference với các key thực sự là reference
+      const REF_KEYS = new Set([
+        "bus",
+        "busId",
+        "assignedBus",
+        "route",
+        "parent",
+        "user",
+        "driver",
+        "scheduleId",
+        "children",
+        "students",
+        "pickupPoint",
+        "dropoffPoint",
+        "locationId",
+      ]);
+
+      if (!REF_KEYS.has(key)) continue;  // ← FIX CHÍNH Ở ĐÂY
 
       // === Nếu là string ===
       if (typeof val === "string" && /^[a-zA-Z0-9]+$/.test(val)) {
@@ -109,6 +130,7 @@ for (const name of importOrder) {
         });
       }
     }
+
     return newDoc;
   });
 
@@ -118,5 +140,5 @@ for (const name of importOrder) {
   console.log(`✅ Imported ${docs.length} → ${name}`);
 }
 
-console.log("🎉 All refs resolved (driver in schedules now ObjectId)!");
+console.log("🎉 Import hoàn tất – username không còn bị ghi đè thành ObjectId nữa!");
 await mongoose.disconnect();
