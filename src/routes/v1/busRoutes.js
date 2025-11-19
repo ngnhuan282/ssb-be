@@ -7,7 +7,7 @@ router.get('/', busController.getAllBus)
 
 router.get('/:id', busController.getBusById)
 
-router.post('/',busValidation.validateCreateBus, busController.createBus)
+router.post('/', busValidation.validateCreateBus, busController.createBus)
 
 router.put('/:id', busValidation.validateUpdateBus, busController.updateBus)
 
