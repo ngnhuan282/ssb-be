@@ -20,23 +20,23 @@ const updateBusSchema = Joi.object({
 })
 
 const validateCreateBus = (req, res, next) => {
-  const { error } = createBusSchema.validate(req.body, { abortEarly: false})
-  if(error){
+  const { error } = createBusSchema.validate(req.body, { abortEarly: false })
+  if (error) {
     throw new ApiError(HttpStatus.BAD_REQUEST, error.details[0].message)
   }
   next()
 }
 
 const validateUpdateBus = (req, res, next) => {
-    const {error} = updateBusSchema.validate(req.body, { abortEarly: false})
-    if(error) {
-        throw new ApiError(HttpStatus.BAD_REQUEST, error.details[0].message)
-    }
-    next();
+  const { error } = updateBusSchema.validate(req.body, { abortEarly: false })
+  if (error) {
+    throw new ApiError(HttpStatus.BAD_REQUEST, error.details[0].message)
+  }
+  next();
 };
 
 
 module.exports = {
-    validateCreateBus,
-    validateUpdateBus
+  validateCreateBus,
+  validateUpdateBus
 };
