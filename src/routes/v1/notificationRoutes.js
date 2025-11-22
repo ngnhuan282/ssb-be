@@ -1,29 +1,17 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-
-const notificationValidation = require('../../validations/notificationValidation');
-const notificationController = require('../../controllers/notificationController');
-
+const notificationValidation = require("../../validations/notificationValidation");
+const notificationController = require("../../controllers/notificationController");
 const {
   validateCreateIncident,
-  validateUpdateIncident
-} = require('../../validations/notificationValidation');
+} = require("../../validations/notificationValidation");
+const upload = require("../../middlewares/upload");
 
-const upload = require('../../middlewares/upload');
+router.get("/incidents", notificationController.getEmergencyNotifications);
 
-
-// =========================
-// GET LIST INCIDENTS
-// =========================
-router.get('/incidents', notificationController.getEmergencyNotifications);
-
-
-// =========================
-// CREATE INCIDENT + UPLOAD IMAGES
-// =========================
 router.post(
   "/incident",
-  upload.single("image"),   // NHẬN FIELD image
+  upload.single("image"),
   (req, res, next) => {
     if (req.file) {
       req.body.images = [`/uploads/${req.file.filename}`];
@@ -34,27 +22,20 @@ router.post(
   notificationController.createNotification
 );
 
+router.get("/my-notifications", notificationController.getMyNotifications);
 
-
-// =========================
-// CRUD NOTIFICATIONS
-// =========================
-router.get('/', notificationController.getAllNotifications);
-
-router.get('/:id', notificationController.getNotificationById);
-
+router.get("/", notificationController.getAllNotifications);
+router.get("/:id", notificationController.getNotificationById);
 router.post(
-  '/',
+  "/",
   notificationValidation.validateCreateNotification,
   notificationController.createNotification
 );
-
 router.put(
-  '/:id',
+  "/:id",
   notificationValidation.validateUpdateNotification,
   notificationController.updateNotification
 );
-
-router.delete('/:id', notificationController.deleteNotification);
+router.delete("/:id", notificationController.deleteNotification);
 
 module.exports = router;

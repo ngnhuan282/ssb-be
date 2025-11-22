@@ -3,8 +3,7 @@ import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import pluralize from "pluralize";
 
-const MONGO_URI = "mongodb://admin:123456@127.0.0.1:27017/SSB?authSource=admin";
-
+const MONGO_URI = "mongodb://127.0.0.1:27017/SSB?authSource=admin";
 await mongoose.connect(MONGO_URI);
 console.log("✅ Connected to MongoDB");
 
