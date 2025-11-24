@@ -7,6 +7,8 @@ const createRouteSchema = Joi.object({
     stops: Joi.array().items(
         Joi.object({
             location: Joi.string().required().trim(),
+            latitude: Joi.number().required(),
+            longitude: Joi.number().required(),
             time: Joi.date().default(Date.now)
         })
     ).min(1).required(),
@@ -20,6 +22,8 @@ const updateRouteSchema = Joi.object({
     stops: Joi.array().items(
         Joi.object({
             location: Joi.string().required().trim(),
+            latitude: Joi.number().required(),
+            longitude: Joi.number().required(),
             time: Joi.date().default(Date.now)
         })
     ).min(1).required(),

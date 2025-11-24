@@ -9,7 +9,7 @@ const errorHandlingMiddleware = require('./src/middlewares/errorHandlingMiddlewa
 const connectDB = require('./src/config/db');
 const http = require('http');
 const { Server } = require('socket.io');
-const { randomBusLocation } = require('./src/socket/randomBusLocation');
+const { initializeSocket } = require('./src/socket/socketHandler');
 
 const app = express();
 const server = http.createServer(app); // Tạo server HTTP
@@ -25,7 +25,6 @@ app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/uploads', express.static('uploads'));
 
 connectDB();
 
@@ -40,25 +39,8 @@ app.get('/', (req, res) => {
 app.use('/api/v1', v1Routes);
 app.use(errorHandlingMiddleware);
 
-// Socket.io handlers
-io.on('connection', (socket) => {
-  console.log('User connected:', socket.id);
-
-  socket.on('joinBusRoom', (busId) => {
-    socket.join(busId);
-    console.log(`User ${socket.id} joined bus room ${busId}`);
-  });
-
-  socket.on('updateLocation', (data) => {
-    io.to(data.busId).emit('locationUpdated', data);
-  });
-
-  socket.on('disconnect', () => {
-    console.log('User disconnected:', socket.id);
-  });
-});
-
-randomBusLocation(io);
+//goi sockethandler (SOCKET)
+initializeSocket(io);
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => { // Sử dụng server.listen thay vì app.listen

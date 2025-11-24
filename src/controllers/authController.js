@@ -70,8 +70,8 @@ const socialCallback = async (req, res, next) => {
 
     // === ƯU TIÊN: nickname → name → email prefix ===
     let preferredName = decoded.nickname?.trim() ||
-                        decoded.name?.trim() ||
-                        email.split('@')[0];
+      decoded.name?.trim() ||
+      email.split('@')[0];
 
     let baseUsername = preferredName
       .replace(/[^a-zA-Z0-9]/g, '_')
@@ -82,27 +82,19 @@ const socialCallback = async (req, res, next) => {
     // === TÌM USER THEO EMAIL ===
     let user = await User.findOne({ email });
 
-    if (!user) {
-      // === TẠO USER MỚI ===
-      const finalUsername = await generateUniqueUsername(baseUsername);
-      console.log('Creating new Google user:', email, '→ username:', finalUsername);
+  if (!user) {
+  // === TẠO USER MỚI ===
+  const finalUsername = await generateUniqueUsername(baseUsername);
+  console.log('Creating new Google user:', email, '→ username:', finalUsername);
 
-      user = new User({
-        username: finalUsername,
-        email,
-        password: Math.random().toString(36).slice(-12),
-        role: 'parent',
-      });
-      await user.save();
-    } else {
-      // === USER ĐÃ TỒN TẠI: CẬP NHẬT USERNAME NẾU LÀ FALLBACK CŨ ===
-      const isFallback = user.username === email.split('@')[0];
-      if (isFallback) {
-        const finalUsername = await generateUniqueUsername(baseUsername);
-        user.username = finalUsername;
-        await user.save();
-      }
-    }
+  user = new User({
+    username: finalUsername,
+    email,
+    password: Math.random().toString(36).slice(-12),
+    role: 'parent',
+  });
+  await user.save();
+  }
 
     // === TẠO JWT ===
     const payload = {
@@ -201,13 +193,24 @@ const login = async (req, res, next) => {
       username: user.username,
     };
 
-    res.status(StatusCodes.OK).json(
-      new ApiResponse(StatusCodes.OK, {
-        user: userResponse,
-        accessToken,
-        refreshToken,
-      }, 'Đăng nhập thành công!')
-    );
+    //driver id 
+    let driverId = null;
+    if (user.role === 'driver') {
+      const driverProfile = await authService.getDriverProfileByUserId(user._id);
+
+      if (!driverProfile) {
+        // Lỗi nghiêm trọng: User có role 'driver' nhưng không có hồ sơ Driver
+        throw new ApiError(StatusCodes.INTERNAL_SERVER_ERROR, 'Tài khoản tài xế bị lỗi, không tìm thấy hồ sơ.');
+      }
+      driverId = driverProfile._id.toString();
+      console.log('✅ Driver login, found driverId:', driverId);
+    }
+
+    res.status(StatusCodes.OK).json(new ApiResponse(
+      StatusCodes.OK,
+      { user: userResponse, driverId }, // Chỉ trả thông tin cơ bản
+      'Đăng nhập thành công!'
+    ));
   } catch (error) {
     next(error);
   }

@@ -4,7 +4,7 @@ const busService = require('../services/busService')
 
 const getAllBus = async (req, res, next) => {
   try {
-    const bus =  await busService.getAllBus()
+    const bus = await busService.getAllBus()
     res.status(HttpStatus.OK).json(new ApiResponse(HttpStatus.OK, bus, 'Get all buses successfully!'))
   } catch (error) {
     next(error)
