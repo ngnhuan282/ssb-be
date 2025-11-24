@@ -7,7 +7,6 @@ const getMyNotifications = async (req, res, next) => {
     const userId = req.user?.id || req.query.userId;
 
     if (!userId) {
-      // Nếu không tìm thấy ID, trả về lỗi
       return res
         .status(HttpStatus.UNAUTHORIZED)
         .json(
@@ -32,6 +31,7 @@ const getMyNotifications = async (req, res, next) => {
   }
 };
 
+// ... Các hàm cũ giữ nguyên ...
 const getAllNotifications = async (req, res, next) => {
   try {
     const notifications = await notificationService.getAllNotifications();
@@ -141,7 +141,7 @@ const deleteNotification = async (req, res, next) => {
 
 module.exports = {
   getAllNotifications,
-  getMyNotifications, // Đừng quên export hàm này
+  getMyNotifications,
   getNotificationById,
   createNotification,
   updateNotification,

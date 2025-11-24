@@ -1,16 +1,14 @@
 const ApiError = require("../utils/apiError");
 const HttpStatus = require("http-status");
 const Notification = require("../models/NotificationModel");
-const Parent = require("../models/ParentModel"); // Import Parent để lấy danh sách
+const Parent = require("../models/ParentModel");
 
-// ================= Notifications bình thường =================
 const getAllNotifications = async () => {
   return await Notification.find()
     .populate("user busId scheduleId")
     .sort({ createdAt: -1 });
 };
 
-// [MỚI] Hàm giúp Phụ huynh lấy thông báo của chính mình
 const getNotificationsByUserId = async (userId) => {
   return await Notification.find({ user: userId })
     .populate("busId scheduleId")
@@ -27,11 +25,7 @@ const getNotificationById = async (id) => {
   return notification;
 };
 
-// ================= Incident (Emergency) =================
 const getEmergencyNotifications = async () => {
-  // Lấy các thông báo gốc (của tài xế gửi lên hoặc admin)
-  // Thường thông báo gốc sẽ không gắn user là phụ huynh, hoặc logic tuỳ bạn
-  // Ở đây ta lấy tất cả type emergency
   const notifications = await Notification.find({
     type: { $in: ["emergency", "no_emergency", "resolved_emergency"] },
   })
@@ -73,7 +67,6 @@ const createNotification = async (data) => {
           images: data.images || [],
         }));
 
-        // Lưu một loạt vào DB
         await Notification.insertMany(notificationsForEveryone);
         console.log(
           `Đã gửi thông báo sự cố cho ${allParents.length} phụ huynh.`
@@ -81,7 +74,6 @@ const createNotification = async (data) => {
       }
     } catch (error) {
       console.error("Lỗi khi gửi thông báo hàng loạt:", error);
-      // Không throw lỗi để tránh chặn luồng báo cáo của tài xế
     }
   }
 
@@ -110,7 +102,7 @@ const deleteNotification = async (id) => {
 
 module.exports = {
   getAllNotifications,
-  getNotificationsByUserId, // Export hàm mới
+  getNotificationsByUserId,
   getNotificationById,
   createNotification,
   updateNotification,
