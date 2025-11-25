@@ -49,11 +49,28 @@ const getLatestLocationByBus = async (busId) => {
     return location;
 };
 
+const updateLocationByBusId = async (busId, locationData) => {
+    const location = await Location.findOneAndUpdate(
+        { busId: busId },
+        {
+            ...locationData,
+            timestamp: Date.now()
+        },
+        {
+            new: true,
+            upsert: true,
+            runValidators: true
+        }
+    );
+    return location;
+};
+
 module.exports = {
     getAllLocations,
     getLocationById,
     createLocation,
     updateLocation,
     deleteLocation,
-    getLatestLocationByBus
+    getLatestLocationByBus,
+    updateLocationByBusId
 }

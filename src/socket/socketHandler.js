@@ -31,8 +31,7 @@ const initializeSocket = (io) => {
             longitude: data.location.lng,
             timestamp: new Date(now)
           };
-          await locationService.createLocation(locationData);
-
+          await locationService.updateLocationByBusId(data.busId, locationData);
           lastSaveTimes.set(data.scheduleId, now);
 
         } catch (err) {
