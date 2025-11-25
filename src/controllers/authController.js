@@ -203,7 +203,7 @@ const login = async (req, res, next) => {
         throw new ApiError(StatusCodes.INTERNAL_SERVER_ERROR, 'Tài khoản tài xế bị lỗi, không tìm thấy hồ sơ.');
       }
       driverId = driverProfile._id.toString();
-      console.log('✅ Driver login, found driverId:', driverId);
+      // console.log('✅ Driver login, found driverId:', driverId);
     }
 
     res.status(StatusCodes.OK).json(new ApiResponse(
