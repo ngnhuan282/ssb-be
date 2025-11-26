@@ -69,7 +69,7 @@ const validateCredentials = async (email, password) => {
 
 //driver id 
 const getDriverProfileByUserId = async (userId) => {
-  console.log('🔍 Finding driver profile for user ID:', userId);
+  // console.log('🔍 Finding driver profile for user ID:', userId);
 
   // Chỉ lấy trường _id cho hiệu suất
   const driver = await Driver.findOne({ user: userId }).select('_id').lean();
@@ -79,7 +79,7 @@ const getDriverProfileByUserId = async (userId) => {
     return null;
   }
 
-  console.log('🔍 Driver profile found:', driver._id);
+  // console.log('🔍 Driver profile found:', driver._id);
   return driver;
 };
 
