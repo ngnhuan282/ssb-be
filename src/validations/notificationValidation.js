@@ -13,6 +13,22 @@ const createNotificationSchema = Joi.object({
   dateTime: Joi.date().optional()
 })
 
+const createNotificationsForUsersSchema = Joi.object({
+  userIds: Joi.array().items(Joi.string().required()).min(1).required(),
+  type: Joi.string().valid(
+    'arrival', 'delay', 'emergency', 'message',
+    'no_emergency', 'resolved_emergency'
+  ).required(),
+  message: Joi.string().required(),
+
+  busId: Joi.string().optional(),
+  scheduleId: Joi.string().optional(),
+  read: Joi.boolean().default(false),
+  location: Joi.string().optional(),
+  dateTime: Joi.date().optional()
+});
+
+
 // src/validations/notificationValidation.js
 const updateNotificationSchema = Joi.object({
   user: Joi.string().optional(),
@@ -26,6 +42,12 @@ const updateNotificationSchema = Joi.object({
   read: Joi.boolean().optional(),
   status: Joi.string().valid('pending','urgent','resolved').optional(), // nếu cần cập nhật status
 });
+
+const validateCreateForUsers = (req, res, next) => {
+  const { error } = createNotificationsForUsersSchema.validate(req.body, { abortEarly: false });
+  if (error) throw new ApiError(HttpStatus.BAD_REQUEST, error.details[0].message);
+  next();
+};
 
 
 const createIncidentSchema = Joi.object({
@@ -83,5 +105,6 @@ module.exports = {
   validateCreateNotification,
   validateUpdateNotification,
   validateCreateIncident,
-  validateUpdateIncident
+  validateUpdateIncident,
+  validateCreateForUsers
 }

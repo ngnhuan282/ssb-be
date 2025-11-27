@@ -102,6 +102,40 @@ const createNotification = async (req, res, next) => {
   }
 };
 
+const createNotificationForOneUser = async (req, res, next) => {
+  try {
+    const notification = await notificationService.createNotificationForOneUser(req.body);
+    res
+      .status(HttpStatus.CREATED)
+      .json(
+        new ApiResponse(
+          HttpStatus.CREATED,
+          notification,
+          "Tạo tin nhắn cho một người dùng thành công!"
+        )
+      );
+  } catch (error) {
+    next(error);
+  }
+};
+const createNotificationsForUsers = async (req, res, next) => {
+  try {
+    const notifications = await notificationService.createNotificationsForUsers(req.body);
+    res
+      .status(HttpStatus.CREATED)
+      .json(
+        new ApiResponse(
+          HttpStatus.CREATED,
+          notifications,
+          "Tạo tin nhắn cho nhiều người dùng thành công!"
+        )
+      );
+  } catch (error) {
+    next(error);
+  }
+};
+
+
 const updateNotification = async (req, res, next) => {
   try {
     const notification = await notificationService.updateNotification(
@@ -147,4 +181,6 @@ module.exports = {
   updateNotification,
   deleteNotification,
   getEmergencyNotifications,
+  createNotificationForOneUser,
+  createNotificationsForUsers,
 };

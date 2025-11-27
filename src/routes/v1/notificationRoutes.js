@@ -31,6 +31,16 @@ router.post(
   notificationValidation.validateCreateNotification,
   notificationController.createNotification
 );
+router.post(
+  "/one-user",
+  notificationValidation.validateCreateNotification,
+  notificationController.createNotificationForOneUser
+);
+router.post(
+  "/users",
+  notificationValidation.validateCreateForUsers,
+  notificationController.createNotificationsForUsers
+);
 router.put(
   "/:id",
   notificationValidation.validateUpdateNotification,

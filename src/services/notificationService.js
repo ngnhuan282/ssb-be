@@ -80,6 +80,24 @@ const createNotification = async (data) => {
   return mainNotification;
 };
 
+const createNotificationForOneUser = async ({ user, type, message }) => {
+  const notification = new Notification({
+    user,
+    type,
+    message, 
+  });
+  return await notification.save();
+};
+
+const createNotificationsForUsers = async ({ userIds, type, message }) => {
+  const notiList = userIds.map((id) => ({
+    user: id,
+    type,
+    message,
+  }));
+  return await Notification.insertMany(notiList);
+};
+
 const updateNotification = async (id, updateData) => {
   const notification = await Notification.findByIdAndUpdate(
     id,
@@ -105,6 +123,8 @@ module.exports = {
   getNotificationsByUserId,
   getNotificationById,
   createNotification,
+  createNotificationForOneUser,
+  createNotificationsForUsers,
   updateNotification,
   deleteNotification,
   getEmergencyNotifications,
