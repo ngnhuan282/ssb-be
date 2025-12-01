@@ -1,26 +1,15 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const routeController = require("../../controllers/routeController");
-const routeValidation = require("../../validations/routeValidation");
+const routeController = require('../../controllers/routeController');
+const routeValidation = require('../../validations/routeValidation');
+router.get('/', routeController.getAllRoutes);
 
-router.get("/", routeController.getAllRoutes);
+router.get('/:id', routeController.getRouteById);
 
-router.get("/:id/stops", routeController.getRouteStops);
+router.post('/', routeValidation.validateCreateRoute, routeController.createRoute);
 
-router.get("/:id", routeController.getRouteById);
+router.put('/:id', routeValidation.validateUpdateRoute, routeController.updateRoute);
 
-router.post(
-  "/",
-  routeValidation.validateCreateRoute,
-  routeController.createRoute
-);
-
-router.put(
-  "/:id",
-  routeValidation.validateUpdateRoute,
-  routeController.updateRoute
-);
-
-router.delete("/:id", routeController.deleteRoute);
+router.delete('/:id', routeController.deleteRoute);
 
 module.exports = router;
