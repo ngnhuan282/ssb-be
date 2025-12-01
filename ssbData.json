@@ -20,6 +20,8 @@
     { "_id": "driver16", "username": "driver16", "email": "driver16@school.com", "password": "123", "role": "driver", "phone": "0902000016" },
     { "_id": "driver17", "username": "driver17", "email": "driver17@school.com", "password": "123", "role": "driver", "phone": "0902000017" },
     { "_id": "driver18", "username": "driver18", "email": "driver18@school.com", "password": "123", "role": "driver", "phone": "0902000018" },
+    { "_id": "driver19", "username": "driver19", "email": "driver19@school.com", "password": "123", "role": "driver", "phone": "0902000019" },
+    { "_id": "driver20", "username": "driver20", "email": "driver20@school.com", "password": "123", "role": "driver", "phone": "0902000020" },
     { "_id": "parent01", "username": "parent01", "email": "parent01@school.com", "password": "123", "role": "parent", "phone": "0903000001" },
     { "_id": "parent02", "username": "parent02", "email": "parent02@school.com", "password": "123", "role": "parent", "phone": "0903000002" },
     { "_id": "parent03", "username": "parent03", "email": "parent03@school.com", "password": "123", "role": "parent", "phone": "0903000003" },
@@ -42,27 +44,27 @@
     { "_id": "parent20", "username": "parent20", "email": "parent20@school.com", "password": "123", "role": "parent", "phone": "0903000020" }
   ],
 
-  "buses": [
-    { "_id": "bus1", "licensePlate": "51B-10001", "capacity": 50, "currentStatus": "active" },
-    { "_id": "bus2", "licensePlate": "51B-10002", "capacity": 45, "currentStatus": "active" },
-    { "_id": "bus3", "licensePlate": "51B-10003", "capacity": 50, "currentStatus": "active" },
-    { "_id": "bus4", "licensePlate": "51B-10004", "capacity": 45, "currentStatus": "active" },
-    { "_id": "bus5", "licensePlate": "51B-10005", "capacity": 50, "currentStatus": "active" },
-    { "_id": "bus6", "licensePlate": "51B-10006", "capacity": 45, "currentStatus": "active" },
-    { "_id": "bus7", "licensePlate": "51B-10007", "capacity": 50, "currentStatus": "active" },
-    { "_id": "bus8", "licensePlate": "51B-10008", "capacity": 45, "currentStatus": "active" },
-    { "_id": "bus9", "licensePlate": "51B-10009", "capacity": 50, "currentStatus": "active" },
-    { "_id": "bus10", "licensePlate": "51B-10010", "capacity": 45, "currentStatus": "active" },
-    { "_id": "bus11", "licensePlate": "51B-10011", "capacity": 50, "currentStatus": "active" },
-    { "_id": "bus12", "licensePlate": "51B-10012", "capacity": 45, "currentStatus": "active" },
-    { "_id": "bus13", "licensePlate": "51B-10013", "capacity": 50, "currentStatus": "active" },
-    { "_id": "bus14", "licensePlate": "51B-10014", "capacity": 45, "currentStatus": "active" },
-    { "_id": "bus15", "licensePlate": "51B-10015", "capacity": 50, "currentStatus": "active" },
-    { "_id": "bus16", "licensePlate": "51B-10016", "capacity": 45, "currentStatus": "active" },
-    { "_id": "bus17", "licensePlate": "51B-10017", "capacity": 50, "currentStatus": "active" },
-    { "_id": "bus18", "licensePlate": "51B-10018", "capacity": 45, "currentStatus": "active" },
-    { "_id": "bus19", "licensePlate": "51B-10019", "capacity": 50, "currentStatus": "active" },
-    { "_id": "bus20", "licensePlate": "51B-10020", "capacity": 45, "currentStatus": "active" }
+ "buses": [
+    { "_id": "bus1", "licensePlate": "51B-10001", "capacity": 50, "currentStatus": "active", "driver": "driver1", "route": "route1" },
+    { "_id": "bus2", "licensePlate": "51B-10002", "capacity": 45, "currentStatus": "active", "driver": "driver2", "route": "route2" },
+    { "_id": "bus3", "licensePlate": "51B-10003", "capacity": 50, "currentStatus": "active", "driver": "driver3", "route": "route3" },
+    { "_id": "bus4", "licensePlate": "51B-10004", "capacity": 45, "currentStatus": "active", "driver": "driver4", "route": "route4" },
+    { "_id": "bus5", "licensePlate": "51B-10005", "capacity": 50, "currentStatus": "active", "driver": "driver5", "route": "route1" },
+    { "_id": "bus6", "licensePlate": "51B-10006", "capacity": 45, "currentStatus": "active", "driver": "driver6", "route": "route2" },
+    { "_id": "bus7", "licensePlate": "51B-10007", "capacity": 50, "currentStatus": "active", "driver": "driver7", "route": "route3" },
+    { "_id": "bus8", "licensePlate": "51B-10008", "capacity": 45, "currentStatus": "active", "driver": "driver8", "route": "route4" },
+    { "_id": "bus9", "licensePlate": "51B-10009", "capacity": 50, "currentStatus": "active", "driver": "driver9", "route": "route1" },
+    { "_id": "bus10", "licensePlate": "51B-10010", "capacity": 45, "currentStatus": "active", "driver": "driver10", "route": "route2" },
+    { "_id": "bus11", "licensePlate": "51B-10011", "capacity": 50, "currentStatus": "active", "driver": "driver11", "route": "route3" },
+    { "_id": "bus12", "licensePlate": "51B-10012", "capacity": 45, "currentStatus": "active", "driver": "driver12", "route": "route4" },
+    { "_id": "bus13", "licensePlate": "51B-10013", "capacity": 50, "currentStatus": "active", "driver": "driver13", "route": "route1" },
+    { "_id": "bus14", "licensePlate": "51B-10014", "capacity": 45, "currentStatus": "active", "driver": "driver14", "route": "route2" },
+    { "_id": "bus15", "licensePlate": "51B-10015", "capacity": 50, "currentStatus": "active", "driver": "driver15", "route": "route3" },
+    { "_id": "bus16", "licensePlate": "51B-10016", "capacity": 45, "currentStatus": "active", "driver": "driver16", "route": "route4" },
+    { "_id": "bus17", "licensePlate": "51B-10017", "capacity": 50, "currentStatus": "active", "driver": "driver17", "route": "route1" },
+    { "_id": "bus18", "licensePlate": "51B-10018", "capacity": 45, "currentStatus": "active", "driver": "driver18", "route": "route2" },
+    { "_id": "bus19", "licensePlate": "51B-10019", "capacity": 50, "currentStatus": "active", "driver": "driver19", "route": "route3" },
+    { "_id": "bus20", "licensePlate": "51B-10020", "capacity": 45, "currentStatus": "active", "driver": "driver20", "route": "route4" }
   ],
 
   "drivers": [
@@ -84,264 +86,274 @@
     { "user": "driver16", "licenseNumber": "B2-10016", "assignedBus": "bus16" },
     { "user": "driver17", "licenseNumber": "B2-10017", "assignedBus": "bus17" },
     { "user": "driver18", "licenseNumber": "B2-10018", "assignedBus": "bus18" },
-    { "user": "driver1", "licenseNumber": "B2-10019", "assignedBus": "bus19" },
-    { "user": "driver2", "licenseNumber": "B2-10020", "assignedBus": "bus20" }
+    { "user": "driver19", "licenseNumber": "B2-10019", "assignedBus": "bus19" },
+    { "user": "driver20", "licenseNumber": "B2-10020", "assignedBus": "bus20" }
   ],
 
-  "routes": [
-  {
-    "_id": "route1",
-    "name": "Tuyến 1 - Quận 1",
-    "stops": [
-      { 
-        "name": "Nguyen Du", 
-        "type": "pickup", 
-        "lat": 10.7769, 
-        "lng": 106.7009,
-        "time": "2025-10-30T06:30:00Z"
-      },
-      { 
-        "name": "Pasteur", 
-        "type": "pickup", 
-        "lat": 10.7790, 
-        "lng": 106.6980,
-        "time": "2025-10-30T06:40:00Z"
-      },
-      { 
-        "name": "Minh Khai", 
-        "type": "dropoff", 
-        "lat": 10.7850, 
-        "lng": 106.7100,
-        "time": "2025-10-30T07:00:00Z"
-      },
-      { 
-        "name": "Vo Thi Sau", 
-        "type": "dropoff", 
-        "lat": 10.7820, 
-        "lng": 106.7050,
-        "time": "2025-10-30T07:15:00Z"
-      }
-    ],
-    "distance": 15,
-    "estimatedTime": 45
-  },
-  {
-    "_id": "route2",
-    "name": "Tuyến 2 - Quận 3",
-    "stops": [
-      { 
-        "name": "Le Loi", 
-        "type": "pickup", 
-        "lat": 10.7700, 
-        "lng": 106.6900,
-        "time": "2025-10-30T06:35:00Z"
-      },
-      { 
-        "name": "Hai Ba Trung", 
-        "type": "pickup", 
-        "lat": 10.7750, 
-        "lng": 106.6950,
-        "time": "2025-10-30T06:45:00Z"
-      },
-      { 
-        "name": "Tran Phu", 
-        "type": "dropoff", 
-        "lat": 10.7800, 
-        "lng": 106.7100,
-        "time": "2025-10-30T07:05:00Z"
-      },
-      { 
-        "name": "Pham Ngoc Thach", 
-        "type": "dropoff", 
-        "lat": 10.7770, 
-        "lng": 106.7010,
-        "time": "2025-10-30T07:15:00Z"
-      }
-    ],
-    "distance": 12,
-    "estimatedTime": 40
-  },
-  {
-    "_id": "route3",
-    "name": "Tuyến 3 - Quận 5",
-    "stops": [
-      { 
-        "name": "Hai Ba Trung", 
-        "type": "pickup", 
-        "lat": 10.7750, 
-        "lng": 106.6950,
-        "time": "2025-10-30T06:32:00Z"
-      },
-      { 
-        "name": "Ly Thuong Kiet", 
-        "type": "pickup", 
-        "lat": 10.7710, 
-        "lng": 106.6910,
-        "time": "2025-10-30T06:50:00Z"
-      },
-      { 
-        "name": "Pham Ngoc Thach", 
-        "type": "dropoff", 
-        "lat": 10.7770, 
-        "lng": 106.7010,
-        "time": "2025-10-30T07:10:00Z"
-      },
-      { 
-        "name": "Nguyen Thi Minh Khai", 
-        "type": "dropoff", 
-        "lat": 10.7810, 
-        "lng": 106.7110,
-        "time": "2025-10-30T07:22:00Z"
-      }
-    ],
-    "distance": 18,
-    "estimatedTime": 50
-  },
-  {
-    "_id": "route4",
-    "name": "Tuyến 4 - Quận 10",
-    "stops": [
-      { 
-        "name": "Ly Thuong Kiet", 
-        "type": "pickup", 
-        "lat": 10.7710, 
-        "lng": 106.6910,
-        "time": "2025-10-30T06:47:00Z"
-      },
-      { 
-        "name": "Pasteur", 
-        "type": "pickup", 
-        "lat": 10.7790, 
-        "lng": 106.6980,
-        "time": "2025-10-30T07:00:00Z"
-      },
-      { 
-        "name": "Nguyen Thi Minh Khai", 
-        "type": "dropoff", 
-        "lat": 10.7810, 
-        "lng": 106.7110,
-        "time": "2025-10-30T07:20:00Z"
-      },
-      { 
-        "name": "Vo Thi Sau", 
-        "type": "dropoff", 
-        "lat": 10.7820, 
-        "lng": 106.7050,
-        "time": "2025-10-30T07:42:00Z"
-      }
-    ],
-    "distance": 20,
-    "estimatedTime": 55
-  }
-],
+ "routes": [
+    {
+      "_id": "route1",
+      "name": "Tuyến 1 - Quận 1",
+      "assignedBus": "bus1",
+      "stops": [
+        { "location": "Đường Nguyễn Du, Hồ Chí Minh", "type": "pickup", "latitude": 10.7769, "longitude": 106.7009, "time": "2025-10-30T06:30:00Z" },
+        { "location": "Đường Pasteur, Hồ Chí Minh", "type": "pickup", "latitude": 10.7790, "longitude": 106.6980, "time": "2025-10-30T06:40:00Z" },
+        { "location": "Đường Nguyễn Thị Minh Khai, Hồ Chí Minh", "type": "dropoff", "latitude": 10.7850, "longitude": 106.7100, "time": "2025-10-30T07:00:00Z" },
+        { "location": "Đường Võ Thị Sáu, Hồ Chí Minh", "type": "dropoff", "latitude": 10.7820, "longitude": 106.7050, "time": "2025-10-30T07:15:00Z" }
+      ],
+      "distance": 15,
+      "estimatedTime": 45
+    },
+    {
+      "_id": "route2",
+      "name": "Tuyến 2 - Quận 3",
+      "assignedBus": "bus2",
+      "stops": [
+        { "location": "Đường Lê Lợi, Hồ Chí Minh", "type": "pickup", "latitude": 10.7700, "longitude": 106.6900, "time": "2025-10-30T06:35:00Z" },
+        { "location": "Đường Hai Bà Trưng, Hồ Chí Minh", "type": "pickup", "latitude": 10.7750, "longitude": 106.6950, "time": "2025-10-30T06:45:00Z" },
+        { "location": "Đường Trần Phú, Hồ Chí Minh", "type": "dropoff", "latitude": 10.7800, "longitude": 106.7100, "time": "2025-10-30T07:05:00Z" },
+        { "location": "Đường Phạm Ngọc Thạch, Hồ Chí Minh", "type": "dropoff", "latitude": 10.7770, "longitude": 106.7010, "time": "2025-10-30T07:15:00Z" }
+      ],
+      "distance": 12,
+      "estimatedTime": 40
+    },
+    {
+      "_id": "route3",
+      "name": "Tuyến 3 - Quận 5",
+      "assignedBus": "bus3",
+      "stops": [
+        { "location": "Đường Hai Bà Trưng, Hồ Chí Minh", "type": "pickup", "latitude": 10.7750, "longitude": 106.6950, "time": "2025-10-30T06:30:00Z" },
+        { "location": "Đường Lý Thường Kiệt, Hồ Chí Minh", "type": "pickup", "latitude": 10.7710, "longitude": 106.6910, "time": "2025-10-30T06:40:00Z" },
+        { "location": "Đường Phạm Ngọc Thạch, Hồ Chí Minh", "type": "dropoff", "latitude": 10.7770, "longitude": 106.7010, "time": "2025-10-30T06:50:00Z" },
+        { "location": "Đường Nguyễn Thị Minh Khai, Hồ Chí Minh", "type": "dropoff", "latitude": 10.7810, "longitude": 106.7110, "time": "2025-10-30T07:00:00Z" }
+      ],
+      "distance": 18,
+      "estimatedTime": 50
+    },
+    {
+      "_id": "route4",
+      "name": "Tuyến 4 - Quận 10",
+      "assignedBus": "bus4",
+      "stops": [
+        { "location": "Đường Lý Thường Kiệt, Hồ Chí Minh", "type": "pickup", "latitude": 10.7710, "longitude": 106.6910, "time": "2025-10-30T06:30:00Z" },
+        { "location": "Đường Pasteur, Hồ Chí Minh", "type": "pickup", "latitude": 10.7790, "longitude": 106.6980, "time": "2025-10-30T06:40:00Z" },
+        { "location": "Đường Nguyễn Thị Minh Khai, Hồ Chí Minh", "type": "dropoff", "latitude": 10.7810, "longitude": 106.7110, "time": "2025-10-30T06:50:00Z" },
+        { "location": "Đường Võ Thị Sáu, Hồ Chí Minh", "type": "dropoff", "latitude": 10.7820, "longitude": 106.7050, "time": "2025-10-30T07:00:00Z" }
+      ],
+      "distance": 20,
+      "estimatedTime": 55
+    }
+  ],
 
   "parents": [
-    { "_id": "parent1", "user": "parent01", "children": ["stu1", "stu2"], "pickupPoint": "Nguyen Du", "dropoffPoint": "Minh Khai", "boardStatus": "offboard" },
-    { "_id": "parent2", "user": "parent02", "children": ["stu3", "stu4"], "pickupPoint": "Le Loi", "dropoffPoint": "Tran Phu", "boardStatus": "offboard" },
-    { "_id": "parent3", "user": "parent03", "children": ["stu5"], "pickupPoint": "Nguyen Du", "dropoffPoint": "Minh Khai", "boardStatus": "offboard" },
-    { "_id": "parent4", "user": "parent04", "children": ["stu6", "stu7", "stu8"], "pickupPoint": "Le Loi", "dropoffPoint": "Tran Phu", "boardStatus": "offboard" },
-    { "_id": "parent5", "user": "parent05", "children": ["stu9"], "pickupPoint": "Nguyen Du", "dropoffPoint": "Minh Khai", "boardStatus": "offboard" },
-    { "_id": "parent6", "user": "parent06", "children": ["stu10"], "pickupPoint": "Nguyen Du", "dropoffPoint": "Minh Khai", "boardStatus": "offboard" },
-    { "_id": "parent7", "user": "parent07", "children": ["stu11", "stu12"], "pickupPoint": "Le Loi", "dropoffPoint": "Tran Phu", "boardStatus": "offboard" },
-    { "_id": "parent8", "user": "parent08", "children": ["stu13", "stu14", "stu15"], "pickupPoint": "Hai Ba Trung", "dropoffPoint": "Pham Ngoc Thach", "boardStatus": "offboard" },
-    { "_id": "parent9", "user": "parent09", "children": ["stu16"], "pickupPoint": "Ly Thuong Kiet", "dropoffPoint": "Nguyen Thi Minh Khai", "boardStatus": "offboard" },
-    { "_id": "parent10", "user": "parent10", "children": ["stu17", "stu18"], "pickupPoint": "Pasteur", "dropoffPoint": "Vo Thi Sau", "boardStatus": "offboard" },
-    { "_id": "parent11", "user": "parent11", "children": ["stu19", "stu20", "stu21"], "pickupPoint": "Nguyen Du", "dropoffPoint": "Minh Khai", "boardStatus": "offboard" },
-    { "_id": "parent12", "user": "parent12", "children": ["stu22"], "pickupPoint": "Le Loi", "dropoffPoint": "Tran Phu", "boardStatus": "offboard" },
-    { "_id": "parent13", "user": "parent13", "children": ["stu23", "stu24"], "pickupPoint": "Hai Ba Trung", "dropoffPoint": "Pham Ngoc Thach", "boardStatus": "offboard" },
-    { "_id": "parent14", "user": "parent14", "children": ["stu25", "stu26", "stu27"], "pickupPoint": "Ly Thuong Kiet", "dropoffPoint": "Nguyen Thi Minh Khai", "boardStatus": "offboard" },
-    { "_id": "parent15", "user": "parent15", "children": ["stu28"], "pickupPoint": "Pasteur", "dropoffPoint": "Vo Thi Sau", "boardStatus": "offboard" },
-    { "_id": "parent16", "user": "parent16", "children": ["stu29", "stu30"], "pickupPoint": "Nguyen Du", "dropoffPoint": "Minh Khai", "boardStatus": "offboard" },
-    { "_id": "parent17", "user": "parent17", "children": ["stu31", "stu32", "stu33"], "pickupPoint": "Le Loi", "dropoffPoint": "Tran Phu", "boardStatus": "offboard" },
-    { "_id": "parent18", "user": "parent18", "children": ["stu34"], "pickupPoint": "Hai Ba Trung", "dropoffPoint": "Pham Ngoc Thach", "boardStatus": "offboard" },
-    { "_id": "parent19", "user": "parent19", "children": ["stu35", "stu36"], "pickupPoint": "Ly Thuong Kiet", "dropoffPoint": "Nguyen Thi Minh Khai", "boardStatus": "offboard" },
-    { "_id": "parent20", "user": "parent20", "children": ["stu37", "stu38", "stu39"], "pickupPoint": "Pasteur", "dropoffPoint": "Vo Thi Sau", "boardStatus": "offboard" }
+    { "_id": "parent1", "user": "parent01", "children": ["stu1", "stu2"], "pickupPoint": "Đường Nguyễn Du, Hồ Chí Minh", "dropoffPoint": "Đường Nguyễn Thị Minh Khai, Hồ Chí Minh", "boardStatus": "offboard" },
+    { "_id": "parent2", "user": "parent02", "children": ["stu3", "stu4"], "pickupPoint": "Đường Lê Lợi, Hồ Chí Minh", "dropoffPoint": "Đường Trần Phú, Hồ Chí Minh", "boardStatus": "offboard" },
+    { "_id": "parent3", "user": "parent03", "children": ["stu5"], "pickupPoint": "Đường Nguyễn Du, Hồ Chí Minh", "dropoffPoint": "Đường Nguyễn Thị Minh Khai, Hồ Chí Minh", "boardStatus": "offboard" },
+    { "_id": "parent4", "user": "parent04", "children": ["stu6", "stu7", "stu8"], "pickupPoint": "Đường Lê Lợi, Hồ Chí Minh", "dropoffPoint": "Đường Trần Phú, Hồ Chí Minh", "boardStatus": "offboard" },
+    { "_id": "parent5", "user": "parent05", "children": ["stu9"], "pickupPoint": "Đường Nguyễn Du, Hồ Chí Minh", "dropoffPoint": "Đường Nguyễn Thị Minh Khai, Hồ Chí Minh", "boardStatus": "offboard" },
+    { "_id": "parent6", "user": "parent06", "children": ["stu10"], "pickupPoint": "Đường Nguyễn Du, Hồ Chí Minh", "dropoffPoint": "Đường Nguyễn Thị Minh Khai, Hồ Chí Minh", "boardStatus": "offboard" },
+    { "_id": "parent7", "user": "parent07", "children": ["stu11", "stu12"], "pickupPoint": "Đường Lê Lợi, Hồ Chí Minh", "dropoffPoint": "Đường Trần Phú, Hồ Chí Minh", "boardStatus": "offboard" },
+    { "_id": "parent8", "user": "parent08", "children": ["stu13", "stu14", "stu15"], "pickupPoint": "Đường Hai Bà Trưng, Hồ Chí Minh", "dropoffPoint": "Đường Phạm Ngọc Thạch, Hồ Chí Minh", "boardStatus": "offboard" },
+    { "_id": "parent9", "user": "parent09", "children": ["stu16"], "pickupPoint": "Đường Lý Thường Kiệt, Hồ Chí Minh", "dropoffPoint": "Đường Nguyễn Thị Minh Khai, Hồ Chí Minh", "boardStatus": "offboard" },
+    { "_id": "parent10", "user": "parent10", "children": ["stu17", "stu18"], "pickupPoint": "Đường Pasteur, Hồ Chí Minh", "dropoffPoint": "Đường Võ Thị Sáu, Hồ Chí Minh", "boardStatus": "offboard" },
+    { "_id": "parent11", "user": "parent11", "children": ["stu19", "stu20", "stu21"], "pickupPoint": "Đường Nguyễn Du, Hồ Chí Minh", "dropoffPoint": "Đường Nguyễn Thị Minh Khai, Hồ Chí Minh", "boardStatus": "offboard" },
+    { "_id": "parent12", "user": "parent12", "children": ["stu22"], "pickupPoint": "Đường Lê Lợi, Hồ Chí Minh", "dropoffPoint": "Đường Trần Phú, Hồ Chí Minh", "boardStatus": "offboard" },
+    { "_id": "parent13", "user": "parent13", "children": ["stu23", "stu24"], "pickupPoint": "Đường Hai Bà Trưng, Hồ Chí Minh", "dropoffPoint": "Đường Phạm Ngọc Thạch, Hồ Chí Minh", "boardStatus": "offboard" },
+    { "_id": "parent14", "user": "parent14", "children": ["stu25", "stu26", "stu27"], "pickupPoint": "Đường Lý Thường Kiệt, Hồ Chí Minh", "dropoffPoint": "Đường Nguyễn Thị Minh Khai, Hồ Chí Minh", "boardStatus": "offboard" },
+    { "_id": "parent15", "user": "parent15", "children": ["stu28"], "pickupPoint": "Đường Pasteur, Hồ Chí Minh", "dropoffPoint": "Đường Võ Thị Sáu, Hồ Chí Minh", "boardStatus": "offboard" },
+    { "_id": "parent16", "user": "parent16", "children": ["stu29", "stu30"], "pickupPoint": "Đường Nguyễn Du, Hồ Chí Minh", "dropoffPoint": "Đường Nguyễn Thị Minh Khai, Hồ Chí Minh", "boardStatus": "offboard" },
+    { "_id": "parent17", "user": "parent17", "children": ["stu31", "stu32", "stu33"], "pickupPoint": "Đường Lê Lợi, Hồ Chí Minh", "dropoffPoint": "Đường Trần Phú, Hồ Chí Minh", "boardStatus": "offboard" },
+    { "_id": "parent18", "user": "parent18", "children": ["stu34"], "pickupPoint": "Đường Hai Bà Trưng, Hồ Chí Minh", "dropoffPoint": "Đường Phạm Ngọc Thạch, Hồ Chí Minh", "boardStatus": "offboard" },
+    { "_id": "parent19", "user": "parent19", "children": ["stu35", "stu36"], "pickupPoint": "Đường Lý Thường Kiệt, Hồ Chí Minh", "dropoffPoint": "Đường Nguyễn Thị Minh Khai, Hồ Chí Minh", "boardStatus": "offboard" },
+    { "_id": "parent20", "user": "parent20", "children": ["stu37", "stu38", "stu39"], "pickupPoint": "Đường Pasteur, Hồ Chí Minh", "dropoffPoint": "Đường Võ Thị Sáu, Hồ Chí Minh", "boardStatus": "offboard" }
   ],
 
-  "students": [
-    { "_id": "stu1", "fullName": "Nguyen Van A", "age": 12, "class": "6A", "parent": "parent1", "route": "route1", "pickupPoint": "Nguyen Du", "dropoffPoint": "Minh Khai", "status": "pending" },
-    { "_id": "stu2", "fullName": "Tran Thi B", "age": 12, "class": "6B", "parent": "parent1", "route": "route1", "pickupPoint": "Nguyen Du", "dropoffPoint": "Minh Khai", "status": "pending" },
-    { "_id": "stu3", "fullName": "Le Van C", "age": 13, "class": "7A", "parent": "parent2", "route": "route2", "pickupPoint": "Le Loi", "dropoffPoint": "Tran Phu", "status": "pending" },
-    { "_id": "stu4", "fullName": "Pham Thi D", "age": 13, "class": "7B", "parent": "parent2", "route": "route2", "pickupPoint": "Le Loi", "dropoffPoint": "Tran Phu", "status": "pending" },
-    { "_id": "stu5", "fullName": "Hoang Van E", "age": 14, "class": "8A", "parent": "parent3", "route": "route1", "pickupPoint": "Nguyen Du", "dropoffPoint": "Minh Khai", "status": "pending" },
-    { "_id": "stu6", "fullName": "Vu Thi F", "age": 14, "class": "8B", "parent": "parent4", "route": "route2", "pickupPoint": "Le Loi", "dropoffPoint": "Tran Phu", "status": "pending" },
-    { "_id": "stu7", "fullName": "Do Van G", "age": 15, "class": "9A", "parent": "parent4", "route": "route2", "pickupPoint": "Le Loi", "dropoffPoint": "Tran Phu", "status": "pending" },
-    { "_id": "stu8", "fullName": "Bui Thi H", "age": 15, "class": "9B", "parent": "parent4", "route": "route2", "pickupPoint": "Le Loi", "dropoffPoint": "Tran Phu", "status": "pending" },
-    { "_id": "stu9", "fullName": "Dang Van I", "age": 16, "class": "10A", "parent": "parent5", "route": "route1", "pickupPoint": "Nguyen Du", "dropoffPoint": "Minh Khai", "status": "pending" },
-    { "_id": "stu10", "fullName": "Ly Thi K", "age": 16, "class": "10B", "parent": "parent6", "route": "route1", "pickupPoint": "Nguyen Du", "dropoffPoint": "Minh Khai", "status": "pending" },
-    { "_id": "stu11", "fullName": "Ngo Van L", "age": 17, "class": "11A", "parent": "parent7", "route": "route2", "pickupPoint": "Le Loi", "dropoffPoint": "Tran Phu", "status": "pending" },
-    { "_id": "stu12", "fullName": "Trinh Thi M", "age": 17, "class": "11B", "parent": "parent7", "route": "route2", "pickupPoint": "Le Loi", "dropoffPoint": "Tran Phu", "status": "pending" },
-    { "_id": "stu13", "fullName": "Mai Van N", "age": 18, "class": "12A", "parent": "parent8", "route": "route3", "pickupPoint": "Hai Ba Trung", "dropoffPoint": "Pham Ngoc Thach", "status": "pending" },
-    { "_id": "stu14", "fullName": "Cao Thi O", "age": 18, "class": "12B", "parent": "parent8", "route": "route3", "pickupPoint": "Hai Ba Trung", "dropoffPoint": "Pham Ngoc Thach", "status": "pending" },
-    { "_id": "stu15", "fullName": "Kieu Van P", "age": 12, "class": "6C", "parent": "parent8", "route": "route3", "pickupPoint": "Hai Ba Trung", "dropoffPoint": "Pham Ngoc Thach", "status": "pending" },
-    { "_id": "stu16", "fullName": "Lam Thi Q", "age": 13, "class": "7C", "parent": "parent9", "route": "route4", "pickupPoint": "Ly Thuong Kiet", "dropoffPoint": "Nguyen Thi Minh Khai", "status": "pending" },
-    { "_id": "stu17", "fullName": "Ha Van R", "age": 14, "class": "8C", "parent": "parent10", "route": "route1", "pickupPoint": "Pasteur", "dropoffPoint": "Vo Thi Sau", "status": "pending" },
-    { "_id": "stu18", "fullName": "Duong Thi S", "age": 15, "class": "9C", "parent": "parent10", "route": "route1", "pickupPoint": "Pasteur", "dropoffPoint": "Vo Thi Sau", "status": "pending" },
-    { "_id": "stu19", "fullName": "Nong Van T", "age": 16, "class": "10C", "parent": "parent11", "route": "route2", "pickupPoint": "Nguyen Du", "dropoffPoint": "Minh Khai", "status": "pending" },
-    { "_id": "stu20", "fullName": "Phan Thi U", "age": 17, "class": "11C", "parent": "parent11", "route": "route2", "pickupPoint": "Nguyen Du", "dropoffPoint": "Minh Khai", "status": "pending" },
-    { "_id": "stu21", "fullName": "Quach Van V", "age": 18, "class": "12C", "parent": "parent11", "route": "route2", "pickupPoint": "Nguyen Du", "dropoffPoint": "Minh Khai", "status": "pending" },
-    { "_id": "stu22", "fullName": "Rau Thi W", "age": 12, "class": "6D", "parent": "parent12", "route": "route3", "pickupPoint": "Le Loi", "dropoffPoint": "Tran Phu", "status": "pending" },
-    { "_id": "stu23", "fullName": "Son Van X", "age": 13, "class": "7D", "parent": "parent13", "route": "route4", "pickupPoint": "Hai Ba Trung", "dropoffPoint": "Pham Ngoc Thach", "status": "pending" },
-    { "_id": "stu24", "fullName": "Tang Thi Y", "age": 14, "class": "8D", "parent": "parent13", "route": "route4", "pickupPoint": "Hai Ba Trung", "dropoffPoint": "Pham Ngoc Thach", "status": "pending" },
-    { "_id": "stu25", "fullName": "Uong Van Z", "age": 15, "class": "9D", "parent": "parent14", "route": "route1", "pickupPoint": "Ly Thuong Kiet", "dropoffPoint": "Nguyen Thi Minh Khai", "status": "pending" },
-    { "_id": "stu26", "fullName": "Vang Thi AA", "age": 16, "class": "10D", "parent": "parent14", "route": "route1", "pickupPoint": "Ly Thuong Kiet", "dropoffPoint": "Nguyen Thi Minh Khai", "status": "pending" },
-    { "_id": "stu27", "fullName": "Xuan Van BB", "age": 17, "class": "11D", "parent": "parent14", "route": "route1", "pickupPoint": "Ly Thuong Kiet", "dropoffPoint": "Nguyen Thi Minh Khai", "status": "pending" },
-    { "_id": "stu28", "fullName": "Yen Thi CC", "age": 18, "class": "12D", "parent": "parent15", "route": "route2", "pickupPoint": "Pasteur", "dropoffPoint": "Vo Thi Sau", "status": "pending" },
-    { "_id": "stu29", "fullName": "Zang Van DD", "age": 12, "class": "6E", "parent": "parent16", "route": "route3", "pickupPoint": "Nguyen Du", "dropoffPoint": "Minh Khai", "status": "pending" },
-    { "_id": "stu30", "fullName": "An Thi EE", "age": 13, "class": "7E", "parent": "parent16", "route": "route3", "pickupPoint": "Nguyen Du", "dropoffPoint": "Minh Khai", "status": "pending" },
-    { "_id": "stu31", "fullName": "Bao Van FF", "age": 14, "class": "8E", "parent": "parent17", "route": "route4", "pickupPoint": "Le Loi", "dropoffPoint": "Tran Phu", "status": "pending" },
-    { "_id": "stu32", "fullName": "Cam Thi GG", "age": 15, "class": "9E", "parent": "parent17", "route": "route4", "pickupPoint": "Le Loi", "dropoffPoint": "Tran Phu", "status": "pending" },
-    { "_id": "stu33", "fullName": "Dao Van HH", "age": 16, "class": "10E", "parent": "parent17", "route": "route4", "pickupPoint": "Le Loi", "dropoffPoint": "Tran Phu", "status": "pending" },
-    { "_id": "stu34", "fullName": "Em Thi II", "age": 17, "class": "11E", "parent": "parent18", "route": "route1", "pickupPoint": "Hai Ba Trung", "dropoffPoint": "Pham Ngoc Thach", "status": "pending" },
-    { "_id": "stu35", "fullName": "Giang Van KK", "age": 18, "class": "12E", "parent": "parent19", "route": "route2", "pickupPoint": "Ly Thuong Kiet", "dropoffPoint": "Nguyen Thi Minh Khai", "status": "pending" },
-    { "_id": "stu36", "fullName": "Hanh Thi LL", "age": 12, "class": "6F", "parent": "parent19", "route": "route2", "pickupPoint": "Ly Thuong Kiet", "dropoffPoint": "Nguyen Thi Minh Khai", "status": "pending" },
-    { "_id": "stu37", "fullName": "Ich Van MM", "age": 13, "class": "7F", "parent": "parent20", "route": "route3", "pickupPoint": "Pasteur", "dropoffPoint": "Vo Thi Sau", "status": "pending" },
-    { "_id": "stu38", "fullName": "Kha Thi NN", "age": 14, "class": "8F", "parent": "parent20", "route": "route3", "pickupPoint": "Pasteur", "dropoffPoint": "Vo Thi Sau", "status": "pending" },
-    { "_id": "stu39", "fullName": "Luu Van OO", "age": 15, "class": "9F", "parent": "parent20", "route": "route3", "pickupPoint": "Pasteur", "dropoffPoint": "Vo Thi Sau", "status": "pending" }
+"students": [
+    { "_id": "stu1", "fullName": "Nguyen Van A", "age": 12, "class": "6A", "parent": "parent1", "route": "route1", "pickupPoint": "Đường Nguyễn Du, Hồ Chí Minh", "dropoffPoint": "Đường Nguyễn Thị Minh Khai, Hồ Chí Minh", "status": "pending" },
+    { "_id": "stu2", "fullName": "Tran Thi B", "age": 12, "class": "6B", "parent": "parent1", "route": "route1", "pickupPoint": "Đường Nguyễn Du, Hồ Chí Minh", "dropoffPoint": "Đường Nguyễn Thị Minh Khai, Hồ Chí Minh", "status": "pending" },
+    { "_id": "stu3", "fullName": "Le Van C", "age": 13, "class": "7A", "parent": "parent2", "route": "route2", "pickupPoint": "Đường Lê Lợi, Hồ Chí Minh", "dropoffPoint": "Đường Trần Phú, Hồ Chí Minh", "status": "pending" },
+    { "_id": "stu4", "fullName": "Pham Thi D", "age": 13, "class": "7B", "parent": "parent2", "route": "route2", "pickupPoint": "Đường Lê Lợi, Hồ Chí Minh", "dropoffPoint": "Đường Trần Phú, Hồ Chí Minh", "status": "pending" },
+    { "_id": "stu5", "fullName": "Hoang Van E", "age": 14, "class": "8A", "parent": "parent3", "route": "route1", "pickupPoint": "Đường Nguyễn Du, Hồ Chí Minh", "dropoffPoint": "Đường Nguyễn Thị Minh Khai, Hồ Chí Minh", "status": "pending" },
+    { "_id": "stu6", "fullName": "Vu Thi F", "age": 14, "class": "8B", "parent": "parent4", "route": "route2", "pickupPoint": "Đường Lê Lợi, Hồ Chí Minh", "dropoffPoint": "Đường Trần Phú, Hồ Chí Minh", "status": "pending" },
+    { "_id": "stu7", "fullName": "Do Van G", "age": 15, "class": "9A", "parent": "parent4", "route": "route2", "pickupPoint": "Đường Lê Lợi, Hồ Chí Minh", "dropoffPoint": "Đường Trần Phú, Hồ Chí Minh", "status": "pending" },
+    { "_id": "stu8", "fullName": "Bui Thi H", "age": 15, "class": "9B", "parent": "parent4", "route": "route2", "pickupPoint": "Đường Lê Lợi, Hồ Chí Minh", "dropoffPoint": "Đường Trần Phú, Hồ Chí Minh", "status": "pending" },
+    { "_id": "stu9", "fullName": "Dang Van I", "age": 16, "class": "10A", "parent": "parent5", "route": "route1", "pickupPoint": "Đường Nguyễn Du, Hồ Chí Minh", "dropoffPoint": "Đường Nguyễn Thị Minh Khai, Hồ Chí Minh", "status": "pending" },
+    { "_id": "stu10", "fullName": "Ly Thi K", "age": 16, "class": "10B", "parent": "parent6", "route": "route1", "pickupPoint": "Đường Nguyễn Du, Hồ Chí Minh", "dropoffPoint": "Đường Nguyễn Thị Minh Khai, Hồ Chí Minh", "status": "pending" },
+    { "_id": "stu11", "fullName": "Ngo Van L", "age": 17, "class": "11A", "parent": "parent7", "route": "route2", "pickupPoint": "Đường Lê Lợi, Hồ Chí Minh", "dropoffPoint": "Đường Trần Phú, Hồ Chí Minh", "status": "pending" },
+    { "_id": "stu12", "fullName": "Trinh Thi M", "age": 17, "class": "11B", "parent": "parent7", "route": "route2", "pickupPoint": "Đường Lê Lợi, Hồ Chí Minh", "dropoffPoint": "Đường Trần Phú, Hồ Chí Minh", "status": "pending" },
+    { "_id": "stu13", "fullName": "Mai Van N", "age": 18, "class": "12A", "parent": "parent8", "route": "route3", "pickupPoint": "Đường Hai Bà Trưng, Hồ Chí Minh", "dropoffPoint": "Đường Phạm Ngọc Thạch, Hồ Chí Minh", "status": "pending" },
+    { "_id": "stu14", "fullName": "Cao Thi O", "age": 18, "class": "12B", "parent": "parent8", "route": "route3", "pickupPoint": "Đường Hai Bà Trưng, Hồ Chí Minh", "dropoffPoint": "Đường Phạm Ngọc Thạch, Hồ Chí Minh", "status": "pending" },
+    { "_id": "stu15", "fullName": "Kieu Van P", "age": 12, "class": "6C", "parent": "parent8", "route": "route3", "pickupPoint": "Đường Hai Bà Trưng, Hồ Chí Minh", "dropoffPoint": "Đường Phạm Ngọc Thạch, Hồ Chí Minh", "status": "pending" },
+    { "_id": "stu16", "fullName": "Lam Thi Q", "age": 13, "class": "7C", "parent": "parent9", "route": "route4", "pickupPoint": "Đường Lý Thường Kiệt, Hồ Chí Minh", "dropoffPoint": "Đường Nguyễn Thị Minh Khai, Hồ Chí Minh", "status": "pending" },
+    { "_id": "stu17", "fullName": "Ha Van R", "age": 14, "class": "8C", "parent": "parent10", "route": "route1", "pickupPoint": "Đường Pasteur, Hồ Chí Minh", "dropoffPoint": "Đường Võ Thị Sáu, Hồ Chí Minh", "status": "pending" },
+    { "_id": "stu18", "fullName": "Duong Thi S", "age": 15, "class": "9C", "parent": "parent10", "route": "route1", "pickupPoint": "Đường Pasteur, Hồ Chí Minh", "dropoffPoint": "Đường Võ Thị Sáu, Hồ Chí Minh", "status": "pending" },
+    { "_id": "stu19", "fullName": "Nong Van T", "age": 16, "class": "10C", "parent": "parent11", "route": "route2", "pickupPoint": "Đường Nguyễn Du, Hồ Chí Minh", "dropoffPoint": "Đường Nguyễn Thị Minh Khai, Hồ Chí Minh", "status": "pending" },
+    { "_id": "stu20", "fullName": "Phan Thi U", "age": 17, "class": "11C", "parent": "parent11", "route": "route2", "pickupPoint": "Đường Nguyễn Du, Hồ Chí Minh", "dropoffPoint": "Đường Nguyễn Thị Minh Khai, Hồ Chí Minh", "status": "pending" },
+    { "_id": "stu21", "fullName": "Quach Van V", "age": 18, "class": "12C", "parent": "parent11", "route": "route2", "pickupPoint": "Đường Nguyễn Du, Hồ Chí Minh", "dropoffPoint": "Đường Nguyễn Thị Minh Khai, Hồ Chí Minh", "status": "pending" },
+    { "_id": "stu22", "fullName": "Rau Thi W", "age": 12, "class": "6D", "parent": "parent12", "route": "route3", "pickupPoint": "Đường Lê Lợi, Hồ Chí Minh", "dropoffPoint": "Đường Trần Phú, Hồ Chí Minh", "status": "pending" },
+    { "_id": "stu23", "fullName": "Son Van X", "age": 13, "class": "7D", "parent": "parent13", "route": "route4", "pickupPoint": "Đường Hai Bà Trưng, Hồ Chí Minh", "dropoffPoint": "Đường Phạm Ngọc Thạch, Hồ Chí Minh", "status": "pending" },
+    { "_id": "stu24", "fullName": "Tang Thi Y", "age": 14, "class": "8D", "parent": "parent13", "route": "route4", "pickupPoint": "Đường Hai Bà Trưng, Hồ Chí Minh", "dropoffPoint": "Đường Phạm Ngọc Thạch, Hồ Chí Minh", "status": "pending" },
+    { "_id": "stu25", "fullName": "Uong Van Z", "age": 15, "class": "9D", "parent": "parent14", "route": "route1", "pickupPoint": "Đường Lý Thường Kiệt, Hồ Chí Minh", "dropoffPoint": "Đường Nguyễn Thị Minh Khai, Hồ Chí Minh", "status": "pending" },
+    { "_id": "stu26", "fullName": "Vang Thi AA", "age": 16, "class": "10D", "parent": "parent14", "route": "route1", "pickupPoint": "Đường Lý Thường Kiệt, Hồ Chí Minh", "dropoffPoint": "Đường Nguyễn Thị Minh Khai, Hồ Chí Minh", "status": "pending" },
+    { "_id": "stu27", "fullName": "Xuan Van BB", "age": 17, "class": "11D", "parent": "parent14", "route": "route1", "pickupPoint": "Đường Lý Thường Kiệt, Hồ Chí Minh", "dropoffPoint": "Đường Nguyễn Thị Minh Khai, Hồ Chí Minh", "status": "pending" },
+    { "_id": "stu28", "fullName": "Yen Thi CC", "age": 18, "class": "12D", "parent": "parent15", "route": "route2", "pickupPoint": "Đường Pasteur, Hồ Chí Minh", "dropoffPoint": "Đường Võ Thị Sáu, Hồ Chí Minh", "status": "pending" },
+    { "_id": "stu29", "fullName": "Zang Van DD", "age": 12, "class": "6E", "parent": "parent16", "route": "route3", "pickupPoint": "Đường Nguyễn Du, Hồ Chí Minh", "dropoffPoint": "Đường Nguyễn Thị Minh Khai, Hồ Chí Minh", "status": "pending" },
+    { "_id": "stu30", "fullName": "An Thi EE", "age": 13, "class": "7E", "parent": "parent16", "route": "route3", "pickupPoint": "Đường Nguyễn Du, Hồ Chí Minh", "dropoffPoint": "Đường Nguyễn Thị Minh Khai, Hồ Chí Minh", "status": "pending" },
+    { "_id": "stu31", "fullName": "Bao Van FF", "age": 14, "class": "8E", "parent": "parent17", "route": "route4", "pickupPoint": "Đường Lê Lợi, Hồ Chí Minh", "dropoffPoint": "Đường Trần Phú, Hồ Chí Minh", "status": "pending" },
+    { "_id": "stu32", "fullName": "Cam Thi GG", "age": 15, "class": "9E", "parent": "parent17", "route": "route4", "pickupPoint": "Đường Lê Lợi, Hồ Chí Minh", "dropoffPoint": "Đường Trần Phú, Hồ Chí Minh", "status": "pending" },
+    { "_id": "stu33", "fullName": "Dao Van HH", "age": 16, "class": "10E", "parent": "parent17", "route": "route4", "pickupPoint": "Đường Lê Lợi, Hồ Chí Minh", "dropoffPoint": "Đường Trần Phú, Hồ Chí Minh", "status": "pending" },
+    { "_id": "stu34", "fullName": "Em Thi II", "age": 17, "class": "11E", "parent": "parent18", "route": "route4", "pickupPoint": "Đường Hai Bà Trưng, Hồ Chí Minh", "dropoffPoint": "Đường Phạm Ngọc Thạch, Hồ Chí Minh", "status": "pending" },
+    { "_id": "stu35", "fullName": "Giang Van KK", "age": 18, "class": "12E", "parent": "parent19", "route": "route2", "pickupPoint": "Đường Lý Thường Kiệt, Hồ Chí Minh", "dropoffPoint": "Đường Nguyễn Thị Minh Khai, Hồ Chí Minh", "status": "pending" },
+    { "_id": "stu36", "fullName": "Hanh Thi LL", "age": 12, "class": "6F", "parent": "parent19", "route": "route2", "pickupPoint": "Đường Lý Thường Kiệt, Hồ Chí Minh", "dropoffPoint": "Đường Nguyễn Thị Minh Khai, Hồ Chí Minh", "status": "pending" },
+    { "_id": "stu37", "fullName": "Ich Van MM", "age": 13, "class": "7F", "parent": "parent20", "route": "route3", "pickupPoint": "Đường Pasteur, Hồ Chí Minh", "dropoffPoint": "Đường Võ Thị Sáu, Hồ Chí Minh", "status": "pending" },
+    { "_id": "stu38", "fullName": "Kha Thi NN", "age": 14, "class": "8F", "parent": "parent20", "route": "route3", "pickupPoint": "Đường Pasteur, Hồ Chí Minh", "dropoffPoint": "Đường Võ Thị Sáu, Hồ Chí Minh", "status": "pending" },
+    { "_id": "stu39", "fullName": "Luu Van OO", "age": 15, "class": "9F", "parent": "parent20", "route": "route3", "pickupPoint": "Đường Pasteur, Hồ Chí Minh", "dropoffPoint": "Đường Võ Thị Sáu, Hồ Chí Minh", "status": "pending" }
   ],
 
-  "schedules": [
-    { "_id": "sched1", "bus": "bus1", "route": "route1", "driver": "driver1", "date": "2025-10-28", "starttime": "2025-10-28T06:30:00Z", "endtime": "2025-10-28T07:30:00Z", "numstudent": 10, "frequency": "daily", "students": ["stu1", "stu2", "stu5"], "status": "in_progress" },
-    { "_id": "sched2", "bus": "bus2", "route": "route2", "driver": "driver2", "date": "2025-10-28", "starttime": "2025-10-28T06:45:00Z", "endtime": "2025-10-28T07:45:00Z", "numstudent": 12, "frequency": "daily", "students": ["stu3", "stu4", "stu6"], "status": "in_progress" },
-    { "_id": "sched3", "bus": "bus3", "route": "route3", "driver": "driver3", "date": "2025-10-29", "starttime": "2025-10-29T06:32:00Z", "endtime": "2025-10-29T07:32:00Z", "numstudent": 11, "frequency": "daily", "students": ["stu13", "stu14", "stu15"], "status": "completed" },
-    { "_id": "sched4", "bus": "bus4", "route": "route4", "driver": "driver4", "date": "2025-10-29", "starttime": "2025-10-29T06:47:00Z", "endtime": "2025-10-29T07:47:00Z", "numstudent": 13, "frequency": "daily", "students": ["stu16", "stu23", "stu24"], "status": "completed" },
-    { "_id": "sched5", "bus": "bus5", "route": "route1", "driver": "driver5", "date": "2025-10-28", "starttime": "2025-10-28T14:05:00Z", "endtime": "2025-10-28T15:05:00Z", "numstudent": 15, "frequency": "daily", "students": ["stu1", "stu5", "stu9"], "status": "in_progress" },
-    { "_id": "sched6", "bus": "bus6", "route": "route2", "driver": "driver6", "date": "2025-10-28", "starttime": "2025-10-28T14:20:00Z", "endtime": "2025-10-28T15:20:00Z", "numstudent": 14, "frequency": "daily", "students": ["stu3", "stu7", "stu11"], "status": "in_progress" },
-    { "_id": "sched7", "bus": "bus7", "route": "route3", "driver": "driver7", "date": "2025-10-30", "starttime": "2025-10-30T06:33:00Z", "endtime": "2025-10-30T07:33:00Z", "numstudent": 16, "frequency": "daily", "students": ["stu13", "stu17", "stu19"], "status": "scheduled" },
-    { "_id": "sched8", "bus": "bus8", "route": "route4", "driver": "driver8", "date": "2025-10-30", "starttime": "2025-10-30T06:48:00Z", "endtime": "2025-10-30T07:48:00Z", "numstudent": 17, "frequency": "daily", "students": ["stu16", "stu25", "stu26"], "status": "scheduled" },
-    { "_id": "sched9", "bus": "bus9", "route": "route1", "driver": "driver9", "date": "2025-10-29", "starttime": "2025-10-29T14:02:00Z", "endtime": "2025-10-29T15:02:00Z", "numstudent": 18, "frequency": "daily", "students": ["stu1", "stu10", "stu19"], "status": "completed" },
-    { "_id": "sched10", "bus": "bus10", "route": "route2", "driver": "driver10", "date": "2025-10-29", "starttime": "2025-10-29T14:17:00Z", "endtime": "2025-10-29T15:17:00Z", "numstudent": 19, "frequency": "daily", "students": ["stu3", "stu12", "stu20"], "status": "completed" },
-    { "_id": "sched11", "bus": "bus11", "route": "route3", "driver": "driver11", "date": "2025-10-31", "starttime": "2025-10-31T06:31:00Z", "endtime": "2025-10-31T07:31:00Z", "numstudent": 10, "frequency": "daily", "students": ["stu13", "stu22", "stu28"], "status": "scheduled" },
-    { "_id": "sched12", "bus": "bus12", "route": "route4", "driver": "driver12", "date": "2025-10-31", "starttime": "2025-10-31T06:46:00Z", "endtime": "2025-10-31T07:46:00Z", "numstudent": 11, "frequency": "daily", "students": ["stu16", "stu29", "stu30"], "status": "scheduled" },
-    { "_id": "sched13", "bus": "bus13", "route": "route1", "driver": "driver13", "date": "2025-11-01", "starttime": "2025-11-01T14:01:00Z", "endtime": "2025-11-01T15:01:00Z", "numstudent": 12, "frequency": "daily", "students": ["stu1", "stu31", "stu32"], "status": "completed" },
-    { "_id": "sched14", "bus": "bus14", "route": "route2", "driver": "driver14", "date": "2025-11-01", "starttime": "2025-11-01T14:16:00Z", "endtime": "2025-11-01T15:16:00Z", "numstudent": 13, "frequency": "daily", "students": ["stu3", "stu33", "stu34"], "status": "completed" },
-    { "_id": "sched15", "bus": "bus15", "route": "route3", "driver": "driver15", "date": "2025-11-02", "starttime": "2025-11-02T06:34:00Z", "endtime": "2025-11-02T07:34:00Z", "numstudent": 14, "frequency": "daily", "students": ["stu13", "stu35", "stu36"], "status": "scheduled" },
-    { "_id": "sched16", "bus": "bus16", "route": "route4", "driver": "driver16", "date": "2025-11-02", "starttime": "2025-11-02T06:49:00Z", "endtime": "2025-11-02T07:49:00Z", "numstudent": 15, "frequency": "daily", "students": ["stu16", "stu37", "stu38"], "status": "scheduled" },
-    { "_id": "sched17", "bus": "bus17", "route": "route1", "driver": "driver17", "date": "2025-11-03", "starttime": "2025-11-03T14:03:00Z", "endtime": "2025-11-03T15:03:00Z", "numstudent": 16, "frequency": "daily", "students": ["stu1", "stu39", "stu9"], "status": "completed" },
-    { "_id": "sched18", "bus": "bus18", "route": "route2", "driver": "driver18", "date": "2025-11-03", "starttime": "2025-11-03T14:18:00Z", "endtime": "2025-11-03T15:18:00Z", "numstudent": 17, "frequency": "daily", "students": ["stu3", "stu11", "stu19"], "status": "completed" },
-    { "_id": "sched19", "bus": "bus19", "route": "route3", "driver": "driver1", "date": "2025-11-04", "starttime": "2025-11-04T06:36:00Z", "endtime": "2025-11-04T07:36:00Z", "numstudent": 18, "frequency": "daily", "students": ["stu13", "stu22", "stu28"], "status": "in_progress" },
-    { "_id": "sched20", "bus": "bus20", "route": "route4", "driver": "driver2", "date": "2025-11-04", "starttime": "2025-11-04T06:51:00Z", "endtime": "2025-11-04T07:51:00Z", "numstudent": 19, "frequency": "daily", "students": ["stu16", "stu25", "stu31"], "status": "in_progress" },
+"schedules": [
     {
       "_id": "sched21",
       "bus": "bus1",
       "route": "route1",
       "driver": "driver1",
-      "date": "2025-10-30",
-      "starttime": "2025-10-30T06:30:00Z",
-      "endtime": "2025-10-30T07:15:00Z",
+      "date": "2025-12-02T00:00:00.000Z", 
+      "starttime": "2025-12-02T06:30:00.000Z",
+      "endtime": "2025-12-02T07:15:00.000Z",
       "numstudent": 8,
       "frequency": "daily",
-      "students": ["stu1", "stu2", "stu5", "stu9", "stu10", "stu17", "stu18", "stu34"],
+      "students": ["stu1", "stu2", "stu5", "stu9", "stu10", "stu17", "stu18"],
       "status": "in_progress"
+    },
+    { 
+      "_id": "sched1", 
+      "bus": "bus2", "route": "route1", "driver": "driver2", 
+      "date": "2025-10-28T00:00:00.000Z", "starttime": "2025-10-28T06:30:00.000Z", "endtime": "2025-10-28T07:30:00.000Z", 
+      "numstudent": 10, "frequency": "daily", "students": ["stu1", "stu2", "stu5"], 
+      "status": "completed"
+    },
+    { 
+      "_id": "sched2", 
+      "bus": "bus3", "route": "route2", "driver": "driver3", 
+      "date": "2025-10-28T00:00:00.000Z", "starttime": "2025-10-28T06:45:00.000Z", "endtime": "2025-10-28T07:45:00.000Z", 
+      "numstudent": 12, "frequency": "daily", "students": ["stu3", "stu4", "stu6"], 
+      "status": "completed" 
+    },
+    { 
+      "_id": "sched3", "bus": "bus4", "route": "route3", "driver": "driver4", 
+      "date": "2025-10-29T00:00:00.000Z", "starttime": "2025-10-29T06:32:00.000Z", "endtime": "2025-10-29T07:32:00.000Z", 
+      "numstudent": 11, "frequency": "daily", "students": ["stu13", "stu14", "stu15"], 
+      "status": "scheduled" 
+    },
+    { 
+      "_id": "sched4", "bus": "bus5", "route": "route4", "driver": "driver5", 
+      "date": "2025-10-29T00:00:00.000Z", "starttime": "2025-10-29T06:47:00.000Z", "endtime": "2025-10-29T07:47:00.000Z", 
+      "numstudent": 13, "frequency": "daily", "students": ["stu16", "stu23", "stu24"], 
+      "status": "scheduled" 
+    },
+    { 
+      "_id": "sched5", "bus": "bus6", "route": "route1", "driver": "driver6", 
+      "date": "2025-10-28T00:00:00.000Z", "starttime": "2025-10-28T14:05:00.000Z", "endtime": "2025-10-28T15:05:00.000Z", 
+      "numstudent": 15, "frequency": "daily", "students": ["stu1", "stu5", "stu9"], 
+      "status": "scheduled" 
+    },
+    { 
+      "_id": "sched6", "bus": "bus7", "route": "route2", "driver": "driver7", 
+      "date": "2025-10-28T00:00:00.000Z", "starttime": "2025-10-28T14:20:00.000Z", "endtime": "2025-10-28T15:20:00.000Z", 
+      "numstudent": 14, "frequency": "daily", "students": ["stu3", "stu7", "stu11"], 
+      "status": "in_progress" 
+    },
+    { 
+      "_id": "sched7", "bus": "bus8", "route": "route3", "driver": "driver8", 
+      "date": "2025-10-30T00:00:00.000Z", "starttime": "2025-10-30T06:33:00.000Z", "endtime": "2025-10-30T07:33:00.000Z", 
+      "numstudent": 16, "frequency": "daily", "students": ["stu13", "stu17", "stu19"], 
+      "status": "scheduled" 
+    },
+    { 
+      "_id": "sched8", "bus": "bus9", "route": "route4", "driver": "driver9", 
+      "date": "2025-10-30T00:00:00.000Z", "starttime": "2025-10-30T06:48:00.000Z", "endtime": "2025-10-30T07:48:00.000Z", 
+      "numstudent": 17, "frequency": "daily", "students": ["stu16", "stu25", "stu26"], 
+      "status": "scheduled" 
+    },
+    { 
+      "_id": "sched9", "bus": "bus10", "route": "route1", "driver": "driver10", 
+      "date": "2025-10-29T00:00:00.000Z", "starttime": "2025-10-29T14:02:00.000Z", "endtime": "2025-10-29T15:02:00.000Z", 
+      "numstudent": 18, "frequency": "daily", "students": ["stu1", "stu10", "stu19"], 
+      "status": "scheduled" 
+    },
+    { 
+      "_id": "sched10", "bus": "bus11", "route": "route2", "driver": "driver11", 
+      "date": "2025-10-29T00:00:00.000Z", "starttime": "2025-10-29T14:17:00.000Z", "endtime": "2025-10-29T15:17:00.000Z", 
+      "numstudent": 19, "frequency": "daily", "students": ["stu3", "stu12", "stu20"], 
+      "status": "scheduled" 
+    },
+    { 
+      "_id": "sched11", "bus": "bus12", "route": "route3", "driver": "driver12", 
+      "date": "2025-10-31T00:00:00.000Z", "starttime": "2025-10-31T06:31:00.000Z", "endtime": "2025-10-31T07:31:00.000Z", 
+      "numstudent": 10, "frequency": "daily", "students": ["stu13", "stu22", "stu28"], 
+      "status": "scheduled" 
+    },
+    { 
+      "_id": "sched12", "bus": "bus13", "route": "route4", "driver": "driver13", 
+      "date": "2025-10-31T00:00:00.000Z", "starttime": "2025-10-31T06:46:00.000Z", "endtime": "2025-10-31T07:46:00.000Z", 
+      "numstudent": 11, "frequency": "daily", "students": ["stu16", "stu29", "stu30"], 
+      "status": "scheduled" 
+    },
+    { 
+      "_id": "sched13", "bus": "bus14", "route": "route1", "driver": "driver14", 
+      "date": "2025-11-01T00:00:00.000Z", "starttime": "2025-11-01T14:01:00.000Z", "endtime": "2025-11-01T15:01:00.000Z", 
+      "numstudent": 12, "frequency": "daily", "students": ["stu1", "stu31", "stu32"], 
+      "status": "scheduled" 
+    },
+    { 
+      "_id": "sched14", "bus": "bus15", "route": "route2", "driver": "driver15", 
+      "date": "2025-11-01T00:00:00.000Z", "starttime": "2025-11-01T14:16:00.000Z", "endtime": "2025-11-01T15:16:00.000Z", 
+      "numstudent": 13, "frequency": "daily", "students": ["stu3", "stu33", "stu34"], 
+      "status": "scheduled" 
+    },
+    { 
+      "_id": "sched15", "bus": "bus16", "route": "route3", "driver": "driver16", 
+      "date": "2025-11-02T00:00:00.000Z", "starttime": "2025-11-02T06:34:00.000Z", "endtime": "2025-11-02T07:34:00.000Z", 
+      "numstudent": 14, "frequency": "daily", "students": ["stu13", "stu35", "stu36"], 
+      "status": "scheduled" 
+    },
+    { 
+      "_id": "sched16", "bus": "bus17", "route": "route4", "driver": "driver17", 
+      "date": "2025-11-02T00:00:00.000Z", "starttime": "2025-11-02T06:49:00.000Z", "endtime": "2025-11-02T07:49:00.000Z", 
+      "numstudent": 15, "frequency": "daily", "students": ["stu16", "stu37", "stu38"], 
+      "status": "scheduled" 
+    },
+    { 
+      "_id": "sched17", "bus": "bus18", "route": "route1", "driver": "driver18", 
+      "date": "2025-11-03T00:00:00.000Z", "starttime": "2025-11-03T14:03:00.000Z", "endtime": "2025-11-03T15:03:00.000Z", 
+      "numstudent": 16, "frequency": "daily", "students": ["stu1", "stu39", "stu9"], 
+      "status": "scheduled" 
+    },
+    { 
+      "_id": "sched18", "bus": "bus19", "route": "route2", "driver": "driver1", 
+      "date": "2025-11-03T00:00:00.000Z", "starttime": "2025-11-03T14:18:00.000Z", "endtime": "2025-11-03T15:18:00.000Z", 
+      "numstudent": 17, "frequency": "daily", "students": ["stu3", "stu11", "stu19"], 
+      "status": "scheduled" 
+    },
+    { 
+      "_id": "sched19", "bus": "bus20", "route": "route3", "driver": "driver2", 
+      "date": "2025-11-04T00:00:00.000Z", "starttime": "2025-11-04T06:36:00.000Z", "endtime": "2025-11-04T07:36:00.000Z", 
+      "numstudent": 18, "frequency": "daily", "students": ["stu13", "stu22", "stu28"], 
+      "status": "scheduled"
+    },
+    { 
+      "_id": "sched20", "bus": "bus2", "route": "route4", "driver": "driver2", 
+      "date": "2025-11-04T00:00:00.000Z", "starttime": "2025-11-04T06:51:00.000Z", "endtime": "2025-11-04T07:51:00.000Z", 
+      "numstudent": 19, "frequency": "daily", "students": ["stu16", "stu25", "stu31"], 
+      "status": "scheduled"
     },
     {
       "_id": "sched22",
       "bus": "bus1",
       "route": "route1",
       "driver": "driver1",
-      "date": "2025-10-30",
-      "starttime": "2025-10-30T16:30:00Z",
-      "endtime": "2025-10-30T17:15:00Z",
+      "date": "2025-10-30T00:00:00.000Z",
+      "starttime": "2025-10-30T16:30:00.000Z",
+      "endtime": "2025-10-30T17:15:00.000Z",
       "numstudent": 8,
       "frequency": "daily",
       "students": ["stu1", "stu2", "stu5", "stu9", "stu10", "stu17", "stu18", "stu34"],
@@ -352,9 +364,9 @@
       "bus": "bus1",
       "route": "route1",
       "driver": "driver1",
-      "date": "2025-11-01",
-      "starttime": "2025-11-01T06:30:00Z",
-      "endtime": "2025-11-01T07:15:00Z",
+      "date": "2025-11-01T00:00:00.000Z",
+      "starttime": "2025-11-01T06:30:00.000Z",
+      "endtime": "2025-11-01T07:15:00.000Z",
       "numstudent": 7,
       "frequency": "daily",
       "students": ["stu1", "stu2", "stu5", "stu9", "stu10", "stu17", "stu19"],
@@ -365,9 +377,9 @@
       "bus": "bus1",
       "route": "route1",
       "driver": "driver1",
-      "date": "2025-11-01",
-      "starttime": "2025-11-01T16:30:00Z",
-      "endtime": "2025-11-01T17:15:00Z",
+      "date": "2025-11-01T00:00:00.000Z",
+      "starttime": "2025-11-01T16:30:00.000Z",
+      "endtime": "2025-11-01T17:15:00.000Z",
       "numstudent": 7,
       "frequency": "daily",
       "students": ["stu1", "stu2", "stu5", "stu9", "stu10", "stu17", "stu19"],
@@ -378,9 +390,9 @@
       "bus": "bus1",
       "route": "route1",
       "driver": "driver1",
-      "date": "2025-11-02",
-      "starttime": "2025-11-02T06:30:00Z",
-      "endtime": "2025-11-02T07:15:00Z",
+      "date": "2025-11-02T00:00:00.000Z",
+      "starttime": "2025-11-02T06:30:00.000Z",
+      "endtime": "2025-11-02T07:15:00.000Z",
       "numstudent": 9,
       "frequency": "daily",
       "students": ["stu1", "stu2", "stu5", "stu9", "stu10", "stu17", "stu18", "stu19", "stu34"],
@@ -391,9 +403,9 @@
       "bus": "bus1",
       "route": "route1",
       "driver": "driver1",
-      "date": "2025-11-02",
-      "starttime": "2025-11-02T16:30:00Z",
-      "endtime": "2025-11-02T17:15:00Z",
+      "date": "2025-11-02T00:00:00.000Z",
+      "starttime": "2025-11-02T16:30:00.000Z",
+      "endtime": "2025-11-02T17:15:00.000Z",
       "numstudent": 9,
       "frequency": "daily",
       "students": ["stu1", "stu2", "stu5", "stu9", "stu10", "stu17", "stu18", "stu19", "stu34"],
@@ -404,63 +416,50 @@
       "bus": "bus1",
       "route": "route1",
       "driver": "driver1",
-      "date": "2025-10-30",
-      "starttime": "2025-10-30T14:00:00Z",
-      "endtime": "2025-10-30T14:45:00Z",
+      "date": "2025-10-30T00:00:00.000Z",
+      "starttime": "2025-10-30T14:00:00.000Z",
+      "endtime": "2025-10-30T14:45:00.000Z",
       "numstudent": 6,
       "frequency": "daily",
       "students": ["stu1", "stu2", "stu5", "stu9", "stu10", "stu17"],
-      "status": "in_progress"
+      "status": "scheduled"
     },
     {
       "_id": "sched28",
       "bus": "bus1",
       "route": "route1",
       "driver": "driver1",
-      "date": "2025-11-01",
-      "starttime": "2025-11-01T14:00:00Z",
-      "endtime": "2025-11-01T14:45:00Z",
+      "date": "2025-11-01T00:00:00.000Z",
+      "starttime": "2025-11-01T14:00:00.000Z",
+      "endtime": "2025-11-01T14:45:00.000Z",
       "numstudent": 7,
       "frequency": "daily",
       "students": ["stu1", "stu2", "stu5", "stu9", "stu10", "stu17", "stu19"],
-      "status": "completed"
+      "status": "scheduled"
     }
   ],
 
-  "locations": [
-    { "busId": "bus1", "latitude": 10.7769, "longitude": 106.7009, "timestamp": "2025-10-28T06:35:00Z", "scheduleId": "sched1" },
-    { "busId": "bus2", "latitude": 10.7800, "longitude": 106.7100, "timestamp": "2025-10-28T06:50:00Z", "scheduleId": "sched2" },
-    { "busId": "bus3", "latitude": 10.7750, "longitude": 106.6950, "timestamp": "2025-10-29T06:32:00Z", "scheduleId": "sched3" },
-    { "busId": "bus4", "latitude": 10.7850, "longitude": 106.7150, "timestamp": "2025-10-29T06:47:00Z", "scheduleId": "sched4" },
-    { "busId": "bus5", "latitude": 10.7700, "longitude": 106.6900, "timestamp": "2025-10-28T14:05:00Z", "scheduleId": "sched5" },
-    { "busId": "bus6", "latitude": 10.7900, "longitude": 106.7200, "timestamp": "2025-10-28T14:20:00Z", "scheduleId": "sched6" },
-    { "busId": "bus7", "latitude": 10.7770, "longitude": 106.7010, "timestamp": "2025-10-30T06:33:00Z", "scheduleId": "sched7" },
-    { "busId": "bus8", "latitude": 10.7810, "longitude": 106.7110, "timestamp": "2025-10-30T06:48:00Z", "scheduleId": "sched8" },
-    { "busId": "bus9", "latitude": 10.7710, "longitude": 106.6910, "timestamp": "2025-10-29T14:02:00Z", "scheduleId": "sched9" },
-    { "busId": "bus10", "latitude": 10.7910, "longitude": 106.7210, "timestamp": "2025-10-29T14:17:00Z", "scheduleId": "sched10" },
-    { "busId": "bus11", "latitude": 10.7780, "longitude": 106.7020, "timestamp": "2025-10-31T06:31:00Z", "scheduleId": "sched11" },
-    { "busId": "bus12", "latitude": 10.7820, "longitude": 106.7120, "timestamp": "2025-10-31T06:46:00Z", "scheduleId": "sched12" },
-    { "busId": "bus13", "latitude": 10.7720, "longitude": 106.6920, "timestamp": "2025-11-01T14:01:00Z", "scheduleId": "sched13" },
-    { "busId": "bus14", "latitude": 10.7920, "longitude": 106.7220, "timestamp": "2025-11-01T14:16:00Z", "scheduleId": "sched14" },
-    { "busId": "bus15", "latitude": 10.7790, "longitude": 106.7030, "timestamp": "2025-11-02T06:34:00Z", "scheduleId": "sched15" },
-    { "busId": "bus16", "latitude": 10.7830, "longitude": 106.7130, "timestamp": "2025-11-02T06:49:00Z", "scheduleId": "sched16" },
-    { "busId": "bus17", "latitude": 10.7730, "longitude": 106.6930, "timestamp": "2025-11-03T14:03:00Z", "scheduleId": "sched17" },
-    { "busId": "bus18", "latitude": 10.7930, "longitude": 106.7230, "timestamp": "2025-11-03T14:18:00Z", "scheduleId": "sched18" },
-    { "busId": "bus19", "latitude": 10.7800, "longitude": 106.7040, "timestamp": "2025-11-04T06:36:00Z", "scheduleId": "sched19" },
-    { "busId": "bus20", "latitude": 10.7840, "longitude": 106.7140, "timestamp": "2025-11-04T06:51:00Z", "scheduleId": "sched20" },
-    { "busId": "bus1", "latitude": 10.7769, "longitude": 106.7009, "timestamp": "2025-10-30T06:35:00Z", "scheduleId": "sched21" },
-    { "busId": "bus1", "latitude": 10.7790, "longitude": 106.6980, "timestamp": "2025-10-30T06:45:00Z", "scheduleId": "sched21" },
-    { "busId": "bus1", "latitude": 10.7850, "longitude": 106.7100, "timestamp": "2025-10-30T07:10:00Z", "scheduleId": "sched21" },
-    { "busId": "bus1", "latitude": 10.7850, "longitude": 106.7100, "timestamp": "2025-10-30T16:35:00Z", "scheduleId": "sched22" },
-    { "busId": "bus1", "latitude": 10.7790, "longitude": 106.6980, "timestamp": "2025-10-30T16:50:00Z", "scheduleId": "sched22" },
-    { "busId": "bus1", "latitude": 10.7769, "longitude": 106.7009, "timestamp": "2025-11-01T06:32:00Z", "scheduleId": "sched23" },
-    { "busId": "bus1", "latitude": 10.7820, "longitude": 106.7050, "timestamp": "2025-11-01T07:00:00Z", "scheduleId": "sched23" },
-    { "busId": "bus1", "latitude": 10.7850, "longitude": 106.7100, "timestamp": "2025-11-01T16:33:00Z", "scheduleId": "sched24" },
-    { "busId": "bus1", "latitude": 10.7769, "longitude": 106.7009, "timestamp": "2025-11-02T06:34:00Z", "scheduleId": "sched25" },
-    { "busId": "bus1", "latitude": 10.7790, "longitude": 106.6980, "timestamp": "2025-11-02T06:44:00Z", "scheduleId": "sched25" },
-    { "busId": "bus1", "latitude": 10.7850, "longitude": 106.7100, "timestamp": "2025-10-30T14:05:00Z", "scheduleId": "sched27" },
-    { "busId": "bus1", "latitude": 10.7820, "longitude": 106.7050, "timestamp": "2025-10-30T14:30:00Z", "scheduleId": "sched27" },
-    { "busId": "bus1", "latitude": 10.7850, "longitude": 106.7100, "timestamp": "2025-11-01T14:03:00Z", "scheduleId": "sched28" }
+ "locations": [
+    { "busId": "bus1", "latitude": 10.7599, "longitude": 106.6822, "timestamp": "2025-10-30T06:30:00Z", "scheduleId": "sched21" },
+    { "busId": "bus2", "latitude": 10.7599, "longitude": 106.6822, "timestamp": "2025-10-28T06:45:00Z", "scheduleId": "sched2" },
+    { "busId": "bus3", "latitude": 10.7599, "longitude": 106.6822, "timestamp": "2025-10-29T06:32:00Z", "scheduleId": "sched3" },
+    { "busId": "bus4", "latitude": 10.7599, "longitude": 106.6822, "timestamp": "2025-10-29T06:47:00Z", "scheduleId": "sched4" },
+    { "busId": "bus5", "latitude": 10.7599, "longitude": 106.6822, "timestamp": "2025-10-28T14:05:00Z", "scheduleId": "sched5" },
+    { "busId": "bus6", "latitude": 10.7599, "longitude": 106.6822, "timestamp": "2025-10-28T14:20:00Z", "scheduleId": "sched6" },
+    { "busId": "bus7", "latitude": 10.7599, "longitude": 106.6822, "timestamp": "2025-10-30T06:33:00Z", "scheduleId": "sched7" },
+    { "busId": "bus8", "latitude": 10.7599, "longitude": 106.6822, "timestamp": "2025-10-30T06:48:00Z", "scheduleId": "sched8" },
+    { "busId": "bus9", "latitude": 10.7599, "longitude": 106.6822, "timestamp": "2025-10-29T14:02:00Z", "scheduleId": "sched9" },
+    { "busId": "bus10", "latitude": 10.7599, "longitude": 106.6822, "timestamp": "2025-10-29T14:17:00Z", "scheduleId": "sched10" },
+    { "busId": "bus11", "latitude": 10.7599, "longitude": 106.6822, "timestamp": "2025-10-31T06:31:00Z", "scheduleId": "sched11" },
+    { "busId": "bus12", "latitude": 10.7599, "longitude": 106.6822, "timestamp": "2025-10-31T06:46:00Z", "scheduleId": "sched12" },
+    { "busId": "bus13", "latitude": 10.7599, "longitude": 106.6822, "timestamp": "2025-11-01T14:01:00Z", "scheduleId": "sched13" },
+    { "busId": "bus14", "latitude": 10.7599, "longitude": 106.6822, "timestamp": "2025-11-01T14:16:00Z", "scheduleId": "sched14" },
+    { "busId": "bus15", "latitude": 10.7599, "longitude": 106.6822, "timestamp": "2025-11-02T06:34:00Z", "scheduleId": "sched15" },
+    { "busId": "bus16", "latitude": 10.7599, "longitude": 106.6822, "timestamp": "2025-11-02T06:49:00Z", "scheduleId": "sched16" },
+    { "busId": "bus17", "latitude": 10.7599, "longitude": 106.6822, "timestamp": "2025-11-03T14:03:00Z", "scheduleId": "sched17" },
+    { "busId": "bus18", "latitude": 10.7599, "longitude": 106.6822, "timestamp": "2025-11-03T14:18:00Z", "scheduleId": "sched18" },
+    { "busId": "bus19", "latitude": 10.7599, "longitude": 106.6822, "timestamp": "2025-11-04T06:36:00Z", "scheduleId": "sched19" },
+    { "busId": "bus20", "latitude": 10.7599, "longitude": 106.6822, "timestamp": "2025-11-04T06:51:00Z", "scheduleId": "sched20" }
   ],
 
   "notifications": [
@@ -493,5 +492,64 @@
     { "user": "parent10", "type": "boarded", "message": "Con bạn (Ha Van R) đã lên xe", "busId": "bus1", "scheduleId": "sched25" },
     { "user": "parent1", "type": "offboard", "message": "Con bạn đã xuống xe tại Minh Khai", "busId": "bus1", "scheduleId": "sched22" },
     { "user": "parent1", "type": "offboard", "message": "Con bạn (Nguyen Van A) đã về nhà an toàn", "busId": "bus1", "scheduleId": "sched26" }
+  ],
+
+"stopassignments": [
+    { "schedule": "sched21", "stopIndex": 0, "student": "stu1", "type": "pickup", "status": "waiting" },
+    { "schedule": "sched21", "stopIndex": 2, "student": "stu1", "type": "dropoff", "status": "waiting" },
+    { "schedule": "sched21", "stopIndex": 0, "student": "stu2", "type": "pickup", "status": "waiting" },
+    { "schedule": "sched21", "stopIndex": 2, "student": "stu2", "type": "dropoff", "status": "waiting" },
+    { "schedule": "sched21", "stopIndex": 0, "student": "stu5", "type": "pickup", "status": "waiting" },
+    { "schedule": "sched21", "stopIndex": 2, "student": "stu5", "type": "dropoff", "status": "waiting" },
+    { "schedule": "sched21", "stopIndex": 0, "student": "stu9", "type": "pickup", "status": "waiting" },
+    { "schedule": "sched21", "stopIndex": 2, "student": "stu9", "type": "dropoff", "status": "waiting" },
+    { "schedule": "sched21", "stopIndex": 0, "student": "stu10", "type": "pickup", "status": "waiting" },
+    { "schedule": "sched21", "stopIndex": 2, "student": "stu10", "type": "dropoff", "status": "waiting" },
+    { "schedule": "sched21", "stopIndex": 1, "student": "stu17", "type": "pickup", "status": "waiting" },
+    { "schedule": "sched21", "stopIndex": 3, "student": "stu17", "type": "dropoff", "status": "waiting" },
+    { "schedule": "sched21", "stopIndex": 1, "student": "stu18", "type": "pickup", "status": "waiting" },
+    { "schedule": "sched21", "stopIndex": 3, "student": "stu18", "type": "dropoff", "status": "waiting" },
+
+    { "schedule": "sched1", "stopIndex": 0, "student": "stu1", "type": "pickup", "status": "waiting" },
+    { "schedule": "sched1", "stopIndex": 2, "student": "stu1", "type": "dropoff", "status": "waiting" },
+    { "schedule": "sched1", "stopIndex": 0, "student": "stu2", "type": "pickup", "status": "waiting" },
+    { "schedule": "sched1", "stopIndex": 2, "student": "stu2", "type": "dropoff", "status": "waiting" },
+    { "schedule": "sched1", "stopIndex": 0, "student": "stu5", "type": "pickup", "status": "waiting" },
+    { "schedule": "sched1", "stopIndex": 2, "student": "stu5", "type": "dropoff", "status": "waiting" },
+
+    { "schedule": "sched2", "stopIndex": 0, "student": "stu3", "type": "pickup", "status": "waiting" },
+    { "schedule": "sched2", "stopIndex": 2, "student": "stu3", "type": "dropoff", "status": "waiting" },
+    { "schedule": "sched2", "stopIndex": 0, "student": "stu4", "type": "pickup", "status": "waiting" },
+    { "schedule": "sched2", "stopIndex": 2, "student": "stu4", "type": "dropoff", "status": "waiting" },
+    { "schedule": "sched2", "stopIndex": 0, "student": "stu6", "type": "pickup", "status": "waiting" },
+    { "schedule": "sched2", "stopIndex": 2, "student": "stu6", "type": "dropoff", "status": "waiting" },
+
+    { "schedule": "sched3", "stopIndex": 0, "student": "stu13", "type": "pickup", "status": "waiting" },
+    { "schedule": "sched3", "stopIndex": 2, "student": "stu13", "type": "dropoff", "status": "waiting" },
+    { "schedule": "sched3", "stopIndex": 0, "student": "stu14", "type": "pickup", "status": "waiting" },
+    { "schedule": "sched3", "stopIndex": 2, "student": "stu14", "type": "dropoff", "status": "waiting" },
+    { "schedule": "sched3", "stopIndex": 0, "student": "stu15", "type": "pickup", "status": "waiting" },
+    { "schedule": "sched3", "stopIndex": 2, "student": "stu15", "type": "dropoff", "status": "waiting" },
+
+    { "schedule": "sched4", "stopIndex": 0, "student": "stu16", "type": "pickup", "status": "waiting" },
+    { "schedule": "sched4", "stopIndex": 2, "student": "stu16", "type": "dropoff", "status": "waiting" },
+    { "schedule": "sched4", "stopIndex": 0, "student": "stu23", "type": "pickup", "status": "waiting" },
+    { "schedule": "sched4", "stopIndex": 2, "student": "stu23", "type": "dropoff", "status": "waiting" },
+    { "schedule": "sched4", "stopIndex": 0, "student": "stu24", "type": "pickup", "status": "waiting" },
+    { "schedule": "sched4", "stopIndex": 2, "student": "stu24", "type": "dropoff", "status": "waiting" },
+
+    { "schedule": "sched5", "stopIndex": 0, "student": "stu1", "type": "pickup", "status": "waiting" },
+    { "schedule": "sched5", "stopIndex": 2, "student": "stu1", "type": "dropoff", "status": "waiting" },
+    { "schedule": "sched5", "stopIndex": 0, "student": "stu5", "type": "pickup", "status": "waiting" },
+    { "schedule": "sched5", "stopIndex": 2, "student": "stu5", "type": "dropoff", "status": "waiting" },
+    { "schedule": "sched5", "stopIndex": 0, "student": "stu9", "type": "pickup", "status": "waiting" },
+    { "schedule": "sched5", "stopIndex": 2, "student": "stu9", "type": "dropoff", "status": "waiting" },
+
+    { "schedule": "sched6", "stopIndex": 0, "student": "stu3", "type": "pickup", "status": "waiting" },
+    { "schedule": "sched6", "stopIndex": 2, "student": "stu3", "type": "dropoff", "status": "waiting" },
+    { "schedule": "sched6", "stopIndex": 0, "student": "stu7", "type": "pickup", "status": "waiting" },
+    { "schedule": "sched6", "stopIndex": 2, "student": "stu7", "type": "dropoff", "status": "waiting" },
+    { "schedule": "sched6", "stopIndex": 0, "student": "stu11", "type": "pickup", "status": "waiting" },
+    { "schedule": "sched6", "stopIndex": 2, "student": "stu11", "type": "dropoff", "status": "waiting" }
   ]
 }
