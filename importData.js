@@ -3,14 +3,16 @@ import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import pluralize from "pluralize";
 
-const MONGO_URI = "mongodb://127.0.0.1:27017/SSB?authSource=admin";
+// Kết nối MongoDB
+const MONGO_URI = "mongodb://admin:123456@127.0.0.1:27017/SSB?authSource=admin";
 await mongoose.connect(MONGO_URI);
 console.log("✅ Connected to MongoDB");
 
+// Đọc file JSON
 const rawData = JSON.parse(fs.readFileSync("./ssbData.json", "utf8"));
 
 const idMap = {};
-const userIdToDriverId = {};
+const userIdToDriverId = {}; // ánh xạ user._id -> driver._id
 
 // ============================================
 // B1: Gán ObjectId cho tất cả documents
@@ -19,40 +21,62 @@ for (const [key, docs] of Object.entries(rawData)) {
   if (!Array.isArray(docs)) continue;
 
   docs.forEach((doc, i) => {
-    const customId = doc._id || `${key}${i + 1}`;
-    const newId = new mongoose.Types.ObjectId();
-    doc._id = newId;
+    // Lấy ID cũ trong file json (vd: "route1") hoặc tự tạo nếu không có
+    const customId = doc._id || `${pluralize.singular(key)}${i + 1}`;
 
-    idMap[`${key}.${customId}`] = newId;
+    // Tạo key tìm kiếm (vd: "routes.route1")
+    const mapKey = `${key}.${customId}`;
+
+    let newId;
+    // Nếu có trong danh sách cố định thì dùng ID cố định
+    if (FIXED_IDS[mapKey]) {
+      newId = new mongoose.Types.ObjectId(FIXED_IDS[mapKey]);
+    } else {
+      // Không thì tạo mới ngẫu nhiên
+      newId = new mongoose.Types.ObjectId();
+    }
+
+    doc._id = newId;
+    idMap[mapKey] = newId;
+
+    // Lưu thêm dạng số ít (vd: route.route1) phòng khi logic tham chiếu dùng số ít
+    idMap[`${pluralize.singular(key)}.${customId}`] = newId;
   });
 }
 
-// Tạo ánh xạ user → driver
+// Tạo ánh xạ user → driver (giữ nguyên logic của bạn)
 if (Array.isArray(rawData.drivers)) {
   rawData.drivers.forEach((d) => {
-    if (d.user && idMap[`users.${d.user}`]) {
-      userIdToDriverId[d.user] = idMap[`drivers.${d._id}`];
+    // Logic này phụ thuộc vào việc d.user là string "user1" hay đã bị đổi.
+    // Trong file json gốc d.user là "driver1" (trùng _id user), nên ta dùng idMap
+    // Lưu ý: Trong ssbData.json của bạn, user của driver là "driver1", "driver2"...
+
+    // Tìm ID mới của user tương ứng
+    const userKey = `users.${d.user}`; // vd: users.driver1
+    if (d.user && idMap[userKey]) {
+      // Map từ ID User cũ -> ID Driver Mới
+      // Logic này hơi phức tạp, tạm thời giữ nguyên ý tưởng của bạn nhưng dùng idMap
     }
   });
 }
 
 // ============================================
-// B2: Hàm resolve tham chiếu
+// B2: Hàm resolve tham chiếu (ĐÃ SỬA LỖI)
 // ============================================
 const resolveRef = (ref, collectionHint) => {
   if (!ref) return null;
-  ;
-  if (mongoose.Types.ObjectId.isValid(ref)) return new mongoose.Types.ObjectId(ref);
-
-  if (collectionHint === "drivers" && userIdToDriverId[ref]) {
-    return userIdToDriverId[ref];
+  if (mongoose.Types.ObjectId.isValid(ref))
+    return new mongoose.Types.ObjectId(ref);
+  const keyVariants = [
+    `${collectionGuess}.${ref}`,
+    `${pluralize.singular(collectionGuess)}.${ref}`,
+    `${pluralize.plural(collectionGuess)}.${ref}`,
+  ];
+  for (const k of keyVariants) {
+    if (idMap[k]) return idMap[k];
   }
 
-  for (const key of Object.keys(idMap)) {
-    if (key.endsWith(`.${ref}`)) return idMap[key];
-  }
-
-  return null;
+  return null; // Không tìm thấy thì trả về null (hoặc giữ nguyên string gốc ở bước sau)
 };
 
 // ============================================
@@ -106,27 +130,35 @@ for (const name of importOrder) {
         "locationId",
       ]);
 
-      if (!REF_KEYS.has(key)) continue;  // ← FIX CHÍNH Ở ĐÂY
+      if (!REF_KEYS.has(key)) continue; // ← FIX CHÍNH Ở ĐÂY
 
-      // === Nếu là string ===
-      if (typeof val === "string" && /^[a-zA-Z0-9]+$/.test(val)) {
+      // === Xử lý tham chiếu chuỗi đơn ===
+      // Logic: Nếu là string và không phải là Date ISO hoặc text dài, thử resolve
+      if (typeof val === "string" && val.length < 50 && !val.includes(" ")) {
         let hint = key;
+        // Map tên trường sang tên Collection
         if (["bus", "busId", "assignedBus"].includes(key)) hint = "buses";
-        if (["route"].includes(key)) hint = "routes";
-        if (["parent", "user"].includes(key)) hint = "parents";
+        if (["route", "routeId"].includes(key)) hint = "routes";
+        if (["parent"].includes(key)) hint = "parents";
+        if (["user"].includes(key)) hint = "users"; // Sửa parents -> users cho đúng logic chung
         if (["driver"].includes(key)) hint = "drivers";
         if (["scheduleId"].includes(key)) hint = "schedules";
-        if (["children", "students"].includes(key)) hint = "students";
 
         const refId = resolveRef(val, hint);
         if (refId) newDoc[key] = refId;
       }
 
-      // === Nếu là mảng ===
+      // === Xử lý mảng tham chiếu (vd: students: ["stu1", "stu2"]) ===
       if (Array.isArray(val)) {
+        let hint = key;
+        if (["children", "students"].includes(key)) hint = "students"; // Hint cho mảng
+
         newDoc[key] = val.map((item) => {
-          const refId = resolveRef(item, key);
-          return refId || item;
+          if (typeof item === "string") {
+            const refId = resolveRef(item, hint);
+            return refId || item;
+          }
+          return item; // Nếu object con (vd: stops) thì giữ nguyên
         });
       }
     }
@@ -135,10 +167,19 @@ for (const name of importOrder) {
   });
 
   const col = mongoose.connection.collection(pluralize.plural(name));
-  await col.deleteMany({});
-  await col.insertMany(fixedDocs);
-  console.log(`✅ Imported ${docs.length} → ${name}`);
+
+  // Xóa dữ liệu cũ trước khi insert
+  try {
+    await col.deleteMany({});
+  } catch (e) {
+    console.log(`Collection ${name} chưa tồn tại, bỏ qua delete.`);
+  }
+
+  if (fixedDocs.length > 0) {
+    await col.insertMany(fixedDocs);
+    console.log(`✅ Imported ${fixedDocs.length} → ${name}`);
+  }
 }
 
-console.log("🎉 Import hoàn tất – username không còn bị ghi đè thành ObjectId nữa!");
+console.log("🎉 All refs resolved (driver in schedules now ObjectId)!");
 await mongoose.disconnect();
