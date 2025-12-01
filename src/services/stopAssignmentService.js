@@ -7,7 +7,18 @@ const Route = require('../models/RouteModel');
 
 const getAssignmentsByStop = async (scheduleId, stopIndex) => {
   return await StopAssignment.find({ schedule: scheduleId, stopIndex })
-    .populate('student', 'fullName class phone status') // Bạn có thể thêm 'fullName' nếu model Student dùng 'fullName'
+    .populate({
+      path: 'student',
+      select: 'fullName class status parent pickupPoint dropoffPoint',
+      populate: {
+        path: 'parent',
+        select: 'user',
+        populate: {
+          path: 'user',
+          select: 'phone'
+        }
+      }
+    })
     .lean();
 };
 
