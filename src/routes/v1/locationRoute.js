@@ -6,6 +6,8 @@ const locationValidation = require('../../validations/locationValidation');
 
 router.get('/', locationController.getAllLocation);
 
+router.get('/bus/:busId/latest', locationController.getLatestLocationByBus);
+
 router.get('/:id', locationController.getLocationById);
 
 router.post('/', locationValidation.validateCreateLocation, locationController.createLocation);

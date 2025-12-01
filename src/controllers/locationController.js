@@ -47,10 +47,21 @@ const deleteLocation = async (req, res, next) => {
     }
 }
 
+const getLatestLocationByBus = async (req, res, next) => {
+    try {
+        const { busId } = req.params;
+        const location = await locationService.getLatestLocationByBus(busId);
+        res.status(HttpStatus.OK).json(new ApiResponse(HttpStatus.OK, location, "Get latest location by bus successfully!"));
+    } catch (error) {
+        next(error);
+    }
+};
+
 module.exports = {
     getAllLocation,
     getLocationById,
     createLocation,
     updateLocation,
-    deleteLocation
+    deleteLocation,
+    getLatestLocationByBus
 }

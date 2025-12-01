@@ -33,16 +33,27 @@ const updateLocation = async (id, updateData) => {
     return location;
 }
 
-const deleteSchedule = async (id) => {
+const deleteLocation = async (id) => {
     const location = Location.findByIdAndDelete(id);
     if (!location) { throw new ApiError(HttpStatus.NOT_FOUND, "Location not found") }
     return location;
 }
+
+const getLatestLocationByBus = async (busId) => {
+    const location = await Location.findOne({ busId: busId })
+        .sort({ timestamp: -1 }); // Sắp xếp để lấy timestamp mới nhất
+
+    if (!location) {
+        throw new ApiError(HttpStatus.NOT_FOUND, 'Không tìm thấy vị trí cho xe buýt này');
+    }
+    return location;
+};
 
 module.exports = {
     getAllLocations,
     getLocationById,
     createLocation,
     updateLocation,
-    deleteSchedule
+    deleteLocation,
+    getLatestLocationByBus
 }

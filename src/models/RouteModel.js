@@ -2,17 +2,9 @@ const mongoose = require("mongoose");
 
 const routeSchema = new mongoose.Schema({
   name: { type: String, required: true, trim: true },
-
   stops: [
     {
-      name: { type: String, required: true },
-      type: {
-        type: String,
-        enum: ["pickup", "dropoff"],
-        default: "pickup",
-      },
-      lat: { type: Number, required: true },
-      lng: { type: Number, required: true },
+      location: { type: String, required: true },
       time: { type: Date },
     },
   ],

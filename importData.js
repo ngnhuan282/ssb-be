@@ -10,17 +10,9 @@ console.log("✅ Connected to MongoDB");
 
 // Đọc file JSON
 const rawData = JSON.parse(fs.readFileSync("./ssbData.json", "utf8"));
-const idMap = {};
-const userIdToDriverId = {};
 
-// --- CẤU HÌNH ID CỐ ĐỊNH (Để khớp với Frontend) ---
-const FIXED_IDS = {
-  "routes.route1": "6655aa11bb22cc33dd44ee01",
-  "routes.route2": "6655aa11bb22cc33dd44ee02",
-  "routes.route3": "6655aa11bb22cc33dd44ee03",
-  "routes.route4": "6655aa11bb22cc33dd44ee04",
-  // Bạn có thể thêm các ID cố định khác ở đây nếu muốn
-};
+const idMap = {};
+const userIdToDriverId = {}; // ánh xạ user._id -> driver._id
 
 // ============================================
 // B1: Gán ObjectId cho tất cả documents
@@ -73,20 +65,13 @@ if (Array.isArray(rawData.drivers)) {
 // ============================================
 const resolveRef = (ref, collectionHint) => {
   if (!ref) return null;
-
-  // Nếu đã là ObjectId hợp lệ thì trả về luôn
   if (mongoose.Types.ObjectId.isValid(ref))
     return new mongoose.Types.ObjectId(ref);
-
-  // Tạo các biến thể key để tìm trong idMap
-  // VD: ref="route1", collectionHint="routes" -> tìm "routes.route1"
   const keyVariants = [
-    `${collectionHint}.${ref}`, // Đã sửa collectionGuess -> collectionHint
-    `${pluralize.singular(collectionHint)}.${ref}`,
-    `${pluralize.plural(collectionHint)}.${ref}`,
-    // Fallback: Đôi khi ref đã chứa prefix, vd "route1" nhưng map lưu "routes.route1"
+    `${collectionGuess}.${ref}`,
+    `${pluralize.singular(collectionGuess)}.${ref}`,
+    `${pluralize.plural(collectionGuess)}.${ref}`,
   ];
-
   for (const k of keyVariants) {
     if (idMap[k]) return idMap[k];
   }
@@ -124,8 +109,28 @@ for (const name of importOrder) {
 
   const fixedDocs = docs.map((doc) => {
     const newDoc = { ...doc };
+
     for (const key in newDoc) {
       const val = newDoc[key];
+
+      // CHỈ resolve reference với các key thực sự là reference
+      const REF_KEYS = new Set([
+        "bus",
+        "busId",
+        "assignedBus",
+        "route",
+        "parent",
+        "user",
+        "driver",
+        "scheduleId",
+        "children",
+        "students",
+        "pickupPoint",
+        "dropoffPoint",
+        "locationId",
+      ]);
+
+      if (!REF_KEYS.has(key)) continue; // ← FIX CHÍNH Ở ĐÂY
 
       // === Xử lý tham chiếu chuỗi đơn ===
       // Logic: Nếu là string và không phải là Date ISO hoặc text dài, thử resolve
@@ -157,6 +162,7 @@ for (const name of importOrder) {
         });
       }
     }
+
     return newDoc;
   });
 
@@ -175,5 +181,5 @@ for (const name of importOrder) {
   }
 }
 
-console.log("🎉 Import thành công! ID Route1 đã được cố định.");
+console.log("🎉 All refs resolved (driver in schedules now ObjectId)!");
 await mongoose.disconnect();
