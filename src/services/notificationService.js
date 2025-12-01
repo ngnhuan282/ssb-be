@@ -50,10 +50,24 @@ const createNotification = async (data) => {
 
   if (data.type === "emergency") {
     try {
-      const allParents = await Parent.find({});
+      const duplicateCheck = await Notification.findOne({
+        user: data.user,
+        type: "emergency",
+        message: data.message,
+        createdAt: { $gte: new Date(Date.now() - 3000) },
+      });
+
+      if (duplicateCheck) {
+        console.log("⛔ Bỏ qua vì phát hiện duplicate.");
+        return mainNotification;
+      }
+
+      const allParents = await Parent.find({
+        user: { $ne: data.user }  // loại chính người gửi
+      });
 
       if (allParents.length > 0) {
-        const notificationsForEveryone = allParents.map((parent) => ({
+        const notificationsBatch = allParents.map((parent) => ({
           user: parent.user,
           type: data.type,
           message: data.message,
@@ -67,18 +81,17 @@ const createNotification = async (data) => {
           images: data.images || [],
         }));
 
-        await Notification.insertMany(notificationsForEveryone);
-        console.log(
-          `Đã gửi thông báo sự cố cho ${allParents.length} phụ huynh.`
-        );
+        await Notification.insertMany(notificationsBatch);
       }
+
     } catch (error) {
-      console.error("Lỗi khi gửi thông báo hàng loạt:", error);
+      console.error("❌ Lỗi khi gửi thông báo hàng loạt:", error);
     }
   }
 
   return mainNotification;
 };
+
 
 const createNotificationForOneUser = async ({ user, type, message }) => {
   const notification = new Notification({
