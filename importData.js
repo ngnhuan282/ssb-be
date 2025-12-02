@@ -13,7 +13,7 @@ const rawData = JSON.parse(fs.readFileSync("./ssbData.json", "utf8"));
 
 const idMap = {};
 const userIdToDriverId = {}; // ánh xạ user._id -> driver._id
-
+const FIXED_IDS = {};
 // ============================================
 // B1: Gán ObjectId cho tất cả documents
 // ============================================
@@ -68,9 +68,9 @@ const resolveRef = (ref, collectionHint) => {
   if (mongoose.Types.ObjectId.isValid(ref))
     return new mongoose.Types.ObjectId(ref);
   const keyVariants = [
-    `${collectionGuess}.${ref}`,
-    `${pluralize.singular(collectionGuess)}.${ref}`,
-    `${pluralize.plural(collectionGuess)}.${ref}`,
+    `${collectionHint}.${ref}`,
+    `${pluralize.singular(collectionHint)}.${ref}`,
+    `${pluralize.plural(collectionHint)}.${ref}`,
   ];
   for (const k of keyVariants) {
     if (idMap[k]) return idMap[k];
@@ -92,6 +92,7 @@ const importOrder = [
   "schedules",
   "locations",
   "notifications",
+  "stopassignments"
 ];
 
 for (const name of importOrder) {
@@ -128,6 +129,8 @@ for (const name of importOrder) {
         "pickupPoint",
         "dropoffPoint",
         "locationId",
+        "schedule",
+        "student"
       ]);
 
       if (!REF_KEYS.has(key)) continue; // ← FIX CHÍNH Ở ĐÂY
@@ -143,6 +146,8 @@ for (const name of importOrder) {
         if (["user"].includes(key)) hint = "users"; // Sửa parents -> users cho đúng logic chung
         if (["driver"].includes(key)) hint = "drivers";
         if (["scheduleId"].includes(key)) hint = "schedules";
+        if (["scheduleId", "schedule"].includes(key)) hint = "schedules";
+        if (["student"].includes(key)) hint = "students";
 
         const refId = resolveRef(val, hint);
         if (refId) newDoc[key] = refId;
