@@ -4,7 +4,7 @@ const HttpStatus = require('http-status')
 
 const createNotificationSchema = Joi.object({
   user: Joi.string().required(),
-  type: Joi.string().valid('arrival', 'delay', 'emergency', 'message', 'no_emergency', 'resolved_emergency').required(),
+  type: Joi.string().valid('arrival', 'delay', 'emergency', 'message', 'no_emergency', 'resolved_emergency', 'schedule_update').required(),
   message: Joi.string().required(),
   busId: Joi.string().optional(),
   scheduleId: Joi.string().optional(),
@@ -37,10 +37,10 @@ const updateNotificationSchema = Joi.object({
     'no_emergency', 'resolved_emergency' // thêm vào
   ).optional(),
   message: Joi.string().optional(),
-  busId: Joi.string().optional(), 
+  busId: Joi.string().optional(),
   scheduleId: Joi.string().optional(),
   read: Joi.boolean().optional(),
-  status: Joi.string().valid('pending','urgent','resolved').optional(), // nếu cần cập nhật status
+  status: Joi.string().valid('pending', 'urgent', 'resolved').optional(), // nếu cần cập nhật status
 });
 
 const validateCreateForUsers = (req, res, next) => {
@@ -52,28 +52,28 @@ const validateCreateForUsers = (req, res, next) => {
 
 const createIncidentSchema = Joi.object({
   user: Joi.string().required(),
-  type: Joi.string().valid('emergency','no_emergency','resolved_emergency').required(),
+  type: Joi.string().valid('emergency', 'no_emergency', 'resolved_emergency').required(),
   emergency_type: Joi.string().valid('Tai nạn', 'Tắc đường', 'Hỏng xe', 'Sự cố học sinh', 'Khác').required(),
   message: Joi.string().required(),
   location: Joi.string().required(),
   dateTime: Joi.date().default(Date.now),
   busId: Joi.string().optional(),
   scheduleId: Joi.string().optional(),
-  status: Joi.string().valid('pending','urgent','resolved').optional(),
-  images: Joi.array().items(Joi.string()).optional(), 
+  status: Joi.string().valid('pending', 'urgent', 'resolved').optional(),
+  images: Joi.array().items(Joi.string()).optional(),
   read: Joi.boolean().default(false)
 });
 
 const updateIncidentSchema = Joi.object({
   user: Joi.string().optional(),
-  type: Joi.string().valid('emergency','no_emergency').optional(),
+  type: Joi.string().valid('emergency', 'no_emergency').optional(),
   emergency_type: Joi.string().valid('Tai nạn', 'Tắc đường', 'Hỏng xe', 'Sự cố học sinh', 'Khác').optional(),
   message: Joi.string().optional(),
   location: Joi.string().optional(),
   dateTime: Joi.date().optional(),
   busId: Joi.string().optional(),
   scheduleId: Joi.string().optional(),
-  status: Joi.string().valid('pending','urgent','resolved').optional(),
+  status: Joi.string().valid('pending', 'urgent', 'resolved').optional(),
   read: Joi.boolean().optional()
 });
 
