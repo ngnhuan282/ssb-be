@@ -3,7 +3,7 @@ const ApiError = require('../utils/apiError');
 const HttpStatus = require('http-status');
 const Student = require('../models/StudentModel');
 const Route = require('../models/RouteModel');
-
+const Notification = require('../models/NotificationModel');
 
 const getAssignmentsByStop = async (scheduleId, stopIndex) => {
   return await StopAssignment.find({ schedule: scheduleId, stopIndex })
@@ -22,12 +22,10 @@ const getAssignmentsByStop = async (scheduleId, stopIndex) => {
     .lean();
 };
 
-// === CẬP NHẬT HÀM NÀY ===
 const updateAssignment = async (scheduleId, stopIndex, studentId, data) => {
   const filter = { schedule: scheduleId, stopIndex, student: studentId };
 
-  // Logic cập nhật timestamp dựa trên status
-  const update = { ...data }; // data từ body, ví dụ: { status: 'boarded' }
+  const update = { ...data };
 
   if (data.status === 'boarded') {
     update.boardedAt = new Date();
@@ -47,20 +45,56 @@ const updateAssignment = async (scheduleId, stopIndex, studentId, data) => {
   if (!assignment) throw new ApiError(HttpStatus.NOT_FOUND, 'Assignment not found');
 
   if (assignment.status === 'absent') {
-    // Tìm 'dropoff' và set nó thành 'absent'
     await StopAssignment.findOneAndUpdate(
       { schedule: scheduleId, student: studentId, type: 'dropoff' },
       { status: 'absent' }
     );
   }
-  // 2. Nếu bấm "Đã đón" (hoàn tác)
+
   else if (assignment.status === 'boarded') {
-    // Tìm 'dropoff' và set nó về 'waiting'
-    // (Để phòng trường hợp trước đó lỡ bấm 'absent') 
     await StopAssignment.findOneAndUpdate(
       { schedule: scheduleId, student: studentId, type: 'dropoff' },
       { status: 'waiting' }
     );
+  }
+
+  if (['absent', 'boarded', 'dropped_off'].includes(data.status)) {
+    try {
+      const studentInfo = await Student.findById(studentId).populate({
+        path: 'parent',
+        populate: { path: 'user' }
+      });
+
+      if (studentInfo && studentInfo.parent && studentInfo.parent.user) {
+        const parentUserId = studentInfo.parent.user._id;
+
+        let notiType = 'message';
+        let notiMessage = '';
+
+        if (data.status === 'absent') {
+          notiType = 'emergency';
+          notiMessage = `Thông báo: Học sinh ${studentInfo.fullName} đã được ghi nhận vắng mặt.`;
+        } else if (data.status === 'boarded') {
+          notiType = 'arrival';
+          notiMessage = `Học sinh ${studentInfo.fullName} đã lên xe an toàn.`;
+        } else if (data.status === 'dropped_off') {
+          notiType = 'arrival';
+          notiMessage = `Học sinh ${studentInfo.fullName} đã xuống xe an toàn.`;
+        }
+
+        await Notification.create({
+          user: parentUserId,
+          type: notiType,
+          message: notiMessage,
+          read: false,
+          scheduleId: scheduleId,
+          createdAt: new Date()
+        });
+
+      }
+    } catch (notifyError) {
+      console.error("❌ Lỗi tạo thông báo tự động:", notifyError);
+    }
   }
 
   return assignment;
